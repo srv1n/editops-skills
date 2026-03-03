@@ -1,0 +1,15 @@
+{
+  "text": "10 RULES",
+  "font_role": "headline",
+  "font_size_px": 140,
+  "opacity": 0.9,
+  "occlude_by_matte": true,
+  "blend_mode": "multiply",
+  "position_px": [0, 0],
+  "matte_path": "mattes/subject/%06d.png",
+  "homography": [
+    1.02, 0.08, 120.0,
+    -0.05, 1.03, 740.0,
+    0.00045, 0.00012, 1.0
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "plugins": [
+    {
+      "name": "clipper-core",
+      "description": "Core video clipping and editing skills",
+      "skills": ["video-clipper", "clipops-runner", "clipper-orchestrator"]
+    },
+    {
+      "name": "creativeops",
+      "description": "iOS app demo and creative operations workflows",
+      "skills": [
+        "creativeops-director",
+        "creativeops-producer",
+        "creativeops-producer-ios",
+        "creativeops-grade"
+      ]
+    },
+    {
+      "name": "all-skills",
+      "description": "All clipper skills",
+      "skills": [
+        "video-clipper",
+        "clipops-runner",
+        "clipper-orchestrator",
+        "creativeops-director",
+        "creativeops-producer",
+        "creativeops-producer-ios",
+        "creativeops-grade",
+        "promo-director",
+        "motion-templates",
+        "texture-studio",
+        "theme-library",
+        "appstore-creatives-orchestrator",
+        "appstore-swiss-grid",
+        "beads-planner",
+        "remotion-best-practices",
+        "beat-analyzer",
+        "music-generator",
+        "unified-director"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "text": "TEXT BEHIND ME",
+  "font_role": "headline",
+  "font_size_px": 150,
+  "opacity": 0.95,
+
+  "blend_mode": "multiply",
+  "occlude_by_matte": true,
+  "matte_path": "mattes/subject/%06d.png",
+
+  "plane_space": { "width": 1100, "height": 280 },
+  "position_px": [550, 140],
+  "anchor": [0.5, 0.5],
+
+  "dst_quad_px": [
+    [80, 640],
+    [1010, 610],
+    [1040, 930],
+    [40, 960]
+  ]
+}

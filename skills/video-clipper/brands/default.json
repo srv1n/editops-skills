@@ -1,0 +1,38 @@
+{
+  "id": "default",
+  "fonts": {
+    "headline": { "path": "/System/Library/Fonts/Supplemental/Arial Black.ttf", "size_px": 96 },
+    "caption": { "path": "/System/Library/Fonts/Supplemental/Arial Black.ttf", "size_px": 110 },
+    "nametag": { "path": "/System/Library/Fonts/Supplemental/Arial Bold.ttf", "size_px": 52 }
+  },
+  "colors": {
+    "white": [1, 1, 1, 1],
+    "black": [0, 0, 0, 1],
+    "yellow": [1, 0.9, 0.2, 1]
+  },
+  "styles": {
+    "title": {
+      "fill": [1, 1, 1, 1],
+      "stroke": { "color": [0, 0, 0, 1], "width_px": 10 },
+      "shadow": { "color": [0, 0, 0, 0.65], "offset": [8, 10], "blur_px": 0 }
+    },
+    "caption_base": {
+      "fill": [1, 1, 1, 1],
+      "stroke": { "color": [0, 0, 0, 1], "width_px": 8 },
+      "shadow": { "color": [0, 0, 0, 0.7], "offset": [6, 8], "blur_px": 0 }
+    },
+    "caption_highlight": {
+      "fill": [1, 0.9, 0.2, 1],
+      "stroke": { "color": [0, 0, 0, 1], "width_px": 10 },
+      "shadow": { "color": [0, 0, 0, 0.7], "offset": [6, 8], "blur_px": 0 }
+    },
+    "headline_wall": {
+      "fill": [1, 1, 1, 1],
+      "stroke": { "color": [0, 0, 0, 1], "width_px": 6 }
+    },
+    "nametag": {
+      "fill": [1, 1, 1, 1],
+      "stroke": { "color": [0, 0, 0, 1], "width_px": 6 }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "podcast_vertical_2up_v1",
+  "version": "1",
+  "description": "Simple 2-up podcast vertical template: speaker name tags (optional face tracks) + kinetic captions.",
+  "required_signals": ["words"],
+  "optional_signals": ["faces"],
+  "params_schema": {
+    "speaker_left": "string",
+    "speaker_right": "string",
+    "position": "top|center|bottom",
+    "safe_margin_px": "number",
+    "font_size_px": "number",
+    "name_tag_size_px": "number"
+  }
+}
+

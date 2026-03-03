@@ -1,0 +1,9 @@
+{
+  "speaker_left": "SPEAKER 1",
+  "speaker_right": "SPEAKER 2",
+  "position": "bottom",
+  "safe_margin_px": 80,
+  "font_size_px": 110,
+  "name_tag_size_px": 52
+}
+

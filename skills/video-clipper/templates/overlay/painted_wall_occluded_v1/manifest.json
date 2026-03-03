@@ -1,0 +1,24 @@
+{
+  "id": "painted_wall_occluded_v1",
+  "version": "1",
+  "description": "Planar perspective text with multiply blend and optional subject occlusion via matte.",
+  "required_signals": [],
+  "optional_signals": ["planes", "mattes", "words"],
+  "params_schema": {
+    "text": "string",
+    "position_px": "[number, number] (in plane_space coordinates)",
+    "anchor": "[number, number] (0..1, in plane_space coords)",
+    "font_role": "headline|caption",
+    "font_size_px": "number",
+    "opacity": "number",
+    "occlude_by_matte": "boolean",
+    "plane_homography_source": "planes/wall.json",
+    "homography": "[9 numbers] (optional; overrides plane_homography_source)",
+    "dst_quad_px": "[[x,y], ... 4] (optional; generates homography from plane_space corners)",
+    "plane_space": "{width,height} or [w,h] (optional; used for offscreen plane texture size)",
+    "autofit": "boolean",
+    "autofit_padding_px": "number",
+    "matte_path": "string (glob/pattern)",
+    "blend_mode": "normal|multiply"
+  }
+}

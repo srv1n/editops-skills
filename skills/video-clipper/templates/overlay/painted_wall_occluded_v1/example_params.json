@@ -1,0 +1,11 @@
+{
+  "text": "PAINTED ON THE WALL",
+  "font_role": "headline",
+  "font_size_px": 96,
+  "opacity": 0.9,
+  "occlude_by_matte": true,
+  "blend_mode": "multiply",
+  "plane_homography_source": "planes/wall.json",
+  "matte_path": "mattes/subject/%06d.png"
+}
+

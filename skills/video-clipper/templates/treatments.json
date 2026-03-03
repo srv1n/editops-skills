@@ -1,0 +1,68 @@
+{
+  "version": "1.0",
+  "treatments": [
+    {
+      "id": "hormozi_bigwords",
+      "description": "Big, punchy 3–5 word captions with per-word highlight. Minimal decorations.",
+      "use_when": [
+        "Default for talking-head podcasts",
+        "When you want maximum readability and minimal template noise"
+      ],
+      "avoid_when": [
+        "You explicitly want branded stickers/title cards",
+        "You need a cutout/greenscreen background replacement"
+      ],
+      "template": "captions_kinetic_v1",
+      "params": ".claude/skills/video-clipper/templates/overlay/captions_kinetic_v1/params_hormozi_bigwords.json",
+      "requires": ["words"],
+      "optional": ["faces"]
+    },
+    {
+      "id": "hormozi_plate",
+      "description": "Hormozi big words with a semi-transparent rounded-rect plate behind the caption for extra contrast.",
+      "use_when": [
+        "Busy or low-contrast footage",
+        "You want a clean, premium caption look"
+      ],
+      "avoid_when": [
+        "You want a very minimal/no-box look"
+      ],
+      "template": "captions_kinetic_v1",
+      "params": ".claude/skills/video-clipper/templates/overlay/captions_kinetic_v1/params_hormozi_bigwords_plate.json",
+      "requires": ["words"],
+      "optional": ["faces"]
+    },
+    {
+      "id": "title_icons",
+      "description": "Kinetic captions + optional title + optional PNG/SVG stickers/logos. No background replacement.",
+      "use_when": [
+        "Listicles / numbered formats (e.g. '10 RULES')",
+        "You have a real title for the clip and want a branded top header"
+      ],
+      "avoid_when": [
+        "Generic podcasts where stickers feel random"
+      ],
+      "template": "captions_title_icons_v1",
+      "params": ".claude/skills/video-clipper/templates/overlay/captions_title_icons_v1/example_params.json",
+      "requires": ["words"],
+      "optional": ["faces"]
+    },
+    {
+      "id": "cutout_halo",
+      "description": "Background blur/replace + subject cutout + halo + lightwrap. Great when matte quality is strong.",
+      "use_when": [
+        "Studio talking-head with clear separation",
+        "Product/fashion/travel where subject separation adds production value"
+      ],
+      "avoid_when": [
+        "Matte is noisy (hair/hand edges) or subject fills the frame",
+        "Low quality masks (will look worse than no effect)"
+      ],
+      "template": "subject_cutout_halo_v1",
+      "params": ".claude/skills/video-clipper/templates/overlay/subject_cutout_halo_v1/params_blur_halo_clean.json",
+      "requires": ["words"],
+      "optional": ["mattes", "faces"]
+    }
+  ]
+}
+

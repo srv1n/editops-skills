@@ -1,0 +1,43 @@
+{
+  "version": "0.1",
+  "preset": "editorial",
+  "project": { "width": 720, "height": 1562, "fps": 30, "tick_rate": 60000 },
+  "brand": { "kit": "creativeops/clipops/brands/braindump_paper_v0.1.json" },
+  "pacing": {
+    "preset": "editorial",
+    "before_tap_ms": 140,
+    "after_tap_ms": 200,
+    "after_transition_end_ms": 650
+  },
+  "steps": [
+    {
+      "id": "intro",
+      "card": { "title": "Talk. Get clean notes.", "subtitle": "Record → transcript → rewrite.", "dur_ms": 1600 }
+    },
+    {
+      "id": "record",
+      "clips": [{ "id": "clip_001" }],
+      "emphasis": {
+        "hero_taps": [
+          { "focus_id": "note.recordButton", "label": "Tap Record", "emphasis": ["tap_guide", "camera_pulse"] }
+        ]
+      }
+    },
+    {
+      "id": "transcript",
+      "clips": [{ "id": "clip_002" }],
+      "transition_to_next": { "type": "dip", "ms": 260, "color": "brand.paper", "suppress_overlays": true }
+    }
+  ],
+  "audio": [
+    {
+      "id": "vo_main",
+      "type": "voiceover",
+      "asset_path": "inputs/voiceover.wav",
+      "dst_in_ms": 0,
+      "dur_ms": 22000,
+      "duck_original_db": -14
+    }
+  ]
+}
+

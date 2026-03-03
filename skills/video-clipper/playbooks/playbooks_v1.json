@@ -1,0 +1,485 @@
+{
+  "version": "1.1",
+  "notes": "Playbook registry (rules-based). Router matches by priority (desc), first-match wins. This is a starter set for ClipOps Playbook System v1 and is meant to be iterated on as we learn what performs.",
+  "playbooks": [
+    {
+      "id": "PB21_TOPIC_STITCH_HOOK_SUPPORT_PAYOFF",
+      "priority": 225,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["topic_stitch"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Stitched topic beats (hook/support/payoff) assembled from non-contiguous moments. Keep captions calmer and readable; let the structure do the work."
+    },
+    {
+      "id": "PB08_LISTICLE_STITCH_TITLE_PLUS_RULES",
+      "priority": 230,
+      "duration_range_s": [18, 55],
+      "match": { "require_title_text": true, "hook_labels_any": ["listicle_stitch"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "title_icons", "need_faces": false, "need_mattes": "none" },
+      "notes": "Stitched listicle (title + 2–3 rules). Treated as one coherent clip; title + icons at top, snug plate captions."
+    },
+    {
+      "id": "PB08_3_OPTIONS_MICRO_LIST",
+      "priority": 220,
+      "duration_range_s": [18, 55],
+      "match": { "require_title_text": true, "hook_labels_any": ["list_opener", "list_number"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "title_icons", "need_faces": false, "need_mattes": "none" },
+      "notes": "Listicle: top title + calmer captions; good for '10 rules/tips/ways'."
+    },
+    {
+      "id": "PB06_YOURE_DOING_IT_BACKWARDS",
+      "priority": 210,
+      "duration_range_s": [12, 40],
+      "match": { "hook_labels_any": ["contrarian"], "phrases_any": ["backwards"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Contrarian reversal: 'you have it backwards' / 'it's backwards'."
+    },
+    {
+      "id": "PB01_COLD_OPEN_CONTRARIAN",
+      "priority": 200,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["contrarian"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Contrarian hook (most people are wrong / actually / disagree)."
+    },
+    {
+      "id": "PB04_VULNERABILITY_CONFESSION",
+      "priority": 190,
+      "duration_range_s": [22, 55],
+      "match": { "hook_labels_any": ["confession", "vulnerability"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Confession/vulnerability: calmer plate captions; avoid meme-y overlays."
+    },
+    {
+      "id": "PB02_ONE_SENTENCE_THAT_CHANGES_EVERYTHING",
+      "priority": 180,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["hook_question", "revelation", "quote"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Quote/revelation/question: typography-first, big readable captions."
+    },
+    {
+      "id": "PB03_MYTH_MECHANISM_ACTION",
+      "priority": 175,
+      "duration_range_s": [20, 60],
+      "match": { "hook_labels_any": ["myth", "how_to", "protocol"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Educational packaging: myth -> mechanism -> action; plate helps readability."
+    },
+    {
+      "id": "PB05_ARGUMENT_CLIP",
+      "priority": 170,
+      "duration_range_s": [15, 50],
+      "match": { "hook_labels_any": ["argument"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "podcast_2up", "need_faces": true, "need_mattes": "none" },
+      "notes": "Disagreement/argument; better with 2-up speaker framing + labels."
+    },
+    {
+      "id": "PB07_SHOCK_THEN_EXPLAIN",
+      "priority": 165,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["stat", "shock"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Surprising stat -> explain quickly; keep captions crisp."
+    },
+    {
+      "id": "PB09_VALIDATION",
+      "priority": 160,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["validation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Empathy/validation; calmer plate; avoid distracting UI."
+    },
+    {
+      "id": "PB10_HARD_TRUTH_MORAL_FRAME",
+      "priority": 155,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["hard_truth"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Values language / hard-truth clip; strong type, minimal extras."
+    },
+    {
+      "id": "PB11_MICRO_STORY_SETUP_TWIST",
+      "priority": 150,
+      "duration_range_s": [25, 60],
+      "match": { "hook_labels_any": ["storybeat"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Story beat with twist; keep readable, avoid cutting the payoff."
+    },
+    {
+      "id": "PB12_HOST_REACTION_IS_THE_CLIP",
+      "priority": 145,
+      "duration_range_s": [12, 35],
+      "match": { "hook_labels_any": ["reaction"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Reaction-first (wow/wait) moments; big words, quick pacing."
+    },
+    {
+      "id": "PB13_OBJECT_SPOTLIGHT",
+      "priority": 140,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["object"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "cutout_halo", "need_faces": true, "need_mattes": "selfie" },
+      "notes": "Object spotlight / cutout look; best with mattes; ok with selfie matte as baseline."
+    },
+    {
+      "id": "PB14_DEFINE_THE_TERM",
+      "priority": 135,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["define_term"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Definitions (X means...); plate improves readability and reduces flicker."
+    },
+    {
+      "id": "PB15_DO_YOU_AGREE",
+      "priority": 130,
+      "duration_range_s": [12, 40],
+      "match": { "hook_labels_any": ["debate"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Debate prompt; end on a question; keep honest (no clickbait lies)."
+    },
+    {
+      "id": "PB16_PATTERN_BREAK_MICRO_SILENCE",
+      "priority": 125,
+      "duration_range_s": [12, 35],
+      "match": { "hook_labels_any": ["pattern_break"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Pattern break (micro-silence) + hook; requires editorial timing polish."
+    },
+    {
+      "id": "PB17_LOOP_LOCK",
+      "priority": 120,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["loop_lock"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Loop engineering; needs director to align start/end (future)."
+    },
+    {
+      "id": "PB18_MINI_DEBUNK_WITH_RECEIPTS",
+      "priority": 115,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["debunk"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Debunk clips; avoid misleading edits; plate captions help clarity."
+    },
+    {
+      "id": "PB19_EXPERT_CHORUS_MULTI_SOURCE",
+      "priority": 10,
+      "duration_range_s": [25, 75],
+      "match": { "hook_labels_any": ["multi_source"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": false, "need_mattes": "none" },
+      "notes": "Multi-source synthesis (not supported in current single-source pipeline)."
+    },
+    {
+      "id": "PB20_PERSONA_COMPILATION_WITH_THESIS",
+      "priority": 9,
+      "duration_range_s": [25, 75],
+      "match": { "hook_labels_any": ["multi_source"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": false, "need_mattes": "none" },
+      "notes": "Persona compilation (not supported in current single-source pipeline)."
+    },
+
+    {
+      "id": "H01_PROTOCOL_CARD",
+      "priority": 105,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["protocol"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Health/science: protocol card; needs clear steps + caveat handling."
+    },
+    {
+      "id": "H02_MISINTERPRETED_STUDY",
+      "priority": 104,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["debunk", "myth"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Health/science: debunk study misread; avoid overstating causality."
+    },
+    {
+      "id": "H03_HABIT_SWAP",
+      "priority": 103,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["how_to"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Health/science: swap X for Y; keep actionable + short."
+    },
+    {
+      "id": "H04_MYTH_LADDER",
+      "priority": 102,
+      "duration_range_s": [20, 60],
+      "match": { "hook_labels_any": ["myth", "list_opener"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "title_icons", "need_faces": false, "need_mattes": "none" },
+      "notes": "Health/science: multiple myths; listicle-friendly."
+    },
+    {
+      "id": "H05_ONE_CONSTRAINT",
+      "priority": 101,
+      "duration_range_s": [15, 40],
+      "match": { "hook_labels_any": ["hard_truth", "revelation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Health/science: if you only do ONE thing...; big readable hook."
+    },
+    {
+      "id": "H06_RED_FLAG_ADVICE",
+      "priority": 100,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["red_flag"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Health/science: red-flag advice; avoid attacking individuals."
+    },
+
+    {
+      "id": "B01_METRIC_REVEAL",
+      "priority": 95,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["stat"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Business: metric reveal ($/growth); keep context to avoid hype."
+    },
+    {
+      "id": "B02_NEGOTIATION_SCRIPT",
+      "priority": 94,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["script"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Business: say this exact line; plate helps script readability."
+    },
+    {
+      "id": "B03_MISTAKE_THAT_COST_ME",
+      "priority": 93,
+      "duration_range_s": [20, 60],
+      "match": { "hook_labels_any": ["confession"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Business: mistake story; needs clear lesson."
+    },
+    {
+      "id": "B04_FUNNEL_SNAPSHOT",
+      "priority": 92,
+      "duration_range_s": [20, 60],
+      "match": { "hook_labels_any": ["how_to", "protocol"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Business: explain funnel quickly; requires clarity."
+    },
+    {
+      "id": "B05_UNFAIR_ADVANTAGE",
+      "priority": 91,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["define_term", "revelation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Business: define 'unfair advantage' + apply."
+    },
+    {
+      "id": "B06_OBJECTION_DESTROYER",
+      "priority": 90,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["script"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Business: when they say X, respond Y; script readability."
+    },
+
+    {
+      "id": "S01_PARADOX_HOOK",
+      "priority": 85,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["revelation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Spirituality: paradox hook; calmer pacing."
+    },
+    {
+      "id": "S02_KOAN_QUESTION",
+      "priority": 84,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["hook_question"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Spirituality: koan questions; avoid flashy effects."
+    },
+    {
+      "id": "S03_PRACTICE_IN_20_SECONDS",
+      "priority": 83,
+      "duration_range_s": [12, 35],
+      "match": { "hook_labels_any": ["practice", "how_to"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Spirituality: short practice; needs clear steps."
+    },
+    {
+      "id": "S04_SUFFERING_REFRAME",
+      "priority": 82,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["validation", "revelation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Spirituality: suffering reframe; empathy-first."
+    },
+    {
+      "id": "S05_STORY_PARABLE",
+      "priority": 81,
+      "duration_range_s": [25, 75],
+      "match": { "hook_labels_any": ["storybeat"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Spirituality: parable; longer form, gentle style."
+    },
+    {
+      "id": "S06_EGO_TRAP",
+      "priority": 80,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["revelation", "hard_truth"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Spirituality: ego trap framing; avoid aggression."
+    },
+
+    {
+      "id": "C01_VERSE_APPLICATION",
+      "priority": 75,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["define_term", "revelation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Christianity: scripture->meaning->application (text overlays must be copyright-aware)."
+    },
+    {
+      "id": "C02_TESTIMONY_TURN",
+      "priority": 74,
+      "duration_range_s": [25, 75],
+      "match": { "hook_labels_any": ["storybeat", "confession"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Christianity: testimony story; calmer typography."
+    },
+    {
+      "id": "C03_COMMON_OBJECTION",
+      "priority": 73,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["hook_question", "debunk"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Christianity: apologetics; question->response; avoid straw-manning."
+    },
+    {
+      "id": "C04_SIN_IN_PLAIN_ENGLISH",
+      "priority": 72,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["define_term"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Christianity: definition clip; keep respectful tone."
+    },
+    {
+      "id": "C05_THE_COMFORT_CLIP",
+      "priority": 71,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["validation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Christianity: comfort; empathy-first."
+    },
+    {
+      "id": "C06_CHURCH_CONFLICT_WISDOM",
+      "priority": 70,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["validation", "hard_truth"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Christianity: church hurt; validate + clarify; avoid harassment."
+    },
+
+    {
+      "id": "D01_RED_FLAG_WITH_EXPLANATION",
+      "priority": 65,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["red_flag"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Dating: red-flag framing; avoid gender-war generalizations."
+    },
+    {
+      "id": "D02_BOUNDARIES_SCRIPT",
+      "priority": 64,
+      "duration_range_s": [15, 45],
+      "match": { "hook_labels_any": ["script"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Dating: boundary scripts; plate for readability."
+    },
+    {
+      "id": "D03_ATTACHMENT_REFRAME",
+      "priority": 63,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["validation", "revelation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Dating: validate + reframe; calmer tone."
+    },
+    {
+      "id": "D04_REPAIR_AFTER_FIGHT",
+      "priority": 62,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["protocol", "how_to"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Dating: 3-step repair; calm captions."
+    },
+    {
+      "id": "D05_STANDARDS_VS_CONTROL",
+      "priority": 61,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["debunk", "define_term"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Dating: clarify terms; avoid inflammatory framing."
+    },
+    {
+      "id": "D06_PATTERN_YOU_KEEP_REPEATING",
+      "priority": 60,
+      "duration_range_s": [18, 55],
+      "match": { "hook_labels_any": ["validation", "revelation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Dating: pattern -> root -> one change; empathy-first."
+    },
+
+    {
+      "id": "P01_YOURE_NOT_FAILING_VALIDATION",
+      "priority": 55,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["validation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Parenting: 'you're not failing' validation; calm style."
+    },
+    {
+      "id": "P02_60_SECOND_RESET",
+      "priority": 54,
+      "duration_range_s": [12, 40],
+      "match": { "hook_labels_any": ["practice", "how_to"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Parenting: quick reset practice; clear steps."
+    },
+    {
+      "id": "P03_SLEEP_REALITY_CHECK",
+      "priority": 53,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["validation", "hard_truth"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Parenting: reframe sleep; empathy-first."
+    },
+    {
+      "id": "P04_PARTNER_COMMUNICATION_SCRIPT",
+      "priority": 52,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["script"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Parenting: partner script; plate readability."
+    },
+    {
+      "id": "P05_GUILT_REFRAME",
+      "priority": 51,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["validation", "revelation"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Parenting: guilt isn't guidance; calm style."
+    },
+    {
+      "id": "P06_GOOD_ENOUGH_RULE",
+      "priority": 50,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["validation", "hard_truth"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_plate", "need_faces": true, "need_mattes": "none" },
+      "notes": "Parenting: good enough rule; calm style."
+    },
+
+    {
+      "id": "PB00_GENERIC_DEFAULT",
+      "priority": 0,
+      "duration_range_s": [18, 60],
+      "match": { "hook_labels_any": ["generic"] },
+      "render_policy": { "format": "universal_vertical", "treatment": "hormozi_bigwords", "need_faces": true, "need_mattes": "none" },
+      "notes": "Fallback: readable captions, minimal effects."
+    }
+  ]
+}

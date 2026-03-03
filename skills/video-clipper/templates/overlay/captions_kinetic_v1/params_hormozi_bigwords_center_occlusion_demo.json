@@ -1,0 +1,19 @@
+{
+  "position": "center",
+  "avoid_faces": false,
+  "placement": "stable_center",
+  "plate": false,
+  "underline": false,
+  "safe_margin_px": 90,
+  "font_role": "caption",
+  "font_size_px": 150,
+  "bounce_amount": 0.14,
+  "show_all": true,
+  "group_max_words": 4,
+  "group_max_duration_sec": 2.4,
+  "gap_break_sec": 0.55,
+  "pre_roll_sec": 0.0,
+  "post_roll_sec": 0.12,
+  "window_max_words": 4
+}
+

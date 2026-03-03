@@ -1,0 +1,18 @@
+{
+  "text": "10 RULES",
+  "font_role": "headline",
+  "font_size_px": 120,
+  "opacity": 0.95,
+  "occlude_by_matte": false,
+  "blend_mode": "multiply",
+  "matte_path": "mattes/subject/%06d.png",
+  "plane_space": { "width": 900, "height": 260 },
+  "position_px": [450, 130],
+  "anchor": [0.5, 0.5],
+  "dst_quad_px": [
+    [120, 820],
+    [960, 790],
+    [980, 970],
+    [100, 1000]
+  ]
+}

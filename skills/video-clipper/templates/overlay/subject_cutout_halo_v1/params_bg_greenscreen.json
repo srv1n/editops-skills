@@ -1,0 +1,65 @@
+{
+  "bg_mode": "greenscreen",
+
+  "halo_enabled": true,
+  "halo_color": [1.0, 1.0, 1.0, 1.0],
+  "halo_opacity": 0.65,
+  "halo_spread_px": 10,
+  "halo_blur_px": 8,
+
+  "cutout_opacity": 1.0,
+  "cutout_feather_px": 4.0,
+  "cutout_threshold_low": 0.05,
+  "cutout_threshold_high": 0.95,
+
+  "lightwrap_enabled": false,
+  "lightwrap_strength": 0.25,
+  "lightwrap_spread_px": 10,
+  "lightwrap_blur_px": 10,
+
+  "safe_margin_px": 80,
+
+  "group_max_words": 4,
+  "window_max_words": 4,
+  "group_max_chars": 28,
+  "group_max_duration_sec": 2.6,
+  "gap_break_sec": 0.55,
+  "max_lines": 2,
+
+  "autofit_min_scale": 0.75,
+  "autofit_max_scale": 1.0,
+  "autofit_quantize_step": 0.05,
+  "enforce_min_scale_split": true,
+
+  "placement": "stable_center",
+  "avoid_faces": true,
+  "plate": true,
+  "underline": true,
+  "occlude_by_matte": false,
+  "auto_place_by_matte": false,
+
+  "title_text": "10 RULES",
+  "title_slot": "top_center",
+  "title_font_role": "headline",
+  "title_style_id": "title",
+
+  "icons": [
+    {
+      "id": "spark_svg",
+      "path": ".claude/skills/video-clipper/assets/icons/spark.svg",
+      "size_px": [160, 160],
+      "slot": "top_left",
+      "anchor": [0.0, 0.0],
+      "opacity": 1.0
+    },
+    {
+      "id": "badge_png",
+      "path": ".claude/skills/video-clipper/assets/icons/badge.png",
+      "size_px": [140, 140],
+      "slot": "top_right",
+      "anchor": [1.0, 0.0],
+      "opacity": 0.95
+    }
+  ]
+}
+

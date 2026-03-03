@@ -1,0 +1,270 @@
+# triggers.yaml (v1)
+# All matching should be case-insensitive.
+# Phrase matching is substring-based by default (see code), with optional regex lists.
+version: 1
+
+# ---------- Hook scoring (first ~2s / first utterance) ----------
+hook:
+  # Positive phrases that strongly stop the scroll.
+  phrases:
+    # contrarian / reversal
+    "most people": 1.3
+    "everyone thinks": 1.4
+    "everyone believes": 1.3
+    "common mistake": 1.2
+    "you're doing it wrong": 1.6
+    "you've got this backwards": 1.7
+    "counterintuitive": 1.4
+    "actually": 0.7
+    "the truth is": 1.4
+    "here's the truth": 1.4
+    "real reason": 1.4
+    "the real reason": 1.5
+    "this is why": 1.2
+    "the reason is": 1.0
+    "that's not true": 1.5
+    "that's wrong": 1.4
+    "i disagree": 1.2
+    "hot take": 1.4
+    "unpopular opinion": 1.5
+
+    # curiosity / secrets
+    "here's the thing": 1.4
+    "nobody talks about": 1.6
+    "no one talks about": 1.6
+    "no one tells you": 1.6
+    "what nobody tells you": 1.7
+    "what they don't tell you": 1.7
+    "the secret is": 1.5
+    "secret": 0.8
+    "you won't believe": 1.4
+    "this surprised me": 1.3
+    "this changed my mind": 1.5
+    "i changed my mind": 1.5
+    "i was wrong": 1.4
+    "i messed up": 1.4
+    "i regret": 1.3
+
+    # direct instructions / lists / protocols
+    "do this": 1.1
+    "stop doing": 1.4
+    "start doing": 1.2
+    "don't do": 1.2
+    "never do": 1.2
+    "always do": 1.0
+    "three things": 1.4
+    "3 things": 1.4
+    "three ways": 1.4
+    "3 ways": 1.4
+    "two things": 1.2
+    "2 things": 1.2
+    "one thing": 1.2
+    "rule number": 1.2
+    "rule #": 1.2
+    "step one": 1.2
+    "step 1": 1.2
+    "here's how": 1.2
+    "here's what to do": 1.5
+    "do this instead": 1.4
+    "say this": 1.4
+    "use this line": 1.3
+
+    # stakes / urgency
+    "right now": 0.7
+    "today": 0.5
+    "if you": 0.5
+    "if you feel": 1.2
+    "if you're": 0.7
+    "this matters": 1.0
+    "this is important": 1.0
+    "this will change": 1.2
+    "the biggest": 1.1
+    "the worst": 1.1
+    "the best": 1.0
+    "the number one": 1.3
+    "the #1": 1.3
+
+  # Regex patterns applied to the first utterance text (lowercased).
+  regex:
+    # question starts
+    '^why\b': 1.3
+    '^how\b': 1.2
+    '^what\b': 1.0
+    '^when\b': 0.7
+    '^should\b': 0.8
+    '\?$': 1.1
+    # list indicator
+    '^(\d+\b|one\b|two\b|three\b|four\b|five\b)\s': 0.9
+
+# ---------- Penalties (especially for hook) ----------
+penalties:
+  # If a candidate starts with one of these tokens/phrases, reduce HookScore.
+  filler_start:
+    "so": -0.9
+    "and": -0.7
+    "but": -0.5
+    "well": -0.6
+    "um": -1.2
+    "uh": -1.2
+    "like": -0.8
+    "you know": -0.9
+    "i mean": -0.6
+    "kind of": -0.6
+    "sort of": -0.6
+    "okay so": -1.0
+    "so yeah": -0.9
+    "right so": -0.8
+
+  # If candidate starts with deictics/pronouns without anchor nouns, penalize SelfContainedScore.
+  deictic_start:
+    "this": -0.6
+    "that": -0.5
+    "these": -0.5
+    "those": -0.5
+    "he": -0.5
+    "she": -0.5
+    "they": -0.4
+    "it": -0.4
+    "there": -0.3
+
+# ---------- Actionability scoring (whole candidate) ----------
+action:
+  verbs:
+    "do": 0.1
+    "try": 0.2
+    "start": 0.4
+    "stop": 0.5
+    "avoid": 0.6
+    "replace": 0.6
+    "use": 0.2
+    "say": 0.4
+    "ask": 0.2
+    "write": 0.3
+    "sleep": 0.2
+    "eat": 0.2
+    "walk": 0.2
+    "train": 0.2
+    "pray": 0.2
+    "forgive": 0.2
+    "breathe": 0.3
+    "notice": 0.2
+    "pause": 0.2
+  phrases:
+    "here's what to do": 1.0
+    "here's how to": 0.9
+    "the steps are": 0.9
+    "step by step": 0.8
+    "do it like this": 0.8
+    "the easiest way": 0.7
+    "a simple way": 0.6
+    "one practical thing": 0.8
+    "what i would do": 0.8
+    "if i had to start over": 0.9
+    "the script is": 0.9
+    "say this exact": 1.0
+
+# ---------- Polarity / debate scoring ----------
+polarity:
+  phrases:
+    "i disagree": 1.0
+    "that's not true": 1.2
+    "that's wrong": 1.1
+    "people get this wrong": 1.1
+    "most people": 0.9
+    "everyone thinks": 1.0
+    "unpopular opinion": 1.1
+    "hot take": 1.0
+    "controversial": 0.8
+    "i don't believe": 0.8
+    "i don't think": 0.6
+    "the problem is": 0.7
+    "the issue is": 0.6
+    "stop saying": 0.9
+    "we need to talk about": 0.9
+    "here's why you're": 1.0
+    "you're misunderstanding": 0.9
+  absolutes:
+    "always": 0.2
+    "never": 0.4
+    "everyone": 0.2
+    "no one": 0.2
+    "all": 0.1
+    "none": 0.2
+
+# ---------- Story scoring ----------
+story:
+  phrases:
+    "when i was": 0.9
+    "i remember": 0.8
+    "one time": 0.8
+    "there was a time": 0.8
+    "back then": 0.6
+    "then i realized": 1.0
+    "and then": 0.3
+    "after that": 0.5
+    "the first time": 0.6
+    "i used to": 0.6
+    "i grew up": 0.7
+    "here's what happened": 0.9
+    "long story short": 0.7
+
+# ---------- Closure / clean ending cues ----------
+closure:
+  phrases:
+    "so the point is": 1.0
+    "the point is": 0.8
+    "the takeaway is": 1.1
+    "bottom line": 1.0
+    "in short": 0.8
+    "in summary": 0.8
+    "to sum it up": 0.9
+    "that's why": 0.6
+    "and that's how": 0.7
+    "and that's the key": 0.9
+    "and that's what": 0.6
+    "so what you do": 0.9
+    "so here's what": 0.8
+
+# ---------- Risk flags (lightweight) ----------
+risk:
+  medical:
+    # Not necessarily banned, but requires context; treat as penalty unless disclaimers appear.
+    phrases:
+      "cure": 1.5
+      "treat": 1.2
+      "diagnose": 1.3
+      "prescription": 1.3
+      "dose": 1.1
+      "dosage": 1.2
+      "side effects": 1.2
+      "drug": 0.8
+      "medication": 0.9
+      "ssri": 1.2
+      "antidepressant": 1.2
+      "adhd": 0.8
+      "bipolar": 1.0
+      "ptsd": 0.8
+      "autism": 0.8
+      "cancer": 1.0
+  finance:
+    phrases:
+      "guaranteed returns": 1.8
+      "get rich": 1.2
+      "double your money": 1.4
+      "no risk": 1.6
+  defamation:
+    phrases:
+      "scam": 1.2
+      "fraud": 1.2
+      "criminal": 1.2
+      "illegal": 0.8
+  hate:
+    phrases:
+      # Keep short; your real moderation should be more robust.
+      "hate": 1.0
+
+disclaimers:
+  phrases:
+    "not medical advice": -1.2
+    "talk to your doctor": -0.8
+    "this isn't financial advice": -1.0
