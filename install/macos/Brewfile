@@ -1,0 +1,6 @@
+brew "bun"
+brew "ffmpeg"
+brew "python@3.11"
+brew "rust"
+brew "uv"
+brew "yt-dlp"

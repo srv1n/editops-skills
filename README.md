@@ -2,6 +2,29 @@
 
 Deterministic agent skills for video editing pipelines: clipping, app demos, promos, grading, motion graphics, and App Store creative workflows.
 
+## Quick Start (macOS)
+
+For a local macOS install with Python, Bun, FFmpeg, yt-dlp, and a repo-scoped virtualenv:
+
+```bash
+./install.sh
+source .venv/bin/activate
+```
+
+This bootstrap:
+- installs Homebrew packages from `install/macos/Brewfile`
+- creates `.venv/` with `uv`
+- installs Python requirements for the common editing flows
+- installs Bun deps for the bundled MapLibre renderers
+- runs `tools/editops_doctor.py`
+
+Current bootstrap support:
+
+| Platform | Status |
+|----------|--------|
+| macOS (Apple Silicon / Intel) | supported |
+| Linux / Windows | planned |
+
 ## Installation
 
 ### Claude Code

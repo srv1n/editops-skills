@@ -1,0 +1,9 @@
+groq
+jsonschema
+librosa
+mediapipe
+numpy
+opencv-python
+PyYAML
+requests
+scenedetect[opencv]
