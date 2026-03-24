@@ -1,8 +1,8 @@
 {
   "plugins": [
     {
-      "name": "clipper-core",
-      "description": "Core video clipping and editing skills",
+      "name": "editops-core",
+      "description": "Core deterministic video editing pipeline skills",
       "skills": ["video-clipper", "clipops-runner", "clipper-orchestrator"]
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "name": "all-skills",
-      "description": "All clipper skills",
+      "description": "All EditOps skills",
       "skills": [
         "video-clipper",
         "clipops-runner",

@@ -17,8 +17,8 @@ It is written for the current repo layout and scripts so multiple devs can work 
 The `video-clipper` skill already follows a 3-phase architecture:
 
 1) **Signals** (analysis artifacts)
-- Script: `.claude/skills/video-clipper/scripts/signals_runner.py`
-- Schema: `.claude/skills/video-clipper/signals/SCHEMA.md`
+- Script: `scripts/signals_runner.py`
+- Schema: `signals/SCHEMA.md`
 - Output contract (per run): `runs/<run_id>/signals/`
   - `words.json` (required for caption templates)
   - `faces/tracks.json` (optional)
@@ -26,21 +26,21 @@ The `video-clipper` skill already follows a 3-phase architecture:
   - `planes/*.json` (optional)
 
 2) **Director** (candidate selection)
-- Script: `.claude/skills/video-clipper/scripts/clip_director.py`
+- Script: `scripts/clip_director.py`
 - Input: word-level transcript
 - Output: a deterministic director plan JSON (ranked candidate clips)
 
 3) **Renderer** (templates → final video)
-- Script: `.claude/skills/video-clipper/scripts/run_overlay_pipeline.py`
+- Script: `scripts/run_overlay_pipeline.py`
   - runs signals → template compile → Rust overlay render
-- Batch: `.claude/skills/video-clipper/scripts/reels_batch_render.py`
-- Templates: `.claude/skills/video-clipper/templates/overlay/*`
-- Output format profiles + safe zones: `.claude/skills/video-clipper/scripts/format_profiles.py`
+- Batch: `scripts/reels_batch_render.py`
+- Templates: `templates/overlay/*`
+- Output format profiles + safe zones: `scripts/format_profiles.py`
 
 4) **Playbooks + Router** (packaging brain)
-- Registry: `.claude/skills/video-clipper/playbooks/playbooks_v1.json`
+- Registry: `playbooks/playbooks_v1.json`
   - expanded PB01…PB20 + niche modules (starter rules)
-- Router: `.claude/skills/video-clipper/scripts/playbook_router.py`
+- Router: `scripts/playbook_router.py`
   - takes a director plan → outputs a packaging plan with per-clip `treatment` + `format`
   - renderer uses `--treatment auto` to honor router decisions
 
@@ -224,7 +224,7 @@ In this repo, the caption template supports these controls in params:
 ### 5.2 Safe zones
 
 Use format profiles (size + UI safe zones):
-- `.claude/skills/video-clipper/scripts/format_profiles.py`
+- `scripts/format_profiles.py`
 
 Defaults:
 - `--format universal_vertical` (1080x1920, conservative safe zone union)

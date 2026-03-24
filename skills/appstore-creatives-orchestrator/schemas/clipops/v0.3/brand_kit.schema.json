@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/clipops/brand_kit/v0.3",
+  "title": "ClipOps Brand Kit (v0.3)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "fonts", "colors", "styles"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "scale": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ref_height_px": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "fonts": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/FontSpec" }
+    },
+    "colors": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/ColorRgba" }
+    },
+    "styles": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/TextStyle" }
+    },
+    "callouts": {
+      "$ref": "#/$defs/CalloutsStyle"
+    },
+    "layout": {
+      "$ref": "#/$defs/BrandLayout"
+    }
+  },
+  "$defs": {
+    "FontSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "size_px"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "size_px": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "ColorRgba": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "StrokeStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["color", "width_px"],
+      "properties": {
+        "color": { "$ref": "#/$defs/ColorRgba" },
+        "width_px": { "type": "integer" }
+      }
+    },
+    "ShadowStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["color", "offset", "blur_px"],
+      "properties": {
+        "color": { "$ref": "#/$defs/ColorRgba" },
+        "offset": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "blur_px": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "TextStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fill": { "$ref": "#/$defs/ColorRgba" },
+        "stroke": { "$ref": "#/$defs/StrokeStyle" },
+        "shadow": { "$ref": "#/$defs/ShadowStyle" }
+      }
+    },
+    "CalloutsStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ripple": { "$ref": "#/$defs/CalloutsRippleStyle" }
+      }
+    },
+    "CalloutsRippleStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "duration_ms": { "type": "integer", "minimum": 0 },
+        "lead_ms": { "type": "integer", "minimum": 0 },
+        "outline_post_ms": { "type": "integer", "minimum": 0 },
+        "color_ref": { "type": "string", "minLength": 1 },
+        "radius_px": { "type": "number", "exclusiveMinimum": 0 },
+        "stroke_px": { "type": "number", "exclusiveMinimum": 0 },
+        "outline_color_ref": { "type": "string", "minLength": 1 },
+        "outline_stroke_px": { "type": "number", "exclusiveMinimum": 0 },
+        "outline_padding_px": { "type": "number", "minimum": 0 }
+      }
+    },
+    "BrandLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "card": { "$ref": "#/$defs/CardLayout" },
+        "captions": { "$ref": "#/$defs/CaptionsLayout" }
+      }
+    },
+    "CardLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x_frac": { "type": "number", "minimum": 0, "maximum": 1 },
+        "title_y_frac": { "type": "number", "minimum": 0, "maximum": 1 },
+        "subtitle_y_frac": { "type": "number", "minimum": 0, "maximum": 1 },
+        "body_y_frac": { "type": "number", "minimum": 0, "maximum": 1 },
+        "autofit_padding_px": { "type": "number", "minimum": 0 }
+      }
+    },
+    "CaptionsLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x_frac": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y_frac": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

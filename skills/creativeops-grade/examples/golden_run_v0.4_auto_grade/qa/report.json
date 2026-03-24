@@ -1,0 +1,12 @@
+{
+  "anchors": [],
+  "issues": [],
+  "metrics": {
+    "max_pan_px_per_s": 0.0,
+    "max_zoom_ln_per_s": 0.0
+  },
+  "ok": true,
+  "report_path": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_auto_grade/qa/report.json",
+  "run_dir": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_auto_grade",
+  "schema": "clipops.qa_report.v0.1"
+}

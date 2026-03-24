@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# install_deps.sh — Check and install dependencies for creativeops-director
+# install_deps.sh — Check dependencies for creativeops-director
 set -euo pipefail
 
 RED='\033[0;31m'
@@ -13,26 +13,26 @@ MISSING=0
 
 # ffmpeg
 if command -v ffmpeg &>/dev/null; then
-    ok "ffmpeg found: $(ffmpeg -version 2>&1 | head -1)"
+  ok "ffmpeg found: $(ffmpeg -version 2>&1 | head -1)"
 else
-    fail "ffmpeg not found. Install: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)"
-    MISSING=1
+  fail "ffmpeg not found. Install: brew install ffmpeg (macOS) or apt install ffmpeg (Linux)"
+  MISSING=1
 fi
 
 # clipops
 if command -v clipops &>/dev/null; then
-    ok "clipops found: $(clipops --version 2>&1 || echo 'version unknown')"
+  ok "clipops found: $(clipops --version 2>&1 || echo 'version unknown')"
 else
-    fail "clipops not found."
-    echo "  Install from: https://github.com/anthropics/clipops/releases"
-    echo "  Or build from source: cd clipops && cargo build --release"
-    MISSING=1
+  fail "clipops not found."
+  echo "  Install from: https://github.com/anthropics/clipops/releases"
+  echo "  Or build from source: cd clipops && cargo build --release"
+  MISSING=1
 fi
 
 if [ "$MISSING" -ne 0 ]; then
-    echo ""
-    fail "Some required dependencies are missing. Install them and re-run."
-    exit 1
+  echo ""
+  fail "Some required dependencies are missing. Install them and re-run."
+  exit 1
 fi
 
 echo ""

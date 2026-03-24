@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/clipops/signals/ios_ui_events/v0.2",
+  "title": "ClipOps iOS UI Events Signal (v0.2)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "video", "time_origin", "safe_area_px", "focus", "events", "elements"],
+  "properties": {
+    "version": { "type": "string", "const": "0.1" },
+    "video": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "width", "height"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "fps": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "time_origin": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["kind"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "notes": { "type": "string" }
+      }
+    },
+    "safe_area_px": { "$ref": "#/$defs/InsetsPx" },
+    "focus": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/FocusEntry" }
+    },
+    "events": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/EventEntry" }
+    },
+    "elements": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/ElementMeta" }
+    }
+  },
+  "$defs": {
+    "InsetsPx": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["top", "bottom", "left", "right"],
+      "properties": {
+        "top": { "type": "integer", "minimum": 0 },
+        "bottom": { "type": "integer", "minimum": 0 },
+        "left": { "type": "integer", "minimum": 0 },
+        "right": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "RectPx": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "w", "h"],
+      "properties": {
+        "x": { "type": "integer" },
+        "y": { "type": "integer" },
+        "w": { "type": "integer", "minimum": 1 },
+        "h": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "PointPx": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "integer" },
+        "y": { "type": "integer" }
+      }
+    },
+    "TimeMsOrSeconds": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "t_ms": { "type": "integer", "minimum": 0 },
+        "t": { "type": "number", "minimum": 0 }
+      },
+      "anyOf": [
+        { "required": ["t_ms"] },
+        { "required": ["t"] }
+      ]
+    },
+    "FocusEntry": {
+      "oneOf": [
+        { "$ref": "#/$defs/FocusKeyframe" },
+        { "$ref": "#/$defs/FocusInterval" }
+      ]
+    },
+    "FocusKeyframe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rect"],
+      "properties": {
+        "t_ms": { "type": "integer", "minimum": 0 },
+        "t": { "type": "number", "minimum": 0 },
+        "rect": { "$ref": "#/$defs/RectPx" },
+        "id": { "type": "string" },
+        "kind": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "anyOf": [
+        { "required": ["t_ms"] },
+        { "required": ["t"] }
+      ]
+    },
+    "FocusInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rect"],
+      "properties": {
+        "t0_ms": { "type": "integer", "minimum": 0 },
+        "t1_ms": { "type": "integer", "minimum": 0 },
+        "rect": { "$ref": "#/$defs/RectPx" },
+        "id": { "type": "string" },
+        "kind": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "allOf": [
+        { "required": ["t0_ms", "t1_ms"] }
+      ]
+    },
+    "EventEntry": {
+      "oneOf": [
+        { "$ref": "#/$defs/TapEvent" },
+        { "$ref": "#/$defs/HoldEvent" },
+        { "$ref": "#/$defs/TransitionEvent" }
+      ]
+    },
+    "TapEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "point"],
+      "properties": {
+        "type": { "type": "string", "const": "tap" },
+        "t_ms": { "type": "integer", "minimum": 0 },
+        "t": { "type": "number", "minimum": 0 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "point": { "$ref": "#/$defs/PointPx" },
+        "focus_id": { "type": "string" }
+      },
+      "anyOf": [
+        { "required": ["t_ms"] },
+        { "required": ["t"] }
+      ]
+    },
+    "HoldEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "dur_ms"],
+      "properties": {
+        "type": { "type": "string", "const": "hold" },
+        "t_ms": { "type": "integer", "minimum": 0 },
+        "t": { "type": "number", "minimum": 0 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "dur_ms": { "type": "integer", "minimum": 1 },
+        "reason": { "type": "string" }
+      },
+      "anyOf": [
+        { "required": ["t_ms"] },
+        { "required": ["t"] }
+      ]
+    },
+    "TransitionEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "type": "string", "enum": ["transition_start", "transition_end"] },
+        "t_ms": { "type": "integer", "minimum": 0 },
+        "t": { "type": "number", "minimum": 0 },
+        "seq": { "type": "integer", "minimum": 0 },
+        "label": { "type": "string" }
+      },
+      "anyOf": [
+        { "required": ["t_ms"] },
+        { "required": ["t"] }
+      ]
+    },
+    "ElementMeta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "kind"],
+      "properties": {
+        "label": { "type": "string" },
+        "kind": { "type": "string" }
+      }
+    }
+  }
+}
+

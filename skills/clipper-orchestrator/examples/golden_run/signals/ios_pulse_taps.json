@@ -1,0 +1,66 @@
+{
+  "elements": {
+    "step_1": {
+      "kind": "row",
+      "label": "Example focus 1"
+    },
+    "step_2": {
+      "kind": "row",
+      "label": "Example focus 2"
+    }
+  },
+  "events": [
+    {
+      "focus_id": "step_1",
+      "point": {
+        "x": 540,
+        "y": 650
+      },
+      "seq": 1,
+      "t_ms": 200,
+      "type": "tap"
+    }
+  ],
+  "focus": [
+    {
+      "confidence": 1.0,
+      "id": "step_1",
+      "kind": "ui_element",
+      "rect": {
+        "h": 260,
+        "w": 840,
+        "x": 120,
+        "y": 520
+      },
+      "t_ms": 0
+    },
+    {
+      "confidence": 1.0,
+      "id": "step_2",
+      "kind": "ui_element",
+      "rect": {
+        "h": 240,
+        "w": 760,
+        "x": 160,
+        "y": 820
+      },
+      "t_ms": 1100
+    }
+  ],
+  "safe_area_px": {
+    "bottom": 0,
+    "left": 0,
+    "right": 0,
+    "top": 0
+  },
+  "time_origin": {
+    "kind": "recording_marker",
+    "notes": "t=0 is the first frame after recording start"
+  },
+  "version": "0.1",
+  "video": {
+    "height": 1920,
+    "path": "inputs/input.mp4",
+    "width": 1080
+  }
+}

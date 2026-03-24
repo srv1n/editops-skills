@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "renderDefaults": {
+    "introSeconds": 1.2,
+    "cameraPreset": "editorial",
+    "cameraFollowEnabled": false,
+    "cameraTapPulseEnabled": false,
+    "calloutsPreset": "tap_guide",
+    "tapGuideFocusIds": []
+  },
+  "flows": [
+    {
+      "id": "demo_flow_001",
+      "route": "demo_route_001",
+      "waitForAccessibilityId": "app.root",
+      "pacing": {
+        "enabled": true,
+        "preset": "editorial",
+        "explicitMultiplier": 1.0,
+        "autoMultiplier": 1.0,
+        "beforeTap": 0.10,
+        "afterTap": 0.20,
+        "afterTransitionEnd": 0.60
+      },
+      "copy": {
+        "en_US": { "title": "Demo title", "subtitle": "Demo subtitle" }
+      },
+      "render": {
+        "clipTrimEndSeconds": 0.5
+      },
+      "steps": [
+        { "action": "wait", "seconds": 0.6 },
+        { "action": "tap", "id": "app.primaryCta" },
+        { "action": "transition_start", "text": "open next screen" },
+        { "action": "transition_end", "text": "open next screen" },
+        { "action": "waitFor", "id": "next.root", "timeoutSeconds": 10 },
+        { "action": "hold", "seconds": 1.0, "text": "orient" }
+      ]
+    }
+  ]
+}
+

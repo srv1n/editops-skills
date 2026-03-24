@@ -1,0 +1,79 @@
+{
+  "project": {
+    "fps": 30.0,
+    "tick_rate": 60000
+  },
+  "ranges": [
+    {
+      "asset": "clip_001",
+      "dst_in_ticks": 0,
+      "dur_ticks": 563820,
+      "kind": "sample_video",
+      "src_in_ticks": 120000
+    },
+    {
+      "asset": "clip_001",
+      "dst_in_ticks": 563820,
+      "dur_ticks": 7500,
+      "kind": "freeze_video",
+      "src_at_ticks": 682000
+    },
+    {
+      "asset": "clip_002",
+      "dst_in_ticks": 571320,
+      "dur_ticks": 7500,
+      "kind": "freeze_video",
+      "src_at_ticks": 180000
+    },
+    {
+      "asset": "clip_002",
+      "dst_in_ticks": 578820,
+      "dur_ticks": 426660,
+      "kind": "sample_video",
+      "src_in_ticks": 180000
+    },
+    {
+      "asset": "clip_002",
+      "dst_in_ticks": 1005480,
+      "dur_ticks": 7500,
+      "kind": "freeze_video",
+      "src_at_ticks": 606000
+    },
+    {
+      "asset": "clip_003",
+      "dst_in_ticks": 1012980,
+      "dur_ticks": 7500,
+      "kind": "freeze_video",
+      "src_at_ticks": 60000
+    },
+    {
+      "asset": "clip_003",
+      "dst_in_ticks": 1020480,
+      "dur_ticks": 565140,
+      "kind": "sample_video",
+      "src_in_ticks": 60000
+    },
+    {
+      "asset": "clip_003",
+      "dst_in_ticks": 1585620,
+      "dur_ticks": 7500,
+      "kind": "freeze_video",
+      "src_at_ticks": 624000
+    },
+    {
+      "asset": "clip_004",
+      "dst_in_ticks": 1593120,
+      "dur_ticks": 7500,
+      "kind": "freeze_video",
+      "src_at_ticks": 0
+    },
+    {
+      "asset": "clip_004",
+      "dst_in_ticks": 1600620,
+      "dur_ticks": 319380,
+      "kind": "sample_video",
+      "src_in_ticks": 0
+    }
+  ],
+  "schema": "clipops.segment_map.v0.1"
+}

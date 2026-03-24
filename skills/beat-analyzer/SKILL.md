@@ -1,7 +1,13 @@
 ---
 name: beat-analyzer
-description: >
-  Analyze music files for tempo, beats, and song structure to enable beat-synced editing.
+description: "Analyze music files for tempo, beats, downbeats, and coarse sections to enable beat-synced editing. Use when the user asks to find BPM/beats/downbeats or you need a beat grid JSON for promo/montage timelines."
+license: MIT
+compatibility: "Local python3. Best results if librosa and numpy are installed; otherwise falls back to a naive schema-valid grid. Works offline on local audio files."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: audio-analysis
+  tags: [audio, beats, bpm, beat-grid, clipops]
 ---
 
 # Beat Analyzer Skill
@@ -21,6 +27,31 @@ Use this data to:
 - Cut video to the rhythm
 - Build tension with musical structure
 
+## When to Use (Triggers)
+
+- User asks to “find the BPM”, “detect beats/downbeats”, “cut on beats”, or “make this beat-synced”.
+- You need a `clipops.signal.beat_grid.v0.1` file for beat-synced editing (e.g. `promo-director`).
+- You want coarse sectioning (intro/verse/chorus) to plan pacing.
+
+## Inputs
+
+Required:
+- Audio file path (`.wav`, `.mp3`, etc.).
+
+Optional:
+- Output path(s) for beat grid and/or section JSON.
+
+## Outputs
+
+- Beat grid JSON (`schema: clipops.signal.beat_grid.v0.1`)
+- Sections JSON (`schema: clipops.signal.sections.v0.1`) when requested
+
+## Safety / Security
+
+- Treat audio files as untrusted input; write outputs to a user-approved directory.
+- If installing optional deps, prefer a virtual environment; avoid global installs unless requested.
+- Avoid uploading or sharing copyrighted audio without permission.
+
 ## Prerequisites
 
 ```bash
@@ -30,7 +61,7 @@ pip install librosa numpy
 
 If `librosa` is unavailable, `python3 tools/audio_analyze.py` falls back to a schema-valid *naive* 120bpm grid and a simple 8-bar section segmentation (with warnings in the JSON output).
 
-## Quick Start
+## Canonical Workflow / Commands
 
 ```bash
 # From clipper root directory
@@ -43,6 +74,25 @@ python3 tools/audio_analyze.py beats inputs/music.wav \
 python3 tools/audio_analyze.py sections inputs/music.wav \
   --output signals/sections.json
 ```
+
+## Smoke Test
+
+Run beat detection on the integrated fixture:
+
+```bash
+python3 tools/audio_analyze.py beats examples/integrated_demo/inputs/music.wav \
+  --output /tmp/beat_grid.json
+```
+
+Expected:
+- `/tmp/beat_grid.json` exists and contains `schema: clipops.signal.beat_grid.v0.1`
+
+## References
+
+- Analyzer implementation: `tools/audio_analyze.py`
+- Beat grid schema id: `clipops.signal.beat_grid.v0.1`
+- Sections schema id: `clipops.signal.sections.v0.1`
+- Trigger tests: `references/TRIGGER_TESTS.md`
 
 ## Commands
 

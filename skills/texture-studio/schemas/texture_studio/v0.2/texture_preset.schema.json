@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipper.dev/schemas/texture_studio/texture_preset/v0.2",
+  "title": "Texture Studio Preset (v0.2)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "background", "typography", "text_effects"],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "clipper.texture_studio.preset.v0.2"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this preset"
+    },
+    "background": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gradient"],
+      "properties": {
+        "gradient": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["start", "end"],
+          "properties": {
+            "start": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "description": "Gradient start color (hex)"
+            },
+            "end": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "description": "Gradient end color (hex)"
+            },
+            "angle_deg": {
+              "type": "number",
+              "default": 135,
+              "description": "Gradient angle in degrees"
+            }
+          }
+        },
+        "textures": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "layers": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/TextureLayer" },
+              "description": "Ordered texture stack (front to back)."
+            },
+            "screen": { "$ref": "#/$defs/LegacyTextureLayer" },
+            "multiply": { "$ref": "#/$defs/LegacyTextureLayer" },
+            "overlay": { "$ref": "#/$defs/LegacyTextureLayer" }
+          }
+        },
+        "image": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "source": {
+              "type": "string",
+              "enum": ["embedded", "file"],
+              "default": "embedded"
+            },
+            "data_url": {
+              "type": "string",
+              "description": "Data URL for the background image"
+            },
+            "file_path": {
+              "type": "string",
+              "description": "Relative file path for a linked background image"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 0.85
+            },
+            "blend_mode": {
+              "type": "string",
+              "enum": ["normal", "multiply", "screen", "overlay", "soft-light", "hard-light"],
+              "default": "normal"
+            },
+            "fit": {
+              "type": "string",
+              "enum": ["cover", "contain"],
+              "default": "cover"
+            },
+            "mask_with_gradient": {
+              "type": "boolean",
+              "default": false
+            },
+            "apply_gradient": {
+              "type": "boolean",
+              "default": true,
+              "description": "Whether the background gradient should still render behind the image"
+            },
+            "pos_x": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 50
+            },
+            "pos_y": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 50
+            },
+            "scale": {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 2,
+              "default": 1
+            }
+          }
+        },
+        "blur_px": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0,
+          "description": "Pre-blur amount in pixels"
+        }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["font_family"],
+      "properties": {
+        "font_family": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Font family name"
+        },
+        "font_weight": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 900,
+          "default": 700,
+          "description": "Font weight (100-900)"
+        },
+        "letter_spacing_em": {
+          "type": "number",
+          "default": 0,
+          "description": "Letter spacing in em units"
+        }
+      }
+    },
+    "text_effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ink_bleed": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "amount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "default": 0,
+              "description": "Ink bleed level: 0=none, 1=light, 2=medium, 3=heavy"
+            }
+          }
+        },
+        "grain": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "intensity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 0.5,
+              "description": "Grain intensity (0-1)"
+            },
+            "pattern": {
+              "type": "string",
+              "enum": ["fine", "coarse", "speckle", "halftone", "scanlines", "noise", "fibers", "stains"],
+              "default": "fine",
+              "description": "Grain pattern type"
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 1337,
+              "description": "Seed for deterministic texture generation"
+            },
+            "tile_px": {
+              "type": "number",
+              "minimum": 20,
+              "maximum": 400,
+              "default": 150,
+              "description": "Texture tile size in pixels"
+            }
+          }
+        },
+        "knockout": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "amount": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 0.5,
+              "description": "Knockout amount (0-1)"
+            },
+            "pattern": {
+              "type": "string",
+              "enum": ["worn", "scratches", "heavy", "splatter"],
+              "default": "worn",
+              "description": "Knockout pattern type"
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 31415,
+              "description": "Seed for deterministic texture generation"
+            },
+            "tile_px": {
+              "type": "number",
+              "minimum": 20,
+              "maximum": 400,
+              "default": 150,
+              "description": "Texture tile size in pixels"
+            }
+          }
+        },
+        "letterpress": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "depth": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "default": 1,
+              "description": "Letterpress depth: 0=none, 1=medium, 2=deep"
+            }
+          }
+        },
+        "blur": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean", "default": false },
+            "amount": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 20,
+              "default": 0,
+              "description": "Text blur amount in pixels"
+            }
+          }
+        }
+      }
+    },
+    "color_palette": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^#[0-9A-Fa-f]{6}$"
+      },
+      "description": "Named color palette for reference"
+    }
+  },
+  "$defs": {
+    "LegacyTextureLayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this texture layer is enabled"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.5,
+          "description": "Layer opacity (0-1)"
+        }
+      }
+    },
+    "TextureLayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["blend_mode", "kind"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Optional layer identifier (e.g., screen, multiply, overlay)"
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this texture layer is enabled"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.5,
+          "description": "Layer opacity (0-1)"
+        },
+        "blend_mode": {
+          "type": "string",
+          "enum": ["screen", "multiply", "overlay", "soft-light", "hard-light", "color-dodge", "color-burn", "normal"],
+          "description": "CSS blend mode for this layer"
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["dust", "paper", "grain", "fibers", "scratches", "stains", "halftone", "vignette", "scanlines", "noise"],
+          "description": "Texture generator kind"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 42,
+          "description": "Seed for deterministic texture generation"
+        },
+        "tile_px": {
+          "type": "number",
+          "minimum": 20,
+          "maximum": 600,
+          "default": 140,
+          "description": "Texture tile size in pixels"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "clipper.appstore_creatives.style_pack.v0.1",
+  "id": "cinta_texture_attempt_warm",
+  "screenshots": {
+    "producerPlanDefaultsPatch": {
+      "layout": "classic",
+      "frameStyle": "apple",
+      "frameVariant": "black",
+      "brand": { "text": null },
+      "typography": {
+        "titleFontName": "Space Grotesk",
+        "subtitleFontName": "Space Grotesk",
+        "brandFontName": "Space Grotesk",
+        "titleFontSize": 176,
+        "subtitleFontSize": 59,
+        "titleLineHeightMultiple": 0.9
+      },
+      "textLayout": {
+        "alignment": "center",
+        "headerHeightFraction": 0.4,
+        "sidePaddingFraction": 0.03,
+        "headerTopPaddingFraction": 0.18,
+        "headerBottomPaddingFraction": 0.04,
+        "subtitleSlotHeightFraction": 0.14,
+        "titleColor": "#FFFFFF",
+        "subtitleColor": "#FFFFFFD9"
+      },
+      "background": {
+        "top": "#71320D",
+        "bottom": "#551B18",
+        "angle": 135,
+        "grainOpacity": 0,
+        "textGrainOpacity": 0.18,
+        "textGrainAmount": 0.22,
+        "textGrainBlendMode": "overlay",
+        "overlayOpacity": 0
+      },
+      "calloutStyle": {
+        "highlight": {
+          "stroke": "#FFFFFF"
+        }
+      }
+    },
+    "background": {
+      "type": "gradient",
+      "top": "#71320D",
+      "bottom": "#551B18"
+    },
+    "typography": {
+      "titleFont": "Helvetica",
+      "subtitleFont": "Helvetica"
+    },
+    "colors": {
+      "title": "#FFFFFF",
+      "subtitle": "#FFFFFFD9",
+      "highlight": "#A45A2A"
+    }
+  },
+  "videos": {
+    "directorPreset": "editorial",
+    "joinProfile": "ios_editorial",
+    "tempoTemplate": "standard_dip",
+    "brandKit": "templates/clipops/v0.2/brands/app_store_editorial_macos.json"
+  }
+}

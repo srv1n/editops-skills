@@ -1,11 +1,13 @@
 ---
 name: creativeops-producer-ios
-description: >
-  Drop-in bootstrap for turning any new iOS app repo into a CreativeOps “producer”:
-  add deterministic simulator video capture + ios_ui_events signal emission so the
-  shared Director + ClipOps renderer can produce polished demo/tutorial videos.
-  Use when starting a new iOS repo or when an existing iOS app needs reliable
-  run-dir outputs (`inputs/*.mp4` + `signals/ios_ui_events*.json`).
+description: "Drop-in bootstrap for turning any new iOS app repo into a CreativeOps “producer”: add deterministic simulator video capture + ios_ui_events signal emission so the shared Director + ClipOps renderer can produce polished demo/tutorial videos. Use when starting a new iOS repo or when an existing iOS app needs reliable run-dir outputs (`inputs/*.mp4` + `signals/ios_ui_events*.json`)."
+license: MIT
+compatibility: "macOS local agent environments with filesystem + shell (Claude Code, Codex). Requires Xcode tools (xcrun/simctl), bash, and python3 for validation. Rendering requires clipops + ffmpeg (via other skills/tooling)."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: creativeops
+  tags: [ios, producer, xcode, simctl, run-dirs]
 ---
 
 # CreativeOps Producer (iOS Drop‑In)
@@ -37,13 +39,23 @@ Optional:
   - `signals/ios_ui_events*.json`
   - `qa/producer_ios_report.json` (optional; from toolkit-side validation)
 
+## Safety / Security
+
+- Confirm you are copying the kit into the correct iOS repo; it adds scripts and config files and may overwrite existing paths.
+- Simulator captures may contain sensitive UI or user data; use test accounts and scrub artifacts before sharing run dirs.
+- Keep run dirs and large media outputs gitignored; do not commit `inputs/` videos or generated renders.
+- Ensure any credentials used by tests (logins, API keys) are injected via secure env vars or CI secrets, never stored in the repo.
+
 ## Canonical Workflow / Commands
 
 ```bash
-cp -R /path/to/clipper/templates/creativeops/ios_producer_kit/v0.1/* .
+# From inside this skill directory (where `SKILL.md` lives):
+cp -R templates/creativeops/ios_producer_kit/v0.1/* /path/to/ios_repo/
 ```
 
 ```bash
+# Now from the iOS repo root (where the kit was copied):
+cd /path/to/ios_repo
 bash scripts/creativeops/ios_capture_videos.sh \
   --project YourApp.xcodeproj \
   --scheme YourUITestScheme \
@@ -55,6 +67,7 @@ bash scripts/creativeops/ios_capture_videos.sh \
 
 ## References (read first)
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - Toolkit guide: `docs/producers/IOS_PRODUCER_DROP_IN_KIT_V0.1.md`
 - Minimal bootstrap (prompt + mental model): `docs/producers/IOS_PRODUCER_V0.1.md`
 - Signals schema (v0.4): `schemas/clipops/v0.4/ios_ui_events.schema.json`
@@ -84,26 +97,26 @@ bash scripts/creativeops/ios_capture_videos.sh \
 4) Render with toolkit (Director + ClipOps):
 
 ```bash
-/path/to/clipper/bin/creativeops-director verify --run-dir creativeops/runs/20260105_demo/en_US/iPhone\ 16/demo_flow_001 \
-  --clipops-schema-dir /path/to/clipper/schemas/clipops/v0.4 \
-  --clipops-bin /path/to/clipper/bin/clipops \
+bin/creativeops-director verify --run-dir creativeops/runs/20260105_demo/en_US/iPhone\ 16/demo_flow_001 \
+  --clipops-schema-dir schemas/clipops/v0.4 \
+  --clipops-bin bin/clipops \
   --render true
 ```
 
 Screen Studio-style auto zoom (tap-anchored zoom blocks):
 
 ```bash
-/path/to/clipper/bin/creativeops-director verify --run-dir creativeops/runs/20260105_demo/en_US/iPhone\ 16/demo_flow_001 \
+bin/creativeops-director verify --run-dir creativeops/runs/20260105_demo/en_US/iPhone\ 16/demo_flow_001 \
   --preset screen_studio \
-  --clipops-schema-dir /path/to/clipper/schemas/clipops/v0.4 \
-  --clipops-bin /path/to/clipper/bin/clipops \
+  --clipops-schema-dir schemas/clipops/v0.4 \
+  --clipops-bin bin/clipops \
   --render true --audio none
 ```
 
 5) Validate signal quality (recommended):
 
 ```bash
-/path/to/clipper/bin/producer-ios-validate --run-dir creativeops/runs/20260105_demo/en_US/iPhone\ 16/demo_flow_001
+bin/producer-ios-validate --run-dir creativeops/runs/20260105_demo/en_US/iPhone\ 16/demo_flow_001
 ```
 
 ## Notes

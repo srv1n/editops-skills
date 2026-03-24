@@ -1,0 +1,27 @@
+{
+  "version": "0.1",
+  "video": {
+    "path": "../inputs/input.mp4",
+    "width": 1178,
+    "height": 2556,
+    "fps": 60.0
+  },
+  "time_origin": {
+    "kind": "recording_marker",
+    "notes": "t=0 is the first frame after the recording start marker"
+  },
+  "safe_area_px": { "top": 0, "bottom": 0, "left": 0, "right": 0 },
+  "focus": [
+    { "t": 0.0, "rect": { "x": 120, "y": 620, "w": 940, "h": 280 }, "id": "settings.textStyle" },
+    { "t": 0.9, "rect": { "x": 80, "y": 240, "w": 1010, "h": 180 }, "id": "settings.textStyle.font" }
+  ],
+  "events": [
+    { "t": 0.2, "type": "tap", "point": { "x": 620, "y": 760 }, "focus_id": "settings.textStyle" },
+    { "t": 1.2, "type": "hold", "duration": 1.0, "reason": "readability" }
+  ],
+  "elements": {
+    "settings.textStyle": { "label": "Text Style", "kind": "row" },
+    "settings.textStyle.font": { "label": "Font", "kind": "row" }
+  }
+}
+

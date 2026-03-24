@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipper.dev/schemas/theme_library/manifest/v0.1",
+  "title": "Theme Library Manifest (v0.1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "apps"],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "clipper.theme_library.v0.1"
+    },
+    "apps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/AppEntry" }
+    }
+  },
+  "$defs": {
+    "VariantEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "preset"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "display_name": { "type": "string" },
+        "preset": { "type": "string", "minLength": 1, "description": "Path to a Texture Studio preset or bundle JSON" },
+        "labels": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "ModeEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "variants"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "display_name": { "type": "string" },
+        "variants": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/VariantEntry" }
+        }
+      }
+    },
+    "AppEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "display_name": { "type": "string" },
+        "modes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ModeEntry" }
+        },
+        "variants": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/VariantEntry" },
+          "description": "Single-mode variant list (use when no light/dark split)."
+        }
+      },
+      "anyOf": [
+        { "required": ["modes"] },
+        { "required": ["variants"] }
+      ]
+    }
+  }
+}

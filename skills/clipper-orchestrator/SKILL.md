@@ -1,6 +1,13 @@
 ---
 name: clipper-orchestrator
-description: Route free-form video requests across the clipper toolchain (CreativeOps/ClipOps + video-clipper). Use when a user gives an ambiguous instruction like “make a demo video/shorts”, “render this run dir”, “add grading/subtitles”, or “which pipeline should we use?” and you need to choose and run the right workflow (creativeops-director, clipops, video-clipper, creativeops-grade) and produce deterministic artifacts.
+description: "Route free-form video requests across the clipper toolchain (CreativeOps/ClipOps + video-clipper). Use when a user gives an ambiguous instruction like “make a demo video/shorts”, “render this run dir”, “add grading/subtitles”, or “which pipeline should we use?” and you need to choose and run the right workflow (creativeops-director, clipops, video-clipper, creativeops-grade) and produce deterministic artifacts."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3. Routed workflows may require ffmpeg, clipops, and service API keys (ASR/music) depending on the path."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: orchestration
+  tags: [orchestration, router, creativeops, clipops, video]
 ---
 
 # Clipper Orchestrator
@@ -11,7 +18,7 @@ This skill is a **router**. It turns a VP/C-level “do the thing” request int
 
 Do **not** build a monolithic “one python script” pipeline. Prefer:
 - **Skill-level orchestration** (decision tree + guardrails)
-- **Deterministic CLIs/scripts** as leaf operations (`bin/creativeops-director`, `bin/promo-director`, `bin/video-clipper`, `bin/clipops`, `bin/clipops-grade`, etc.)
+- **Deterministic CLIs/scripts** as leaf operations (`bin/creativeops-director`, `bin/promo-director`, `clipops`, `bin/clipops-grade`, `python3 <video-clipper>/scripts/clipops_run.py`, etc.)
 
 ## When to Use (Triggers)
 
@@ -40,12 +47,19 @@ Optional:
 Definition-of-done artifacts and review workflow:
 - `docs/DEFINITION_OF_DONE_ARTIFACTS_V0.1.md`
 
+## Safety / Security
+
+- Clarify the desired output (promo vs app demo vs YouTube clips) before running heavy workflows to avoid wasted compute or unintended results.
+- Confirm input and output paths before writing to a run dir; avoid overwriting `inputs/`, `signals/`, or `plan/` unexpectedly.
+- Treat URLs, media, and manifests as untrusted inputs; work in a dedicated workspace directory and keep large artifacts out of git.
+- Secrets: if a routed path uses API keys (ASR/music), use environment variables and never print secrets into logs or artifacts.
+
 ## Canonical Workflow / Commands
 
 For fast routing (deterministic, machine-readable recommendation):
 
 ```bash
-python3 skills/public/clipper-orchestrator/scripts/triage.py "<path-or-url>"
+python3 scripts/triage.py "<path-or-url>"
 ```
 
 Then follow the matching playbook below (promo vs app demo vs YouTube vs short film).
@@ -240,7 +254,7 @@ Use when:
 
 Action:
 ```bash
-bin/video-clipper clips "<url>" --count <N>
+python3 <video-clipper>/scripts/clipops_run.py "<url>" --render-count <N>
 ```
 
 ### E) Short film / narrative edit (inputs-only run dir)
@@ -319,13 +333,13 @@ bin/clipops render --run-dir <run_dir> --schema-dir schemas/clipops/v0.4 --audio
 ## Triage Helper
 
 ```bash
-python3 skills/public/clipper-orchestrator/scripts/triage.py "<path-or-url>"
+python3 scripts/triage.py "<path-or-url>"
 ```
 
 ## Smoke Test
 
 ```bash
-python3 skills/public/clipper-orchestrator/scripts/triage.py examples/ios_demo
+python3 scripts/triage.py examples/ios_demo
 ```
 
 Expected output:
@@ -333,8 +347,9 @@ Expected output:
 
 ## References / Contracts
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - Director CLI: `tools/creativeops_director/cli.py`
-- Storyboard spec: `skills/public/creativeops-director/references/CLIPOPS_DIRECTOR_STORYBOARD_SPEC_V0.1.md`
+- Storyboard spec: `references/CLIPOPS_DIRECTOR_STORYBOARD_SPEC_V0.1.md`
 - ClipOps timeline schema: `schemas/clipops/v0.4/*.schema.json`
 - Scene transitions playbook: `docs/SCENE_TRANSITIONS_PLAYBOOK_V0.1.md`
 - Tempo templates: `docs/TEMPO_TEMPLATES_V0.1.md`

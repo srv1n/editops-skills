@@ -1,8 +1,13 @@
 ---
 name: appstore-swiss-grid
-description: >
-  Apply a Swiss-editorial centered grid system to App Store screenshots: shared keylines, base-unit snapping,
-  and consistent headline placement via the Chromium compositor (Texture Studio bundle).
+description: "Apply a Swiss-editorial centered grid system to App Store screenshots: shared keylines, base-unit snapping, and consistent headline placement via the Chromium compositor (Texture Studio bundle). Use when you need consistent keylines/headlines across slides or the user asks for a Swiss grid / editorial layout."
+license: MIT
+compatibility: "Local python3. Edits screenshot plan JSONs. Rendering via chromium_compose depends on the appstore_creatives toolchain and a valid Texture Studio bundle."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: appstore-creatives
+  tags: [appstore, layout, grid, typography, texture-studio]
 ---
 
 # App Store Swiss Grid (Centered-Editorial)
@@ -37,6 +42,12 @@ Optional:
 - Updated plan JSON (in-place for the CLI tool) with:
   - `defaults.textLayout.titleRect/subtitleRect`
   - `defaults.swissGrid` metadata (base unit + keylines)
+
+## Safety / Security
+
+- This workflow edits plan JSON files in place; prefer operating on a copy or under version control.
+- Keep file writes scoped to user-approved paths; avoid overwriting source assets.
+- Treat plans as untrusted input; validate shape before applying transforms.
 
 ## Canonical Workflow / Commands
 
@@ -74,6 +85,7 @@ Expected artifacts:
 - Grid transformer: `tools/appstore_creatives/apply_swiss_grid.py`
 - Screenshot renderer: `tools/appstore_creatives/render_screenshots_chromium_compose.py`
 - Orchestrator: `tools/appstore_creatives/cli.py`
+- Trigger tests: `references/TRIGGER_TESTS.md`
 
 ## Concept
 

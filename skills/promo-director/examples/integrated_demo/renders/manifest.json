@@ -1,0 +1,25 @@
+{
+  "clipops": {
+    "cargo_pkg_version": "0.1.0"
+  },
+  "ffmpeg_version": "ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers",
+  "inputs_sha256": {
+    "assets.clip_001": "d61758dbf7e416de7b22632c204bae5793f20a3d7ec06f6a26e4fe55ea13b7cc",
+    "assets.clip_002": "fb6649d8d67c7128d6ed6c80a6f7869de315125be46f2ee1623c1580a9993c73",
+    "assets.clip_003": "c806908379737528c21125a69e8c2309d4491ea94a4460682102b6076f2d8fcf",
+    "assets.clip_004": "7ccce32e1f5a3d06ee7dcd2ae4fdd5bba7d228e89558924440333ddf09c9a479",
+    "assets.music": "968e631259a8ee9489a6bdea4d782d6ee53ed793e48b081a2f8cea8353da95ec",
+    "brand.kit": "cce4a7b2b050d5cd44a23567bedf8a8b72aebecf93291df21914161351552387",
+    "compiled.camera_path.json": "3c388e97fe4a5f7f4560920469c06945a5f9eb80b9788b8d3fefaf75a414c26c",
+    "compiled.overlay.edl.json": "8c4945ef52ad74b51054cecde30105ba5806d98eb4f9878f352c6c5430ddd873",
+    "compiled.segment_map.json": "bf0ceecd184991660bd911e9dc1d150f037139c92afab36d2657a134f33529fb",
+    "compiled.transition.edl.json": "791164f4fe439b6e4a3e452b04782d46a59203fcc582c2e125d85238827816a3",
+    "fonts.default": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "plan.timeline.json": "b8c8d407a82665fea39a23ded2a889ab8d3a4e9ee722804e65da74eaa85f55f9",
+    "signals.beat_grid": "12f555791bd15eef385a0b74525d5fbae5ac5795b368b828e50b8eb365141b60"
+  },
+  "output": "/Users/sarav/Downloads/play/clipper/examples/integrated_demo/renders/final.mp4",
+  "output_sha256": "347a29596c658259a269b520fe33445a4bfa9274539ad7c6a03cbabca9b5b997",
+  "run_dir": "/Users/sarav/Downloads/play/clipper/examples/integrated_demo",
+  "schema": "clipops.manifest.v0.1"
+}

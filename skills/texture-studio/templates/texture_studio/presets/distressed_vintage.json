@@ -1,0 +1,33 @@
+{
+  "schema": "clipper.texture_studio.preset.v0.1",
+  "id": "distressed_vintage",
+  "background": {
+    "gradient": {
+      "start": "#1c1917",
+      "end": "#292524",
+      "angle_deg": 135
+    },
+    "textures": {
+      "screen": { "enabled": true, "opacity": 0.5 },
+      "multiply": { "enabled": true, "opacity": 0.3 },
+      "overlay": { "enabled": true, "opacity": 0.5 }
+    },
+    "blur_px": 0.3
+  },
+  "typography": {
+    "font_family": "DM Sans",
+    "font_weight": 800,
+    "letter_spacing_em": -0.03
+  },
+  "text_effects": {
+    "ink_bleed": { "enabled": true, "amount": 1 },
+    "grain": { "enabled": true, "intensity": 0.8, "pattern": "coarse" },
+    "knockout": { "enabled": true, "amount": 0.6, "pattern": "worn" },
+    "letterpress": { "enabled": true, "depth": 2 }
+  },
+  "color_palette": {
+    "primary": "#1c1917",
+    "secondary": "#292524",
+    "accent": "#dc2626"
+  }
+}

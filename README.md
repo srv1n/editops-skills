@@ -1,6 +1,6 @@
-# Clipper Skills
+# EditOps Skills
 
-AI agent skills for video clipping, creative operations, and app store content workflows.
+Deterministic agent skills for video editing pipelines: clipping, app demos, promos, grading, motion graphics, and App Store creative workflows.
 
 ## Installation
 
@@ -8,7 +8,7 @@ AI agent skills for video clipping, creative operations, and app store content w
 
 ```bash
 # Install all skills
-claude plugin add clipper-skills
+claude plugin add editops-skills
 
 # Or copy individual skill folders to .claude/skills/
 cp -r skills/video-clipper ~/.claude/skills/
@@ -17,6 +17,20 @@ cp -r skills/video-clipper ~/.claude/skills/
 ### Manual
 
 Each skill folder is self-contained. Copy any folder from `skills/` into your agent's skill directory.
+
+## Releases
+
+GitHub Releases (tags like `v0.1.0`) publish:
+- Per-skill zip archives (`<skill>-<tag>.zip`)
+- Bundle zips (`editops-core`, `creativeops`, `all-skills`)
+- `SHA256SUMS.txt` for integrity verification
+
+Build locally:
+
+```bash
+python3 tools/skills_release.py lint
+python3 tools/skills_release.py build-zips --out dist --tag v0.1.0
+```
 
 ## Skills
 

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/clipper/motion_template_catalog/v0.1",
+  "title": "Clipper Motion Template Catalog (v0.1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "version", "templates"],
+  "properties": {
+    "schema": { "type": "string", "const": "clipper.motion_template_catalog.v0.1" },
+    "version": { "type": "string", "minLength": 1 },
+    "meta": { "type": "object", "additionalProperties": true },
+    "templates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/Template" }
+    }
+  },
+  "$defs": {
+    "Template": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "backend", "tags"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "backend": {
+          "type": "string",
+          "enum": ["clipops_native", "alpha_overlay_video", "generated_overlay"]
+        },
+        "tags": { "type": "array", "items": { "type": "string" }, "default": [] },
+        "params_schema": { "type": "object", "additionalProperties": true },
+        "output": { "$ref": "#/$defs/TemplateOutput" },
+        "source": { "$ref": "#/$defs/TemplateSource" },
+        "generator": { "$ref": "#/$defs/TemplateGenerator" },
+        "clipops": { "$ref": "#/$defs/ClipopsTemplate" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "backend": { "const": "alpha_overlay_video" } },
+            "required": ["backend"]
+          },
+          "then": { "required": ["output", "source"] }
+        },
+        {
+          "if": {
+            "properties": { "backend": { "const": "generated_overlay" } },
+            "required": ["backend"]
+          },
+          "then": { "required": ["output", "generator"] }
+        },
+        {
+          "if": {
+            "properties": { "backend": { "const": "clipops_native" } },
+            "required": ["backend"]
+          },
+          "then": { "required": ["clipops"] }
+        }
+      ]
+    },
+    "TemplateOutput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["asset_type"],
+      "properties": {
+        "asset_type": { "type": "string", "enum": ["alpha_video"] },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "fps": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "TemplateSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "path"],
+      "properties": {
+        "type": { "type": "string", "enum": ["file"] },
+        "path": { "type": "string", "minLength": 1 },
+        "license_hint": { "type": "string" }
+      }
+    },
+    "TemplateGenerator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "type": "string", "enum": ["revideo", "remotion", "maplibre"] },
+        "entrypoint": { "type": "string" },
+        "command_hint": { "type": "string" }
+      }
+    },
+    "ClipopsTemplate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["captions", "card", "callouts", "transition", "camera"]
+        },
+        "preset": { "type": "string" }
+      }
+    }
+  }
+}

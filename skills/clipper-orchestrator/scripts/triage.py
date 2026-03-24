@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 
 def _stable(obj: Any) -> str:
@@ -46,6 +46,53 @@ def _classify_path(p: Path) -> str:
         return "inputs_dir"
     return "dir"
 
+def _this_skill_root() -> Path:
+    # .../clipper-orchestrator/scripts/triage.py -> .../clipper-orchestrator
+    return Path(__file__).resolve().parents[1]
+
+
+def _skills_root_candidates() -> list[Path]:
+    """
+    Candidate directories that may contain sibling skills.
+
+    Works for:
+    - repo source-of-truth: <repo>/skills/public/<skill>/
+    - installed skills:     ~/.claude/skills/<skill>/ (or similar)
+    """
+    skill_root = _this_skill_root()
+    cands: list[Path] = []
+
+    # Common: sibling skills live next to this one.
+    cands.append(skill_root.parent)
+
+    # If we're inside <repo>/skills/public/<skill>, also consider <repo>/skills/public.
+    if skill_root.parent.name == "public" and skill_root.parent.parent.name == "skills":
+        cands.append(skill_root.parent)
+
+    return [p for p in cands if p.exists() and p.is_dir()]
+
+
+def _resolve_skill_dir(skill_name: str) -> Optional[Path]:
+    for root in _skills_root_candidates():
+        cand = (root / skill_name).resolve()
+        if (cand / "SKILL.md").exists():
+            return cand
+    return None
+
+
+def _find_repo_root(start: Path) -> Optional[Path]:
+    """
+    Best-effort: locate a clipper checkout root from a path within it.
+    """
+    cur = start.resolve()
+    for _ in range(12):
+        if (cur / "skills" / "public").exists() and (cur / "bin").exists() and (cur / "tools").exists():
+            return cur
+        if cur.parent == cur:
+            break
+        cur = cur.parent
+    return None
+
 
 def triage(target: str) -> Dict[str, Any]:
     target = (target or "").strip()
@@ -53,28 +100,42 @@ def triage(target: str) -> Dict[str, Any]:
         return {"ok": False, "error": "missing_target"}
 
     if _looks_like_youtube(target):
+        video_clipper = _resolve_skill_dir("video-clipper")
+        cmd = "python3 <video-clipper-skill>/scripts/clipops_run.py \"<url>\" --render-count <N>"
+        if video_clipper is not None:
+            cmd = f"python3 \"{(video_clipper / 'scripts' / 'clipops_run.py').resolve()}\" \"<url>\" --render-count <N>"
         return {
             "ok": True,
             "kind": "youtube_url",
             "recommendation": {
                 "skills": ["video-clipper"],
-                "commands": ["bin/video-clipper clips \"<url>\" --count <N>"],
+                "commands": [cmd],
             },
         }
 
     p = Path(target).expanduser()
     kind = _classify_path(p)
+    repo_root = _find_repo_root(_this_skill_root())
 
     if kind == "creativeops_run_dir":
         if p.is_file():
             p = p.parent.parent
+        director = _resolve_skill_dir("creativeops-director")
+        director_bin = None
+        if director is not None and (director / "bin" / "creativeops-director").exists():
+            director_bin = (director / "bin" / "creativeops-director").resolve()
+        elif repo_root is not None and (repo_root / "bin" / "creativeops-director").exists():
+            director_bin = (repo_root / "bin" / "creativeops-director").resolve()
+
         return {
             "ok": True,
             "kind": kind,
             "path": str(p.resolve()),
             "recommendation": {
                 "skills": ["creativeops-director"],
-                "commands": ["bin/creativeops-director verify --run-dir \"<run_dir>\" --render true"],
+                "commands": [
+                    (f"\"{director_bin}\" verify --run-dir \"<run_dir>\" --render true" if director_bin else "creativeops-director verify --run-dir \"<run_dir>\" --render true")
+                ],
             },
         }
 
@@ -97,13 +158,17 @@ def triage(target: str) -> Dict[str, Any]:
         }
 
     if kind == "inputs_dir":
+        video_clipper = _resolve_skill_dir("video-clipper")
+        overlay_cmd = "python3 <video-clipper-skill>/scripts/run_overlay_pipeline.py --help"
+        if video_clipper is not None:
+            overlay_cmd = f"python3 \"{(video_clipper / 'scripts' / 'run_overlay_pipeline.py').resolve()}\" --help"
         return {
             "ok": True,
             "kind": kind,
             "path": str(p.resolve()),
             "recommendation": {
                 "skills": ["video-clipper"],
-                "commands": ["python3 skills/public/video-clipper/scripts/run_overlay_pipeline.py --help"],
+                "commands": [overlay_cmd],
             },
         }
 

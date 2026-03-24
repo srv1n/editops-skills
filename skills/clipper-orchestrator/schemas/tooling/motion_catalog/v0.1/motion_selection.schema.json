@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/clipper/motion_selection/v0.1",
+  "title": "Clipper Motion Selection (v0.1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "workflow_id"],
+  "properties": {
+    "schema": { "type": "string", "const": "clipper.motion_selection.v0.1" },
+    "workflow_id": { "type": "string", "minLength": 1 },
+    "notes": { "type": "string" },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "fps": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kit": { "type": "string", "minLength": 1 }
+      }
+    },
+    "templates": {
+      "type": "array",
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/TemplateInstance" },
+      "default": []
+    }
+  },
+  "$defs": {
+    "TemplateInstance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["template_id"],
+      "properties": {
+        "template_id": { "type": "string", "minLength": 1 },
+        "params": { "type": "object", "additionalProperties": true },
+        "timing": { "$ref": "#/$defs/TimingWindowMs" },
+        "priority": { "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "TimingWindowMs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "src_in_ms": { "type": "integer", "minimum": 0, "default": 0 },
+        "dst_in_ms": { "type": "integer", "minimum": 0 },
+        "dur_ms": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,19 @@
+{
+  "findings": [],
+  "ok": true,
+  "run_dir": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_tap_guide",
+  "schema": "creativeops.producer_ios_signal_report.v0.1",
+  "signals": [
+    {
+      "counts": {
+        "events": 1,
+        "focus": 1,
+        "taps": 1
+      },
+      "max_t_ms": 1000,
+      "signal": "signals/ios_ui_events.json",
+      "video": "inputs/input.mp4",
+      "video_duration_ms": 2600
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+version: "0.1"
+preset: editorial
+meta:
+  review:
+    approved: false
+    notes: "Golden explainator fixture: cards + camera + audio lanes"
+steps:
+  - id: intro
+    card:
+      title: "Acme App"
+      subtitle: "Quick tour"
+      dur_ms: 1400
+      transition:
+        in: { type: fade, ms: 180 }
+        out: { type: fade, ms: 180 }
+      text_anim:
+        preset: pop_bounce
+        params: { overshoot: 1.12, settle_ms: 240 }
+      background:
+        type: image
+        path: inputs/bg.png
+  - id: demo
+    clips:
+      - id: input
+    emphasis:
+      max_hero_taps: 1
+      hero_taps:
+        - focus_id: demo.button
+          emphasis: [camera_pulse, tap_guide]
+  - id: cta
+    card:
+      title: "Get started"
+      subtitle: "Try it now"
+      dur_ms: 1400
+      transition:
+        in: { type: fade, ms: 180 }
+        out: { type: fade, ms: 180 }
+      text_anim:
+        preset: fade_in
+        params: { fade_ms: 220 }
+      background:
+        type: solid
+        color: brand.paper
+audio:
+  - id: music_bed
+    type: music
+    asset_path: inputs/music.wav
+    dst_in_ms: 0
+    loop: true
+    gain_db: -6
+    fade_in_ms: 250
+    fade_out_ms: 400
+  - id: voiceover
+    type: voiceover
+    asset_path: inputs/voiceover.wav
+    dst_in_ms: 0
+    dur_ms: 1800
+    duck_original_db: -18
+    fade_in_ms: 60
+    fade_out_ms: 80
+

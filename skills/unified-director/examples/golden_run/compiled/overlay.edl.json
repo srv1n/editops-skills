@@ -1,0 +1,317 @@
+{
+  "version": "0.1",
+  "project": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 60.0,
+    "duration_sec": 13.5,
+    "color_space": "srgb",
+    "matte_path": null,
+    "audio": null
+  },
+  "layers": [
+    {
+      "type": "shape",
+      "id": "card_bg/card_1",
+      "start": 12.0,
+      "end": 13.5,
+      "shape": {
+        "kind": "rect",
+        "w": 1080.0,
+        "h": 1920.0
+      },
+      "style": {
+        "fill": [
+          0.043137256,
+          0.0627451,
+          0.1254902,
+          1.0
+        ],
+        "stroke": null
+      },
+      "transform": {
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "position_px": [
+          540.0,
+          960.0
+        ],
+        "position_keys": [],
+        "rotation_deg": 0.0,
+        "scale": 1.0,
+        "autofit": null,
+        "clip_to_frame": true
+      },
+      "composite": {
+        "opacity": 1.0,
+        "opacity_keys": [],
+        "blend_mode": "normal",
+        "occlude_by_matte": false
+      },
+      "anim": null
+    },
+    {
+      "type": "text",
+      "id": "card_text/card_1/0",
+      "start": 12.0,
+      "end": 13.5,
+      "text": "Interstitial card",
+      "font": {
+        "path": "/System/Library/Fonts/NewYork.ttf",
+        "size_px": 96.0
+      },
+      "style": {
+        "fill": [
+          0.08,
+          0.08,
+          0.08,
+          1.0
+        ],
+        "gradient": null,
+        "stroke": null,
+        "shadow": null
+      },
+      "transform": {
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "position_px": [
+          540.0,
+          768.0
+        ],
+        "position_keys": [],
+        "rotation_deg": 0.0,
+        "scale": 1.0,
+        "autofit": {
+          "padding_px": 120.0,
+          "min_scale": 0.6,
+          "max_scale": 1.0,
+          "quantize_step": 0.02
+        },
+        "clip_to_frame": true
+      },
+      "composite": {
+        "opacity": 1.0,
+        "opacity_keys": [],
+        "blend_mode": "normal",
+        "occlude_by_matte": false
+      },
+      "anim": null,
+      "attachment": null,
+      "words": [],
+      "word_style": null
+    },
+    {
+      "type": "text",
+      "id": "card_text/card_1/1",
+      "start": 12.0,
+      "end": 13.5,
+      "text": "Used to segment the story.",
+      "font": {
+        "path": "/System/Library/Fonts/SFCompact.ttf",
+        "size_px": 78.0
+      },
+      "style": {
+        "fill": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "gradient": null,
+        "stroke": {
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.85
+          ],
+          "width_px": 7
+        },
+        "shadow": {
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.55
+          ],
+          "offset": [
+            3,
+            5
+          ],
+          "blur_px": 0
+        }
+      },
+      "transform": {
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "position_px": [
+          540.0,
+          1017.6
+        ],
+        "position_keys": [],
+        "rotation_deg": 0.0,
+        "scale": 1.0,
+        "autofit": {
+          "padding_px": 120.0,
+          "min_scale": 0.6,
+          "max_scale": 1.0,
+          "quantize_step": 0.02
+        },
+        "clip_to_frame": true
+      },
+      "composite": {
+        "opacity": 1.0,
+        "opacity_keys": [],
+        "blend_mode": "normal",
+        "occlude_by_matte": false
+      },
+      "anim": null,
+      "attachment": null,
+      "words": [],
+      "word_style": null
+    },
+    {
+      "type": "text",
+      "id": "captions/captions/main_video/0",
+      "start": 0.2,
+      "end": 2.0,
+      "text": "OPEN SETTINGS PICK A FONT",
+      "font": {
+        "path": "/System/Library/Fonts/SFCompact.ttf",
+        "size_px": 78.0
+      },
+      "style": {
+        "fill": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "gradient": null,
+        "stroke": {
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.85
+          ],
+          "width_px": 7
+        },
+        "shadow": {
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.55
+          ],
+          "offset": [
+            3,
+            5
+          ],
+          "blur_px": 0
+        }
+      },
+      "transform": {
+        "anchor": [
+          0.5,
+          0.5
+        ],
+        "position_px": [
+          540.0,
+          1612.7999
+        ],
+        "position_keys": [],
+        "rotation_deg": 0.0,
+        "scale": 1.0,
+        "autofit": {
+          "padding_px": 120.0,
+          "min_scale": 0.6,
+          "max_scale": 1.0,
+          "quantize_step": 0.02
+        },
+        "clip_to_frame": true
+      },
+      "composite": {
+        "opacity": 1.0,
+        "opacity_keys": [],
+        "blend_mode": "normal",
+        "occlude_by_matte": false
+      },
+      "anim": null,
+      "attachment": null,
+      "words": [
+        {
+          "text": "OPEN",
+          "start": 0.2,
+          "end": 0.55
+        },
+        {
+          "text": "SETTINGS",
+          "start": 0.55,
+          "end": 1.1
+        },
+        {
+          "text": "PICK",
+          "start": 1.1,
+          "end": 1.45
+        },
+        {
+          "text": "A",
+          "start": 1.45,
+          "end": 1.55
+        },
+        {
+          "text": "FONT",
+          "start": 1.55,
+          "end": 2.0
+        }
+      ],
+      "word_style": {
+        "mode": "current_only",
+        "highlight": {
+          "fill": [
+            0.18,
+            0.34,
+            0.85,
+            1.0
+          ],
+          "gradient": null,
+          "stroke": {
+            "color": [
+              0.0,
+              0.0,
+              0.0,
+              0.9
+            ],
+            "width_px": 9
+          },
+          "shadow": {
+            "color": [
+              0.0,
+              0.0,
+              0.0,
+              0.55
+            ],
+            "offset": [
+              3,
+              5
+            ],
+            "blur_px": 0
+          }
+        },
+        "show_all": true,
+        "max_lines": 2,
+        "bounce": null,
+        "window": {
+          "max_words": 6
+        }
+      }
+    }
+  ]
+}

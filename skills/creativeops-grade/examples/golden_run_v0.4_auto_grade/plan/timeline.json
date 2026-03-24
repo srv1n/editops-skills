@@ -1,0 +1,37 @@
+{
+  "schema": "clipops.timeline.v0.4",
+  "project": { "width": 1280, "height": 720, "fps": 30.0, "tick_rate": 60000 },
+  "meta": { "title": "Golden fixture (v0.4 auto grade)", "locale": "en_US" },
+  "brand": { "kit": "bundle/brand/kit.json", "overrides": {} },
+  "assets": {
+    "main": { "type": "video", "path": "bundle/graded/input.mp4" }
+  },
+  "signals": {},
+  "pacing": {
+    "preset": "editorial",
+    "before_tap_ms": 140,
+    "after_tap_ms": 200,
+    "after_transition_end_ms": 650,
+    "max_auto_hold_ms": 1200
+  },
+  "timeline": {
+    "tracks": [
+      {
+        "id": "video",
+        "kind": "video",
+        "items": [
+          {
+            "id": "clip_1",
+            "type": "video_clip",
+            "asset": "main",
+            "src_in_ms": 0,
+            "dst_in_ms": 0,
+            "dur_ms": 4000,
+            "effects": []
+          }
+        ]
+      }
+    ]
+  }
+}
+

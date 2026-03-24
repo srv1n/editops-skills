@@ -1,0 +1,22 @@
+{
+  "schema": "clipops.manifest.v0.1",
+  "run_dir": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_transitions_dip",
+  "output": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_transitions_dip/renders/final.mp4",
+  "output_sha256": "bc86539eb329834d7291c24de3748a19eec34fa0b1012732c10e6db701af8803",
+  "clipops": {
+    "cargo_pkg_version": "0.1.0",
+    "git_sha": null
+  },
+  "ffmpeg_version": "ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers",
+  "inputs_sha256": {
+    "assets.clip_001": "df8675a4748185f257160308ed33752679b403d9ddf431c5aa22cb88aa509240",
+    "assets.clip_002": "ecd091493c28919bc35de6bb535005e36638bdd310456e67763d9ec9f9502055",
+    "brand.kit": "415403891d9f8dc2a162e30b5ced489888f0efbc64ec00e4b819eddcfd5aaae7",
+    "compiled.camera_path.json": "03797a2d50fc9370de517d716e806d6c3987ef1faba304c820d242c99455ccb6",
+    "compiled.overlay.edl.json": "cbc98a2901bbc3459dc3fb272dabad2ddbf9abe3dd82da51f22fe2470fdc0f18",
+    "compiled.segment_map.json": "a7208da8991918830b86a0396f8545da6ee3471a11da8c609625540e5b19d06f",
+    "compiled.transition.edl.json": "48ac0b873a8d35d7dd5322627883f25724cb5eb6ffd60297d63aaf6a6f665356",
+    "fonts.default": "99b1a177669c568bcb157c107ea4ba0f1f60c77021df990cc5c1d7afa3863b92",
+    "plan.timeline.json": "862f189d4dfa6922029d0dd9fd159654f6340cde788bf2c2377574de30f711dd"
+  }
+}

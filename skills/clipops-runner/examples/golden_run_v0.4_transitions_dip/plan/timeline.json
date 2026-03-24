@@ -1,0 +1,77 @@
+{
+  "assets": {
+    "clip_001": {
+      "path": "inputs/clip_001.mp4",
+      "type": "video"
+    },
+    "clip_002": {
+      "path": "inputs/clip_002.mp4",
+      "type": "video"
+    }
+  },
+  "brand": {
+    "kit": "bundle/brand/kit.json",
+    "overrides": {}
+  },
+  "meta": {
+    "audio_join_ms": 40,
+    "audio_join_policy": "micro_crossfade",
+    "tempo_template": "standard_dip"
+  },
+  "pacing": {
+    "after_tap_ms": 200,
+    "after_transition_end_ms": 650,
+    "before_tap_ms": 140,
+    "max_auto_hold_ms": 1200,
+    "preset": "editorial"
+  },
+  "project": {
+    "fps": 30.0,
+    "height": 720,
+    "tick_rate": 60000,
+    "width": 1280
+  },
+  "schema": "clipops.timeline.v0.4",
+  "signals": {},
+  "timeline": {
+    "tracks": [
+      {
+        "id": "video",
+        "items": [
+          {
+            "asset": "clip_001",
+            "dst_in_ms": 0,
+            "dur_ms": 2000,
+            "effects": [],
+            "id": "clip_001",
+            "src_in_ms": 0,
+            "type": "video_clip"
+          },
+          {
+            "dst_in_ms": 2000,
+            "dur_ms": 250,
+            "id": "dip_001",
+            "suppress_overlays": true,
+            "transition": {
+              "color": "brand.paper",
+              "ease": "cubic_in_out",
+              "ms": 250,
+              "type": "dip"
+            },
+            "type": "transition"
+          },
+          {
+            "asset": "clip_002",
+            "dst_in_ms": 2250,
+            "dur_ms": 2000,
+            "effects": [],
+            "id": "clip_002",
+            "src_in_ms": 0,
+            "type": "video_clip"
+          }
+        ],
+        "kind": "video"
+      }
+    ]
+  }
+}

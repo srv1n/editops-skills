@@ -1,0 +1,19 @@
+{
+  "run_dir": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_auto_grade",
+  "schema": "clipops.color_stats.v0.1",
+  "videos": {
+    "inputs/input.mp4": {
+      "max_samples": 240,
+      "path": "inputs/input.mp4",
+      "risk": {
+        "highlights_clipped_risk_rate": 0.0,
+        "oversaturated_risk_rate": 0.0,
+        "shadows_crushed_risk_rate": 0.0,
+        "very_bright_rate": 0.0,
+        "very_dark_rate": 0.0
+      },
+      "sample_fps": 2.0,
+      "signalstats": {}
+    }
+  }
+}

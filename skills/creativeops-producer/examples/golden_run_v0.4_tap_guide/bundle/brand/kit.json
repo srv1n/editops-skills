@@ -1,0 +1,62 @@
+{
+  "callouts": {
+    "ripple": {
+      "color_ref": "tap",
+      "duration_ms": 650,
+      "lead_ms": 150,
+      "outline_color_ref": "tap",
+      "outline_padding_px": 12.0,
+      "outline_post_ms": 160,
+      "outline_stroke_px": 6.0,
+      "radius_px": 86.0,
+      "stroke_px": 6.0
+    }
+  },
+  "colors": {
+    "tap": [
+      0.1599999964237213,
+      0.4699999988079071,
+      0.9599999785423279,
+      1.0
+    ]
+  },
+  "fonts": {
+    "base": {
+      "path": "fonts/SFCompact.ttf",
+      "size_px": 48.0
+    }
+  },
+  "id": "golden_v0_4_tap_guide",
+  "styles": {
+    "caption_base": {
+      "fill": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shadow": {
+        "blur_px": 0,
+        "color": [
+          0.0,
+          0.0,
+          0.0,
+          0.699999988079071
+        ],
+        "offset": [
+          4,
+          6
+        ]
+      },
+      "stroke": {
+        "color": [
+          0.0,
+          0.0,
+          0.0,
+          0.8999999761581421
+        ],
+        "width_px": 8
+      }
+    }
+  }
+}

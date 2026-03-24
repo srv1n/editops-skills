@@ -1,0 +1,22 @@
+{
+  "correction": {
+    "brightness": 0.01,
+    "contrast": 1.03,
+    "gamma": 1.0,
+    "saturation": 0.97
+  },
+  "grade_plan_path": "analysis/grade_plan_lut_id.json",
+  "lut": {
+    "id": "product_clean_v01",
+    "path": "bundle/grade/luts/product_clean_v01.cube",
+    "strength": 0.55
+  },
+  "outputs": [
+    {
+      "input": "inputs/input.mp4",
+      "output": "bundle/graded/input.mp4"
+    }
+  ],
+  "schema": "clipops.grade_apply.v0.1",
+  "slot": "B"
+}

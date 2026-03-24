@@ -1,11 +1,13 @@
 ---
 name: beads-planner
-description: >
-  Use Beads (bd) as the persistent planning/backlog system: create epics + stories
-  from design specs, resume work by querying bd (ready/in_progress/blocked),
-  and capture discovered follow-ups with dependencies. Use whenever a request
-  mentions planning, backlog, epics/stories, “design spec”, “PRD”, “roadmap”,
-  or Beads/bd/issue tracking.
+description: "Use Beads (bd) as the persistent planning/backlog system: create epics + stories from design specs, resume work by querying bd (ready/in_progress/blocked), and capture discovered follow-ups with dependencies. Use whenever a request mentions planning, backlog, epics/stories, “design spec”, “PRD”, “roadmap”, or Beads/bd/issue tracking."
+license: MIT
+compatibility: "Local agent environments. Requires bd (beads) CLI on PATH. Optional python3 for the markdown-spec importer script. Works offline."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: planning
+  tags: [beads, bd, planning, backlog, workflow]
 ---
 
 # Beads Planner
@@ -38,6 +40,12 @@ Optional:
 - Status transitions (`open → in_progress → blocked/closed`)
 - Exportable JSONL via `bd sync --flush-only` (safe even without git)
 
+## Safety / Security
+
+- Treat backlog content as sensitive (internal plans); avoid pasting secrets or customer data into bd.
+- Prefer creating issues from sanitized specs; redact tokens/keys before importing markdown.
+- Avoid destructive operations (bulk deletes/renames) unless explicitly requested by the user.
+
 ## Canonical Workflow / Commands
 
 Start/resume:
@@ -52,7 +60,7 @@ bd ready
 Create work from a markdown spec:
 
 ```bash
-python3 skills/public/beads-planner/scripts/import_markdown_spec.py <spec.md> --labels spec,creativeops
+python3 scripts/import_markdown_spec.py <spec.md> --labels spec,creativeops
 ```
 
 ## Smoke Test
@@ -68,7 +76,8 @@ Expected artifacts:
 ## References / Contracts
 
 - Repo workflow notes: `docs/CREATIVEOPS_EPICS_AND_STORIES_V0.1.md`
-- Skill importer: `skills/public/beads-planner/scripts/import_markdown_spec.py`
+- Skill importer: `scripts/import_markdown_spec.py`
+- Trigger tests: `references/TRIGGER_TESTS.md`
 
 ## Session Start (Codex)
 
@@ -121,7 +130,7 @@ bd create "<Story 2>" --type task --priority 2 --parent <EPIC_ID> --acceptance "
 Use the bundled importer script:
 
 ```bash
-python3 skills/public/beads-planner/scripts/import_markdown_spec.py docs/specs/my_spec.md --labels spec,creativeops
+python3 scripts/import_markdown_spec.py docs/specs/my_spec.md --labels spec,creativeops
 ```
 
 Markdown input format (minimal):

@@ -1,7 +1,13 @@
 ---
 name: music-generator
-description: >
-  Generate trailer music from text prompts using AI music services such as Suno or Udio.
+description: "Generate trailer/background music from text prompts using AI music services such as Suno or Udio. Use when the user asks to create music (e.g. “cinematic trailer music”) and you have an API key configured."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell and network access (Claude Code, Codex). Requires python3. Music generation requires a configured provider API key (e.g. SUNO_API_KEY) and may incur costs."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: audio
+  tags: [music, generation, suno, udio, audio]
 ---
 
 # Music Generator Skill
@@ -14,6 +20,33 @@ This skill lets you create custom trailer music by describing what you want. Use
 - You don't have existing music that fits your video
 - You want music that perfectly matches your video's mood/tempo
 - You need royalty-free music for commercial use
+
+## When to Use (Triggers)
+
+- User asks to “generate trailer music”, “make background music”, “create a loop”, or “make cinematic music”.
+- You need a music bed that matches a target mood/tempo for a promo or montage.
+
+## Inputs
+
+Required:
+- A text prompt describing the desired music.
+
+Optional:
+- `SUNO_API_KEY` (required for Suno backend)
+- Duration in seconds (15–180)
+- Output file path
+- Style preset (`--style`)
+
+## Outputs
+
+- An audio file written to `--output` (typically `.wav`)
+
+## Safety / Security
+
+- Secrets: API keys must be provided via environment variables (e.g. `SUNO_API_KEY`). Never print or write keys into artifacts.
+- Network + costs: generation calls external services and may incur billing; confirm intent before running paid operations.
+- Rights: only generate or use music in ways consistent with the provider terms and the user’s intended usage (commercial vs personal).
+- Outputs: write generated audio to a user-controlled path; avoid committing large media files to git.
 
 ## Prerequisites
 
@@ -37,22 +70,42 @@ If you don't want to generate music:
 ## Quick Start
 
 ```bash
-# Navigate to the skill directory
-cd .claude/skills/music-generator
+mkdir -p outputs
 
-# Generate 30 seconds of epic trailer music
+# From inside the skill directory (so scripts/ resolves):
 python3 scripts/suno_generate.py \
   --prompt "Epic orchestral trailer, building tension, dark atmosphere" \
   --duration 30 \
-  --output ../../../inputs/generated_music.wav
+  --output outputs/generated_music.wav
 
 # Or use the generic wrapper (auto-selects backend)
 python3 scripts/generate_music.py \
   --prompt "Cinematic action music with drums and brass" \
   --style trailer \
   --duration 60 \
-  --output ../../../inputs/music.wav
+  --output outputs/music.wav
 ```
+
+## Canonical Workflow / Commands
+
+1) Ensure `SUNO_API_KEY` is set (or pass `--backend` in the wrapper).
+2) Run `scripts/generate_music.py` to pick the best backend.
+3) Save outputs under a run dir’s `inputs/` (or any path you control).
+
+## Smoke Test
+
+Verify the wrapper CLI is runnable (no API key required):
+
+```bash
+python3 scripts/generate_music.py --help
+```
+
+## References
+
+- Trigger tests: `references/TRIGGER_TESTS.md`
+- `scripts/generate_music.py` (backend selector)
+- `scripts/suno_generate.py` (Suno backend)
+- Env var: `SUNO_API_KEY`
 
 ## Command Reference
 
@@ -92,21 +145,17 @@ python3 scripts/generate_music.py \
 ### Step 1: Generate Music
 
 ```bash
-cd .claude/skills/music-generator
-
 python3 scripts/suno_generate.py \
   --prompt "Cinematic tension builder, orchestral, 100bpm, dramatic brass hits, building to climax" \
   --duration 45 \
-  --output ../../../inputs/trailer_music.wav
+  --output <run_dir>/inputs/trailer_music.wav
 ```
 
 ### Step 2: Analyze Beats
 
 ```bash
-cd ../../..  # Back to clipper root
-
-python3 tools/audio_analyze.py beats inputs/trailer_music.wav \
-  --output signals/beat_grid.json
+python3 tools/audio_analyze.py beats <run_dir>/inputs/trailer_music.wav \
+  --output <run_dir>/signals/beat_grid.json
 ```
 
 ### Step 3: Use in Timeline

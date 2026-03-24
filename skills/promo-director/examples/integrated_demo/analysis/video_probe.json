@@ -1,0 +1,22 @@
+{
+  "format": {
+    "duration": "13.560000"
+  },
+  "programs": [],
+  "stream_groups": [],
+  "streams": [
+    {
+      "avg_frame_rate": "25/1",
+      "codec_type": "video",
+      "height": 1080,
+      "pix_fmt": "yuv420p",
+      "r_frame_rate": "25/1",
+      "width": 1920
+    },
+    {
+      "avg_frame_rate": "12800/512",
+      "codec_type": "data",
+      "r_frame_rate": "0/0"
+    }
+  ]
+}

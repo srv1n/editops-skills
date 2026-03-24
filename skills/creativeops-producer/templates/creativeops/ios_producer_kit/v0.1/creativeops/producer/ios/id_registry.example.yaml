@@ -1,0 +1,39 @@
+version: "0.1"
+
+# Accessibility-ID registry for demo automation + editorial emphasis.
+#
+# - Keys MUST match iOS `accessibilityIdentifier` values.
+# - These IDs appear downstream as:
+#   - ios_ui_events.events[].focus_id
+#   - ios_ui_events.focus[].id (tap_target rectangles)
+#
+# This file is producer-owned configuration (review it like an API contract).
+#
+# Recommended location in a product iOS repo:
+#   creativeops/producer/ios/id_registry.yaml
+#
+# Optional (portable) location inside each run dir:
+#   producer/id_registry.yaml
+
+ids:
+  note.recordButton:
+    label: "Record"
+    kind: "button"
+    emphasis: ["tap_guide", "camera_pulse"]
+
+  note.articulateButton:
+    label: "Articulate"
+    kind: "button"
+    emphasis: ["tap_guide"]
+
+  note.templateSuggestion.apply:
+    label: "Apply template"
+    kind: "button"
+    emphasis: ["tap_guide"]
+
+  # Example: background taps that should never get arrows/pulse.
+  note.transcriptEditor:
+    label: "Transcript editor"
+    kind: "text_view"
+    emphasis: []
+

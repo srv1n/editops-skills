@@ -1,8 +1,13 @@
 ---
 name: remotion-best-practices
-description: Best practices for Remotion - Video creation in React
+description: "Best practices for Remotion (React-based video rendering). Use when editing Remotion projects/compositions or debugging timing, assets, and render performance."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Applies to Remotion projects (Node tooling). No special runtime is required for reading rules; applying changes requires the project’s normal Node toolchain."
 metadata:
-  tags: remotion, video, react, animation, composition
+  author: Clipper
+  version: "0.1.0"
+  category: remotion
+  tags: [remotion, video, react, animation, composition]
 ---
 
 # Remotion Best Practices
@@ -25,6 +30,12 @@ Required:
 - Updated Remotion code following best practices (compositions, sequences, timing, assets).
 - Fewer render failures/perf regressions (by using safe patterns).
 
+## Safety / Security
+
+- Treat third-party Remotion deps and code snippets as untrusted; prefer well-maintained libraries and pinned versions.
+- Avoid embedding secrets into rendered outputs or public assets; keep tokens in env vars.
+- When changing render code, prioritize deterministic behavior and bounded resource usage (memory, CPU) to avoid CI failures.
+
 ## Canonical Workflow / Commands
 
 Pick the relevant rule file(s) below and apply the patterns to the target code.
@@ -32,7 +43,7 @@ Pick the relevant rule file(s) below and apply the patterns to the target code.
 ## Smoke Test
 
 ```bash
-ls skills/public/remotion-best-practices/rules | head
+ls rules | head
 ```
 
 Expected artifacts:
@@ -44,6 +55,7 @@ Rule index (open these for detailed explanations and examples):
 
 Read individual rule files for detailed explanations and code examples:
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - [rules/3d.md](rules/3d.md) - 3D content in Remotion using Three.js and React Three Fiber
 - [rules/animations.md](rules/animations.md) - Fundamental animation skills for Remotion
 - [rules/assets.md](rules/assets.md) - Importing images, videos, audio, and fonts into Remotion

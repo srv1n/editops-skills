@@ -1,0 +1,1711 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/clipops/timeline/v0.4",
+  "title": "ClipOps Timeline Plan (v0.4)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "project",
+    "brand",
+    "assets",
+    "signals",
+    "timeline"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "clipops.timeline.v0.4"
+    },
+    "meta": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height",
+        "fps",
+        "tick_rate"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fps": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "tick_rate": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Ticks per second. Recommend 60000 so 30fps=2000 ticks/frame and 60fps=1000 ticks/frame."
+        }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kit"
+      ],
+      "properties": {
+        "kit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "overrides": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/AssetRef"
+      }
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/SignalRef"
+      }
+    },
+    "pacing": {
+      "$ref": "#/$defs/PacingSpecV04"
+    },
+    "timeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tracks"
+      ],
+      "properties": {
+        "tracks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/Track"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "AssetRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "path"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "video",
+            "audio",
+            "image",
+            "alpha_video",
+            "matte_sequence"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "SignalRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "path"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "focus_stream",
+            "pointer_events",
+            "word_timestamps",
+            "beat_grid"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "Track": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "items"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "video",
+            "audio",
+            "overlay"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/TimelineItem"
+          }
+        }
+      }
+    },
+    "TimelineItem": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/VideoClipItem"
+        },
+        {
+          "$ref": "#/$defs/TransitionItem"
+        },
+        {
+          "$ref": "#/$defs/HoldItem"
+        },
+        {
+          "$ref": "#/$defs/CardItem"
+        },
+        {
+          "$ref": "#/$defs/CaptionsItem"
+        },
+        {
+          "$ref": "#/$defs/CalloutsItem"
+        },
+        {
+          "$ref": "#/$defs/AudioClipItem"
+        },
+        {
+          "$ref": "#/$defs/SfxEventItem"
+        }
+      ]
+    },
+    "VideoClipItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "asset",
+        "src_in_ms",
+        "dst_in_ms",
+        "dur_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "video_clip"
+        },
+        "asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "src_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Effect"
+          },
+          "default": []
+        }
+      }
+    },
+    "TransitionItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "dst_in_ms",
+        "dur_ms",
+        "transition"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "transition"
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "transition": {
+          "$ref": "#/$defs/TransitionSpecV04"
+        },
+        "suppress_overlays": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "HoldItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "dur_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "hold"
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "anchor": {
+          "$ref": "#/$defs/CardAnchor"
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "freeze_video_pause_audio",
+            "freeze_video_keep_audio"
+          ],
+          "default": "freeze_video_pause_audio"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "dst_in_ms"
+          ]
+        },
+        {
+          "required": [
+            "anchor"
+          ]
+        }
+      ]
+    },
+    "CardItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "dur_ms",
+        "background",
+        "content"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "card"
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "anchor": {
+          "$ref": "#/$defs/CardAnchor"
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "splice",
+            "overlay"
+          ],
+          "default": "splice"
+        },
+        "transition": {
+          "$ref": "#/$defs/CardTransition"
+        },
+        "text_anim": {
+          "$ref": "#/$defs/TextAnimSpec"
+        },
+        "background": {
+          "$ref": "#/$defs/CardBackground"
+        },
+        "content": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/CardContent"
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "dst_in_ms"
+          ]
+        },
+        {
+          "required": [
+            "anchor"
+          ]
+        }
+      ]
+    },
+    "CardAnchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signal",
+        "event_type"
+      ],
+      "properties": {
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "event_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string"
+        },
+        "focus_id": {
+          "type": "string"
+        },
+        "occurrence": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "offset_ms": {
+          "type": "integer",
+          "default": 0
+        }
+      }
+    },
+    "CardTransition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "in": {
+          "$ref": "#/$defs/TransitionSpec"
+        },
+        "out": {
+          "$ref": "#/$defs/TransitionSpec"
+        }
+      }
+    },
+    "TransitionSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ms"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "fade"
+          ]
+        },
+        "ms": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "TransitionSpecV04": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ms"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "dip",
+            "crossfade",
+            "slide"
+          ]
+        },
+        "ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "color": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ease": {
+          "type": "string",
+          "enum": [
+            "linear",
+            "cubic_in_out"
+          ],
+          "default": "cubic_in_out"
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "dip"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "color"
+            ]
+          }
+        }
+      ]
+    },
+    "PacingSpecV04": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preset": {
+          "type": "string",
+          "enum": [
+            "editorial",
+            "quickstart",
+            "screen_studio",
+            "custom"
+          ],
+          "default": "editorial"
+        },
+        "after_transition_end_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 650
+        },
+        "before_tap_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 140
+        },
+        "after_tap_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 200
+        },
+        "max_auto_hold_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 1200
+        }
+      }
+    },
+    "TextAnimSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preset"
+      ],
+      "properties": {
+        "preset": {
+          "type": "string",
+          "enum": [
+            "fade_in",
+            "pop_bounce"
+          ]
+        },
+        "params": {
+          "$ref": "#/$defs/TextAnimParams"
+        }
+      }
+    },
+    "TextAnimParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fade_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "overshoot": {
+          "type": "number",
+          "minimum": 0
+        },
+        "settle_ms": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "CardBackground": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "solid",
+            "image"
+          ]
+        },
+        "color": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "solid"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "color"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "image"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "path"
+            ]
+          }
+        }
+      ]
+    },
+    "CardContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "text"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "title",
+            "subtitle",
+            "body"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "style_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "CaptionsItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "dst_in_ms",
+        "dur_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "captions"
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "style_ref": {
+          "type": "string"
+        },
+        "highlight": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "word"
+              ]
+            },
+            "lookahead_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        },
+        "occlusion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "none",
+                "behind_matte"
+              ]
+            },
+            "matte_asset": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "signal"
+          ]
+        },
+        {
+          "required": [
+            "signals"
+          ]
+        }
+      ]
+    },
+    "CalloutsItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "dst_in_ms",
+        "dur_ms",
+        "preset"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "callouts"
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "preset": {
+          "type": "string",
+          "enum": [
+            "ripple",
+            "highlight_rect",
+            "highlight_ring",
+            "click_burst",
+            "spotlight",
+            "spotlight_blur",
+            "bracket",
+            "underline",
+            "scribble_circle",
+            "lens",
+            "step_label",
+            "tap_guide"
+          ]
+        },
+        "ripple": {
+          "$ref": "#/$defs/CalloutsRippleStyle"
+        },
+        "tap_guide": {
+          "$ref": "#/$defs/CalloutsTapGuideStyle"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "preset": {
+                "const": "tap_guide"
+              }
+            },
+            "required": [
+              "preset"
+            ]
+          },
+          "then": {
+            "required": [
+              "tap_guide"
+            ]
+          }
+        }
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "signal"
+          ]
+        },
+        {
+          "required": [
+            "signals"
+          ]
+        }
+      ]
+    },
+    "CalloutsRippleStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lead_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outline_post_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "color_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "radius_px": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "stroke_px": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "outline_color_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outline_stroke_px": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "outline_padding_px": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "CalloutsTapGuideStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ripple_enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "outline_enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "focus_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "arrow": {
+          "$ref": "#/$defs/CalloutsTapGuideArrowStyle"
+        },
+        "label": {
+          "$ref": "#/$defs/CalloutsTapGuideLabelStyle"
+        }
+      },
+      "required": [
+        "arrow"
+      ]
+    },
+    "CalloutsTapGuideArrowStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lead_ms",
+        "draw_ms",
+        "fade_out_ms",
+        "color_ref",
+        "stroke_px",
+        "curve"
+      ],
+      "properties": {
+        "lead_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "draw_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hold_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "fade_out_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "color_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stroke_px": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "curve": {
+          "$ref": "#/$defs/CalloutsTapGuideArrowCurveStyle"
+        },
+        "arrowhead": {
+          "$ref": "#/$defs/CalloutsTapGuideArrowheadStyle"
+        },
+        "hand_drawn": {
+          "$ref": "#/$defs/CalloutsTapGuideHandDrawnStyle"
+        }
+      }
+    },
+    "CalloutsTapGuideArrowCurveStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "start_strategy",
+        "start_offset_px",
+        "curvature_px"
+      ],
+      "properties": {
+        "target": {
+          "type": "string",
+          "enum": [
+            "tap_point",
+            "focus_rect_center"
+          ],
+          "default": "focus_rect_center"
+        },
+        "start_strategy": {
+          "type": "string",
+          "enum": [
+            "auto_offset",
+            "fixed_offset"
+          ],
+          "default": "auto_offset"
+        },
+        "start_offset_px": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "start_angle_deg": {
+          "type": "number"
+        },
+        "curvature_px": {
+          "type": "number"
+        }
+      }
+    },
+    "CalloutsTapGuideArrowheadStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "length_px": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "default": 22
+        },
+        "angle_deg": {
+          "type": "number",
+          "default": 26
+        }
+      }
+    },
+    "CalloutsTapGuideHandDrawnStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "jitter_px": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "wobble_px": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "wobble_cycles": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "passes": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "pass_offset_px": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        }
+      }
+    },
+    "CalloutsTapGuideLabelStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "text": {
+          "type": "string"
+        },
+        "style_ref": {
+          "type": "string",
+          "minLength": 1,
+          "default": "caption_base"
+        },
+        "offset_px": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "default": [
+            -20.0,
+            -20.0
+          ]
+        },
+        "padding_px": {
+          "type": "number",
+          "minimum": 0,
+          "default": 14.0
+        },
+        "bg_color_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bg_alpha": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.85
+        },
+        "radius_px": {
+          "type": "number",
+          "minimum": 0,
+          "default": 18.0
+        },
+        "max_width_px": {
+          "type": "number",
+          "minimum": 50,
+          "default": 440.0
+        }
+      }
+    },
+    "AudioClipItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "asset",
+        "dst_in_ms",
+        "dur_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "audio_clip"
+        },
+        "asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "src_in_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "gain_db": {
+          "type": "number",
+          "default": 0
+        },
+        "fade_in_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "fade_out_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "loop": {
+          "type": "boolean",
+          "default": false
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AudioEffect"
+          },
+          "default": []
+        },
+        "mix": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "duck_original_db": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "AudioEffect": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/AudioEffectEq"
+        },
+        {
+          "$ref": "#/$defs/AudioEffectReverb"
+        },
+        {
+          "$ref": "#/$defs/AudioEffectFilter"
+        },
+        {
+          "$ref": "#/$defs/AudioEffectPitch"
+        },
+        {
+          "$ref": "#/$defs/AudioEffectTempo"
+        }
+      ]
+    },
+    "AudioEffectEq": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "preset"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "eq"
+        },
+        "preset": {
+          "type": "string",
+          "enum": [
+            "radio",
+            "muffled",
+            "telephone",
+            "warm",
+            "bright"
+          ]
+        }
+      }
+    },
+    "AudioEffectReverb": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "preset"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "reverb"
+        },
+        "preset": {
+          "type": "string",
+          "enum": [
+            "small_room",
+            "large_hall",
+            "cathedral",
+            "plate"
+          ]
+        },
+        "wet_db": {
+          "type": "number",
+          "default": -6
+        }
+      }
+    },
+    "AudioEffectFilter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "mode",
+        "cutoff_hz"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "filter"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "lowpass",
+            "highpass",
+            "bandpass"
+          ]
+        },
+        "cutoff_hz": {
+          "type": "number",
+          "minimum": 20,
+          "maximum": 20000
+        }
+      }
+    },
+    "AudioEffectPitch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "semitones"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "pitch"
+        },
+        "semitones": {
+          "type": "number",
+          "minimum": -12,
+          "maximum": 12
+        }
+      }
+    },
+    "AudioEffectTempo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ratio"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "tempo"
+        },
+        "ratio": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 2.0
+        }
+      }
+    },
+    "SfxEventItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "cat",
+        "asset",
+        "start_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "sfx_event"
+        },
+        "cat": {
+          "type": "string",
+          "enum": [
+            "hit",
+            "suckback",
+            "whoosh",
+            "riser",
+            "drone",
+            "boom",
+            "stomp",
+            "foley"
+          ]
+        },
+        "asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "trim_start_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "gain_db": {
+          "type": "number",
+          "default": 0
+        },
+        "pan": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "default": 0
+        },
+        "fade_in_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "fade_out_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "align": {
+          "$ref": "#/$defs/SfxAlign"
+        }
+      }
+    },
+    "SfxAlign": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "none",
+            "beat",
+            "downbeat"
+          ],
+          "default": "none"
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "snap_tolerance_ms": {
+          "type": "integer",
+          "default": 30
+        }
+      }
+    },
+    "Effect": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/CameraFollowEffect"
+        },
+        {
+          "$ref": "#/$defs/CameraTapPulseEffect"
+        }
+      ]
+    },
+    "CameraFollowEffect": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/CameraFollowEffectExplicit"
+        },
+        {
+          "$ref": "#/$defs/CameraFollowEffectPreset"
+        }
+      ]
+    },
+    "CameraFollowEffectExplicit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "signal",
+        "rect_stream",
+        "target_aspect",
+        "padding",
+        "smoothing_ms",
+        "deadband_px",
+        "max_pan_px_per_s",
+        "max_zoom_per_s",
+        "ease"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "camera_follow"
+        },
+        "preset": {
+          "type": "string",
+          "enum": [
+            "editorial",
+            "quickstart",
+            "screen_studio"
+          ]
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rect_stream": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_aspect": {
+          "type": "string",
+          "pattern": "^[0-9]+:[0-9]+$"
+        },
+        "padding": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "smoothing_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deadband_px": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_pan_px_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "max_zoom_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ease": {
+          "type": "string",
+          "enum": [
+            "linear",
+            "cubic_in_out"
+          ]
+        },
+        "min_focus_area_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "clip_start": {
+          "type": "string",
+          "enum": [
+            "snap_to_focus",
+            "start_full_frame",
+            "carry_over"
+          ]
+        }
+      }
+    },
+    "CameraFollowEffectPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "signal",
+        "rect_stream",
+        "target_aspect",
+        "preset"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "camera_follow"
+        },
+        "preset": {
+          "type": "string",
+          "enum": [
+            "editorial",
+            "quickstart",
+            "screen_studio"
+          ]
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rect_stream": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_aspect": {
+          "type": "string",
+          "pattern": "^[0-9]+:[0-9]+$"
+        },
+        "padding": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "smoothing_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deadband_px": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_pan_px_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "max_zoom_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ease": {
+          "type": "string",
+          "enum": [
+            "linear",
+            "cubic_in_out"
+          ]
+        },
+        "min_focus_area_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "clip_start": {
+          "type": "string",
+          "enum": [
+            "snap_to_focus",
+            "start_full_frame",
+            "carry_over"
+          ]
+        }
+      }
+    },
+    "CameraTapPulseEffect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "signal"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "camera_tap_pulse"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "preset": {
+          "type": "string",
+          "enum": [
+            "editorial",
+            "quickstart",
+            "screen_studio"
+          ]
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scale": {
+          "type": "number",
+          "minimum": 1
+        },
+        "pull_toward_target": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "max_pull_px": {
+          "type": "number",
+          "minimum": 0
+        },
+        "lead_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hold_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "out_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ease": {
+          "type": "string",
+          "enum": [
+            "linear",
+            "cubic_in_out"
+          ]
+        },
+        "min_interval_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "clip_end_guard_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "suppress_during_transitions": {
+          "type": "boolean"
+        },
+        "focus_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

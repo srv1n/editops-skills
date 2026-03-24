@@ -1,0 +1,85 @@
+{
+  "language": "en",
+  "segments": [
+    {
+      "start": 0.06,
+      "end": 0.86,
+      "text": "ONE TWO THREE",
+      "words": [
+        {
+          "text": "ONE",
+          "start": 0.06,
+          "end": 0.26,
+          "confidence": 0.99
+        },
+        {
+          "text": "TWO",
+          "start": 0.31,
+          "end": 0.51,
+          "confidence": 0.99
+        },
+        {
+          "text": "THREE",
+          "start": 0.56,
+          "end": 0.86,
+          "confidence": 0.99
+        }
+      ]
+    },
+    {
+      "start": 0.94,
+      "end": 1.74,
+      "text": "FOUR FIVE SIX",
+      "words": [
+        {
+          "text": "FOUR",
+          "start": 0.94,
+          "end": 1.14,
+          "confidence": 0.99
+        },
+        {
+          "text": "FIVE",
+          "start": 1.19,
+          "end": 1.39,
+          "confidence": 0.99
+        },
+        {
+          "text": "SIX",
+          "start": 1.44,
+          "end": 1.74,
+          "confidence": 0.99
+        }
+      ]
+    },
+    {
+      "start": 1.82,
+      "end": 2.62,
+      "text": "SEVEN EIGHT NINE",
+      "words": [
+        {
+          "text": "SEVEN",
+          "start": 1.82,
+          "end": 2.02,
+          "confidence": 0.99
+        },
+        {
+          "text": "EIGHT",
+          "start": 2.07,
+          "end": 2.27,
+          "confidence": 0.99
+        },
+        {
+          "text": "NINE",
+          "start": 2.32,
+          "end": 2.62,
+          "confidence": 0.99
+        }
+      ]
+    }
+  ],
+  "_jumpcut": {
+    "profile": "youtube_jumpcut_v0.1",
+    "micro_xfade_sec": 0.04,
+    "segment_count": 3
+  }
+}

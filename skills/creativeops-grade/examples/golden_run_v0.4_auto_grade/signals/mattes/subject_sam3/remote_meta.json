@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "provider": "http",
+  "url": "https://we3wn5k8d5ucyp-8000.proxy.runpod.net/mattes",
+  "input": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_auto_grade/bundle/graded/input.mp4",
+  "out_dir": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_auto_grade/signals/mattes/subject_sam3",
+  "response": {
+    "status_code": 200,
+    "content_type": "application/zip",
+    "content_length": "30165",
+    "url": "https://we3wn5k8d5ucyp-8000.proxy.runpod.net/mattes"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipper.dev/schemas/appstore_creatives/experiment_matrix/v0.1",
+  "title": "App Store Creatives Experiment Matrix (v0.1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "axes", "variantId"],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "clipper.appstore_creatives.experiment_matrix.v0.1"
+    },
+    "variantId": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy"],
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["stable_hash_v1", "explicit_ids"]
+        },
+        "prefix": { "type": ["string", "null"] }
+      }
+    },
+    "axes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/Axis" }
+    },
+    "invariants": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "description": "JSON pointer (or dotted path) describing a field that must not vary across treatments."
+      }
+    },
+    "constraints": {
+      "type": ["object", "null"],
+      "additionalProperties": true,
+      "description": "Optional extra constraints (e.g. max variants, mutually exclusive axis values)."
+    }
+  },
+  "$defs": {
+    "Axis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "values"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "description": { "type": ["string", "null"] },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "overrides": {
+                "type": ["object", "null"],
+                "additionalProperties": true,
+                "description": "Freeform patch object to apply during compilation."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

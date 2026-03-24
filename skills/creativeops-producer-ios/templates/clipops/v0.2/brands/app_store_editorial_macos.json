@@ -1,0 +1,54 @@
+{
+  "id": "app_store_editorial_macos_v0.2",
+  "scale": { "ref_height_px": 1920 },
+  "fonts": {
+    "headline": { "path": "/System/Library/Fonts/NewYork.ttf", "size_px": 96 },
+    "caption": { "path": "/System/Library/Fonts/SFCompact.ttf", "size_px": 78 }
+  },
+  "colors": {
+    "paper": [0.98, 0.97, 0.94, 1],
+    "ink": [0.08, 0.08, 0.08, 1],
+    "ink_blue": [0.18, 0.34, 0.85, 1],
+    "tap": [0.18, 0.34, 0.85, 1],
+    "white": [1, 1, 1, 1],
+    "black": [0, 0, 0, 1],
+    "yellow": [1, 0.9, 0.2, 1]
+  },
+  "styles": {
+    "title": { "fill": [0.08, 0.08, 0.08, 1] },
+    "caption_base": {
+      "fill": [1, 1, 1, 1],
+      "stroke": { "color": [0, 0, 0, 0.85], "width_px": 7 },
+      "shadow": { "color": [0, 0, 0, 0.55], "offset": [3, 5], "blur_px": 0 }
+    },
+    "caption_highlight": {
+      "fill": [0.18, 0.34, 0.85, 1],
+      "stroke": { "color": [0, 0, 0, 0.9], "width_px": 9 },
+      "shadow": { "color": [0, 0, 0, 0.55], "offset": [3, 5], "blur_px": 0 }
+    }
+  },
+  "callouts": {
+    "ripple": {
+      "duration_ms": 650,
+      "lead_ms": 150,
+      "outline_post_ms": 160,
+      "color_ref": "tap",
+      "radius_px": 86,
+      "stroke_px": 6,
+      "outline_color_ref": "tap",
+      "outline_stroke_px": 6,
+      "outline_padding_px": 12
+    }
+  },
+  "layout": {
+    "card": {
+      "x_frac": 0.5,
+      "title_y_frac": 0.4,
+      "subtitle_y_frac": 0.53,
+      "body_y_frac": 0.66,
+      "autofit_padding_px": 120
+    },
+    "captions": { "x_frac": 0.5, "y_frac": 0.84 }
+  }
+}
+

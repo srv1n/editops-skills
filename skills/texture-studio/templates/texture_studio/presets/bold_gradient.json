@@ -1,0 +1,32 @@
+{
+  "schema": "clipper.texture_studio.preset.v0.1",
+  "id": "bold_gradient",
+  "background": {
+    "gradient": {
+      "start": "#92400e",
+      "end": "#d97706",
+      "angle_deg": 135
+    },
+    "textures": {
+      "screen": { "enabled": true, "opacity": 0.35 },
+      "multiply": { "enabled": true, "opacity": 0.25 },
+      "overlay": { "enabled": true, "opacity": 0.4 }
+    },
+    "blur_px": 0.5
+  },
+  "typography": {
+    "font_family": "Space Grotesk",
+    "font_weight": 900,
+    "letter_spacing_em": -0.04
+  },
+  "text_effects": {
+    "ink_bleed": { "enabled": true, "amount": 2 },
+    "grain": { "enabled": true, "intensity": 0.6, "pattern": "fine" },
+    "knockout": { "enabled": false, "amount": 0.7, "pattern": "worn" },
+    "letterpress": { "enabled": false, "depth": 1 }
+  },
+  "color_palette": {
+    "primary": "#92400e",
+    "secondary": "#d97706"
+  }
+}

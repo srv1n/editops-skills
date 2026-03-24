@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/director/storyboard/v0.1",
+  "title": "ClipOps Director Storyboard (v0.1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "preset", "steps"],
+  "properties": {
+    "version": { "type": "string", "const": "0.1" },
+    "meta": { "type": "object", "additionalProperties": true },
+
+    "preset": {
+      "type": "string",
+      "enum": ["editorial", "quickstart", "screen_studio", "custom"],
+      "default": "editorial"
+    },
+
+    "project": { "$ref": "#/$defs/ProjectSpec" },
+    "brand": { "$ref": "#/$defs/BrandSpec" },
+    "pacing": { "$ref": "#/$defs/PacingSpec" },
+
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/Step" }
+    },
+
+    "audio": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/AudioLaneItem" },
+      "default": []
+    }
+  },
+
+  "$defs": {
+    "ProjectSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "fps": { "type": "number", "exclusiveMinimum": 0 },
+        "tick_rate": { "type": "integer", "minimum": 1 }
+      }
+    },
+
+    "BrandSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kit"],
+      "properties": {
+        "kit": { "type": "string", "minLength": 1 },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "PacingSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preset": {
+          "type": "string",
+          "enum": ["editorial", "quickstart", "custom"]
+        },
+        "after_transition_end_ms": { "type": "integer", "minimum": 0 },
+        "before_tap_ms": { "type": "integer", "minimum": 0 },
+        "after_tap_ms": { "type": "integer", "minimum": 0 },
+        "max_auto_hold_ms": { "type": "integer", "minimum": 0 }
+      }
+    },
+
+    "Step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string" },
+        "notes": { "type": "string" },
+
+        "card": { "$ref": "#/$defs/CardSpec" },
+
+        "clips": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ClipRef" },
+          "minItems": 1
+        },
+
+        "transition_to_next": { "$ref": "#/$defs/TransitionToNextSpec" },
+
+        "emphasis": { "$ref": "#/$defs/EmphasisSpec" },
+
+        "captions": { "$ref": "#/$defs/CaptionsSpec" }
+      },
+      "anyOf": [{ "required": ["card"] }, { "required": ["clips"] }]
+    },
+
+    "CardSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "subtitle": { "type": "string" },
+        "body": { "type": "string" },
+        "dur_ms": { "type": "integer", "minimum": 1 },
+        "transition": { "$ref": "#/$defs/CardTransition" },
+        "text_anim": { "$ref": "#/$defs/TextAnimSpec" },
+        "background": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": {
+            "type": { "type": "string", "enum": ["solid", "image"] },
+            "color": { "type": "string" },
+            "path": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "CardTransition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "in": { "$ref": "#/$defs/TransitionSpec" },
+        "out": { "$ref": "#/$defs/TransitionSpec" }
+      }
+    },
+
+    "TransitionSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "ms"],
+      "properties": {
+        "type": { "type": "string", "enum": ["fade"] },
+        "ms": { "type": "integer", "minimum": 0 }
+      }
+    },
+
+    "TextAnimSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preset"],
+      "properties": {
+        "preset": { "type": "string", "enum": ["fade_in", "pop_bounce"] },
+        "params": { "$ref": "#/$defs/TextAnimParams" }
+      }
+    },
+
+    "TextAnimParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fade_ms": { "type": "number", "minimum": 0 },
+        "overshoot": { "type": "number", "minimum": 0 },
+        "settle_ms": { "type": "number", "minimum": 0 }
+      }
+    },
+
+    "ClipRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Preferred: asset id, e.g. clip_001"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Alternative: inputs path, e.g. inputs/clip_001.mp4"
+        },
+        "trim": { "$ref": "#/$defs/TrimSpec" }
+      },
+      "oneOf": [{ "required": ["id"] }, { "required": ["path"] }]
+    },
+
+    "TrimSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "src_in_ms": { "type": "integer", "minimum": 0 },
+        "src_out_ms": { "type": "integer", "minimum": 0 }
+      }
+    },
+
+    "TransitionToNextSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "type": "string", "enum": ["none", "dip", "crossfade", "slide"] },
+        "ms": { "type": "integer", "minimum": 1 },
+        "color": { "type": "string" },
+        "ease": { "type": "string", "enum": ["linear", "cubic_in_out"] },
+        "direction": { "type": "string", "enum": ["left", "right"] },
+        "suppress_overlays": { "type": "boolean" }
+      }
+    },
+
+    "EmphasisSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_hero_taps": { "type": "integer", "minimum": 0, "default": 3 },
+        "hero_taps": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/HeroTapSpec" },
+          "default": []
+        }
+      }
+    },
+
+    "HeroTapSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "focus_id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" },
+        "emphasis": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["camera_pulse", "tap_guide"] },
+          "minItems": 1
+        }
+      },
+      "required": ["focus_id", "emphasis"]
+    },
+
+    "CaptionsSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": { "type": "string", "enum": ["auto", "on", "off"], "default": "auto" }
+      }
+    },
+
+    "AudioLaneItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["voiceover", "music"] },
+        "asset_path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Path to an audio file (director-owned; may be repo-relative)"
+        },
+        "dst_in_ms": { "type": "integer", "minimum": 0 },
+        "dur_ms": { "type": "integer", "minimum": 1 },
+        "duck_original_db": { "type": "number" },
+        "gain_db": { "type": "number" },
+        "fade_in_ms": { "type": "integer", "minimum": 0 },
+        "fade_out_ms": { "type": "integer", "minimum": 0 },
+        "loop": { "type": "boolean" }
+      }
+    }
+  }
+}

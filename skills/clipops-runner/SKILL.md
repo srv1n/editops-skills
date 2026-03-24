@@ -1,11 +1,13 @@
 ---
 name: clipops-runner
-description: >
-  Run, validate, compile, QA, and render ClipOps run directories using the
-  `clipops` CLI (v0.1–v0.4). Use when you need to render a run dir to MP4,
-  enforce v0.4 portability (bundle fonts + lint paths), debug schema/asset
-  issues, or standardize the render pipeline
-  (bundle→lint→validate→compile→qa→render) for CI or agent orchestration.
+description: "Run, validate, compile, QA, and render ClipOps run directories using the `clipops` CLI (v0.1–v0.4). Use when you need to render a run dir to MP4, enforce v0.4 portability (bundle fonts + lint paths), debug schema/asset issues, or standardize the render pipeline (bundle→lint→validate→compile→qa→render) for CI or agent orchestration."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3, a clipops binary on PATH (or CLIPOPS_BIN), and ffmpeg for renders. Schema validation needs schemas/clipops/v0.4 via --schema-dir (vendored when packed)."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: clipops
+  tags: [clipops, rendering, qa, validation, portability]
 ---
 
 # Clipops Runner
@@ -35,6 +37,13 @@ Optional:
 - `compiled/` (segment map, overlay EDLs, camera path, etc.)
 - `qa/` (warnings + seam diagnostics)
 - `renders/final.mp4` (when you render)
+
+## Safety / Security
+
+- Confirm the target run dir before running bundle/lint/validate/render; these commands write `bundle/`, `compiled/`, `qa/`, and `renders/`.
+- Treat run dirs and bundled assets as untrusted inputs; validate against v0.4 schemas before rendering.
+- Enforce portability before sharing run dirs: run `clipops lint-paths` to catch absolute paths in `plan/` or `compiled/`.
+- External tools: rendering uses `clipops` and `ffmpeg`; avoid running unknown binaries or scripts.
 
 ## Joins / Transitions (what exists today)
 
@@ -107,6 +116,7 @@ After `clipops compile` (or `clipops qa`, which compiles internally), inspect:
 
 ## References
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - `references/CLIPOPS_RUN_DIR_PORTABILITY_AND_BUNDLING_V0.4.md`
 - `references/CLIPOPS_CLIP_TO_CLIP_TRANSITIONS_V0.4.md`
 - `references/CLIPOPS_JOINS_INVOCATION_LIBRARY_V0.1.md`

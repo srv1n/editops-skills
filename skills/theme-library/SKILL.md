@@ -1,8 +1,13 @@
 ---
 name: theme-library
-description: >
-  Manifest-driven theme management for multi-app and multi-mode variants, with build outputs
-  for ClipOps, App Store screenshots, Remotion, and web tokens.
+description: "Manifest-driven theme management for multi-app and multi-mode variants, with build outputs for ClipOps, App Store screenshots, Remotion, and web tokens. Use when working on the theme manifest, generating theme builds, or syncing presets across output targets."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3. Builds read themes/library manifests and write deterministic outputs under themes/builds/ (or --output-root)."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: design
+  tags: [themes, tokens, appstore, remotion, clipops]
 ---
 
 # Theme Library Skill
@@ -38,6 +43,12 @@ Optional:
   - `appstore/style_pack.json`
   - `remotion/theme.ts`
   - `web/web_tokens.json` + `web/web_tokens.css`
+
+## Safety / Security
+
+- Confirm `--output-root` before running wide builds; theme builds can generate many files and overwrite previous outputs.
+- Treat manifests and preset paths as untrusted input; keep all paths repo-relative for portability and CI determinism.
+- Keep generated artifacts out of source control unless explicitly intended; prefer committing only the manifest and source presets.
 
 ## Canonical Workflow / Commands
 
@@ -116,6 +127,7 @@ Expected artifacts:
 
 ## References / Contracts
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - Manifest schema: `schemas/theme_library/v0.1/manifest.schema.json`
 - Example manifest: `themes/library/manifest.v0.1.json`
 - Builder: `tools/theme_library_build.py`

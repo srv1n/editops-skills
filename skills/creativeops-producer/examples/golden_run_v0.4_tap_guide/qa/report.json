@@ -1,0 +1,99 @@
+{
+  "anchors": [],
+  "issues": [
+    {
+      "code": "camera.speed_spike",
+      "details": {
+        "asset": "input",
+        "frame_idx": 10,
+        "zoom_ln_per_s": 0.4794818162918091
+      },
+      "level": "warning",
+      "message": "Camera zoom speed spike: 0.479 ln(zoom)/s (asset 'input')"
+    },
+    {
+      "code": "camera.speed_spike",
+      "details": {
+        "asset": "input",
+        "frame_idx": 11,
+        "zoom_ln_per_s": 0.6123607754707336
+      },
+      "level": "warning",
+      "message": "Camera zoom speed spike: 0.612 ln(zoom)/s (asset 'input')"
+    },
+    {
+      "code": "camera.speed_spike",
+      "details": {
+        "asset": "input",
+        "frame_idx": 12,
+        "zoom_ln_per_s": 0.46247392892837524
+      },
+      "level": "warning",
+      "message": "Camera zoom speed spike: 0.462 ln(zoom)/s (asset 'input')"
+    },
+    {
+      "code": "camera.speed_spike",
+      "details": {
+        "asset": "input",
+        "frame_idx": 16,
+        "zoom_ln_per_s": 0.24957768619060516
+      },
+      "level": "warning",
+      "message": "Camera zoom speed spike: 0.250 ln(zoom)/s (asset 'input')"
+    },
+    {
+      "code": "camera.speed_spike",
+      "details": {
+        "asset": "input",
+        "frame_idx": 17,
+        "zoom_ln_per_s": 0.28326907753944397
+      },
+      "level": "warning",
+      "message": "Camera zoom speed spike: 0.283 ln(zoom)/s (asset 'input')"
+    },
+    {
+      "code": "camera.speed_spike",
+      "details": {
+        "asset": "input",
+        "frame_idx": 18,
+        "zoom_ln_per_s": 0.2888690233230591
+      },
+      "level": "warning",
+      "message": "Camera zoom speed spike: 0.289 ln(zoom)/s (asset 'input')"
+    },
+    {
+      "code": "camera.speed_spike",
+      "details": {
+        "asset": "input",
+        "frame_idx": 19,
+        "zoom_ln_per_s": 0.26531729102134705
+      },
+      "level": "warning",
+      "message": "Camera zoom speed spike: 0.265 ln(zoom)/s (asset 'input')"
+    },
+    {
+      "code": "camera.speed_spike",
+      "details": {
+        "asset": "input",
+        "frame_idx": 20,
+        "zoom_ln_per_s": 0.21161989867687225
+      },
+      "level": "warning",
+      "message": "Camera zoom speed spike: 0.212 ln(zoom)/s (asset 'input')"
+    }
+  ],
+  "metrics": {
+    "max_pan_px_per_s": 464.3572692871094,
+    "max_zoom_ln_per_s": 0.6123607754707336,
+    "safe_area_px": {
+      "bottom": 0,
+      "left": 0,
+      "right": 0,
+      "top": 0
+    }
+  },
+  "ok": true,
+  "report_path": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_tap_guide/qa/report.json",
+  "run_dir": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_tap_guide",
+  "schema": "clipops.qa_report.v0.1"
+}

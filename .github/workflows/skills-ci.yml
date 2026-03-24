@@ -1,0 +1,27 @@
+name: skills-ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Lint skills
+        run: python3 tools/skills_release.py lint
+
+      - name: Build zips (smoke)
+        run: python3 tools/skills_release.py build-zips --out dist --tag ci
+

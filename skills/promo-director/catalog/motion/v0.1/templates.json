@@ -1,0 +1,409 @@
+{
+  "schema": "clipper.motion_template_catalog.v0.1",
+  "version": "0.1",
+  "meta": {
+    "purpose": "Allowlisted templates building blocks for LLM-driven workflows",
+    "notes": "Alpha overlays are referenced by ID and copied into run dirs by the orchestrator. File paths here are placeholders for internal asset storage."
+  },
+  "templates": [
+    {
+      "id": "clipops.captions.word_highlight.v1",
+      "title": "Captions: word highlight",
+      "description": "ClipOps-native captions item using word-level highlighting.",
+      "backend": "clipops_native",
+      "tags": ["captions", "baseline", "readability", "tier:fast"],
+      "clipops": { "kind": "captions", "preset": "word_highlight" },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "style_ref": { "type": "string" },
+          "lookahead_ms": { "type": "integer", "minimum": 0, "maximum": 200, "default": 80 }
+        }
+      }
+    },
+    {
+      "id": "clipops.captions.word_highlight.behind_matte.v1",
+      "title": "Captions: word highlight (behind matte)",
+      "description": "ClipOps-native captions with word-level highlighting, occluded by a matte sequence (text behind subject). Requires a matte_sequence asset (default id: subject).",
+      "backend": "clipops_native",
+      "tags": ["captions", "matte", "occlusion", "tier:premium"],
+      "clipops": { "kind": "captions", "preset": "word_highlight_behind_matte" },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "style_ref": { "type": "string" },
+          "lookahead_ms": { "type": "integer", "minimum": 0, "maximum": 200, "default": 80 },
+          "matte_asset": { "type": "string", "minLength": 1, "maxLength": 64, "default": "subject" }
+        }
+      }
+    },
+    {
+      "id": "clipops.card.title_subtitle.editorial.v1",
+      "title": "Card: editorial title+subtitle",
+      "description": "ClipOps-native card item with title+subtitle styling from brand kit.",
+      "backend": "clipops_native",
+      "tags": ["card", "chapter", "editorial", "tier:fast"],
+      "clipops": { "kind": "card", "preset": "title_subtitle" },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1, "maxLength": 60 },
+          "subtitle": { "type": "string", "maxLength": 90 },
+          "bg_color_ref": { "type": "string" }
+        }
+      }
+    },
+    {
+      "id": "clipops.callouts.ripple.v1",
+      "title": "Callouts: tap ripple baseline",
+      "description": "ClipOps-native callouts item preset=ripple.",
+      "backend": "clipops_native",
+      "tags": ["callouts", "tap", "baseline", "tier:fast"],
+      "clipops": { "kind": "callouts", "preset": "ripple" },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "signal": { "type": "string", "minLength": 1 },
+          "signals": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    {
+      "id": "clipops.callouts.tap_guide.v1",
+      "title": "Callouts: tap guide arrow",
+      "description": "ClipOps-native callouts item preset=tap_guide (arrow + optional label).",
+      "backend": "clipops_native",
+      "tags": ["callouts", "tap", "guide", "tier:fast"],
+      "clipops": { "kind": "callouts", "preset": "tap_guide" },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "signal": { "type": "string", "minLength": 1 },
+          "signals": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "focus_ids": { "type": "array", "items": { "type": "string", "minLength": 1 }, "maxItems": 6 }
+        }
+      }
+    },
+    {
+      "id": "clipops.callouts.highlight_rect.v1",
+      "title": "Callouts: highlight rect",
+      "description": "ClipOps-native callouts item preset=highlight_rect (focus outline).",
+      "backend": "clipops_native",
+      "tags": ["callouts", "highlight", "focus", "tier:fast"],
+      "clipops": { "kind": "callouts", "preset": "highlight_rect" },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "signal": { "type": "string", "minLength": 1 },
+          "signals": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    {
+      "id": "clipops.callouts.highlight_ring.v1",
+      "title": "Callouts: highlight ring",
+      "description": "ClipOps-native callouts item preset=highlight_ring (ring around focus).",
+      "backend": "clipops_native",
+      "tags": ["callouts", "highlight", "focus", "tier:fast"],
+      "clipops": { "kind": "callouts", "preset": "highlight_ring" },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "signal": { "type": "string", "minLength": 1 },
+          "signals": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    {
+      "id": "clipops.transition.dip.v1",
+      "title": "Transition: dip",
+      "description": "ClipOps-native v0.4 transition item type=dip.",
+      "backend": "clipops_native",
+      "tags": ["transition", "dip", "tier:fast"],
+      "clipops": { "kind": "transition", "preset": "dip" },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ms": { "type": "integer", "minimum": 80, "maximum": 800, "default": 220 },
+          "color_ref": { "type": "string" }
+        }
+      }
+    },
+    {
+      "id": "alpha.lower_third.modern_dark.v1",
+      "title": "Lower third: modern (dark)",
+      "description": "Pre-rendered alpha overlay lower third. Orchestrator copies the file into the run dir and composites it via overlay video_clip.",
+      "backend": "alpha_overlay_video",
+      "tags": ["lower_third", "alpha_overlay", "tier:nice"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "source": {
+        "type": "file",
+        "path": "internal_assets/alpha_overlays/alpha.lower_third.modern_dark.v1/alpha.lower_third.modern_dark.v1_1080x1920_60fps_prores4444.mov",
+        "license_hint": "Internal-only use; do not redistribute template source files."
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": { "type": "string", "enum": ["dark"] }
+        }
+      }
+    },
+    {
+      "id": "alpha.remotion.lower_third.v1",
+      "title": "Lower third: Remotion (baseline)",
+      "description": "Pre-rendered alpha overlay lower third generated from remotion_overlays/. Use for quick iteration and LLM-driven variants.",
+      "backend": "alpha_overlay_video",
+      "tags": ["remotion", "lower_third", "alpha_overlay", "tier:nice"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "source": {
+        "type": "file",
+        "path": "internal_assets/alpha_overlays/alpha.remotion.lower_third.v1/alpha.remotion.lower_third.v1_1080x1920_60fps_prores4444.mov",
+        "license_hint": "Generated in-house via Remotion; safe for internal use."
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["headline"],
+        "properties": {
+          "headline": { "type": "string", "minLength": 1, "maxLength": 60 },
+          "subheadline": { "type": "string", "maxLength": 90 }
+        }
+      }
+    },
+    {
+      "id": "alpha.remotion.intro_title.v1",
+      "title": "Intro: title card (Remotion)",
+      "description": "Pre-rendered alpha overlay intro title card generated from remotion_overlays/.",
+      "backend": "alpha_overlay_video",
+      "tags": ["remotion", "intro", "title", "alpha_overlay", "tier:nice"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "source": {
+        "type": "file",
+        "path": "internal_assets/alpha_overlays/alpha.remotion.intro_title.v1/alpha.remotion.intro_title.v1_1080x1920_60fps_prores4444.mov",
+        "license_hint": "Generated in-house via Remotion; safe for internal use."
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1, "maxLength": 60 },
+          "subtitle": { "type": "string", "maxLength": 90 }
+        }
+      }
+    },
+    {
+      "id": "alpha.remotion.cta.like_subscribe.v1",
+      "title": "CTA: like/subscribe (Remotion)",
+      "description": "Pre-rendered alpha overlay CTA badge generated from remotion_overlays/.",
+      "backend": "alpha_overlay_video",
+      "tags": ["remotion", "cta", "badge", "alpha_overlay", "tier:nice"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "source": {
+        "type": "file",
+        "path": "internal_assets/alpha_overlays/alpha.remotion.cta.like_subscribe.v1/alpha.remotion.cta.like_subscribe.v1_1080x1920_60fps_prores4444.mov",
+        "license_hint": "Generated in-house via Remotion; safe for internal use."
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["headline"],
+        "properties": {
+          "headline": { "type": "string", "minLength": 1, "maxLength": 40 },
+          "handle": { "type": "string", "maxLength": 40 }
+        }
+      }
+    },
+    {
+      "id": "alpha.remotion.stinger.burst.v1",
+      "title": "Stinger: burst (Remotion)",
+      "description": "Short alpha overlay stinger generated from remotion_overlays/ (use sparingly).",
+      "backend": "alpha_overlay_video",
+      "tags": ["remotion", "stinger", "alpha_overlay", "tier:nice"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "source": {
+        "type": "file",
+        "path": "internal_assets/alpha_overlays/alpha.remotion.stinger.burst.v1/alpha.remotion.stinger.burst.v1_1080x1920_60fps_prores4444.mov",
+        "license_hint": "Generated in-house via Remotion; safe for internal use."
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1, "maxLength": 12 }
+        }
+      }
+    },
+    {
+      "id": "alpha.intro.logo_reveal.dark.v1",
+      "title": "Intro: logo reveal (dark)",
+      "description": "Pre-rendered alpha overlay intro. Intended for 0.8–2.0s use.",
+      "backend": "alpha_overlay_video",
+      "tags": ["intro", "alpha_overlay", "tier:nice"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "source": {
+        "type": "file",
+        "path": "internal_assets/alpha_overlays/alpha.intro.logo_reveal.dark.v1/alpha.intro.logo_reveal.dark.v1_1080x1920_60fps_prores4444.mov",
+        "license_hint": "Internal-only use; confirm marketplace license before adoption."
+      }
+    },
+    {
+      "id": "alpha.stinger.pop_whoosh.v1",
+      "title": "Stinger: pop whoosh",
+      "description": "Short accent stinger overlay (keep rare).",
+      "backend": "alpha_overlay_video",
+      "tags": ["stinger", "alpha_overlay", "tier:nice"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "source": {
+        "type": "file",
+        "path": "internal_assets/alpha_overlays/alpha.stinger.pop_whoosh.v1/alpha.stinger.pop_whoosh.v1_1080x1920_60fps_prores4444.mov"
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "intensity": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.5 }
+        }
+      }
+    },
+    {
+      "id": "alpha.cta.like_subscribe.v1",
+      "title": "CTA: like/subscribe",
+      "description": "CTA badge overlay (keep short; at most once per clip).",
+      "backend": "alpha_overlay_video",
+      "tags": ["cta", "badge", "alpha_overlay", "tier:nice"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "source": {
+        "type": "file",
+        "path": "internal_assets/alpha_overlays/alpha.cta.like_subscribe.v1/alpha.cta.like_subscribe.v1_1080x1920_60fps_prores4444.mov"
+      }
+    },
+    {
+      "id": "gen.remotion.slide_scene.v1",
+      "title": "Generated: slide scene (Remotion)",
+      "description": "Procedural slide scene (title/body/image) rendered to alpha overlay for ClipOps compositing.",
+      "backend": "generated_overlay",
+      "tags": ["remotion", "slides", "generated_overlay"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "generator": {
+        "type": "remotion",
+        "entrypoint": "remotion_overlays/src/index.ts",
+        "command_hint": "Render the Remotion composition 'SlideScene' with props (title/body/image_path) and output ProRes 4444 w/ alpha."
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1, "maxLength": 60 },
+          "body": { "type": "string", "maxLength": 220 },
+          "image_path": { "type": "string" }
+        }
+      }
+    },
+    {
+      "id": "gen.remotion.chart_bar_reveal.v1",
+      "title": "Generated: bar chart reveal (Remotion)",
+      "description": "Procedural bar chart reveal with staggered bars and optional callout label.",
+      "backend": "generated_overlay",
+      "tags": ["remotion", "chart", "generated_overlay"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "generator": {
+        "type": "remotion",
+        "entrypoint": "remotion_overlays/src/index.ts",
+        "command_hint": "Render the Remotion composition 'ChartBarReveal' with props (labels/values/callout_label) and output ProRes 4444 w/ alpha."
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["labels", "values"],
+        "properties": {
+          "labels": { "type": "array", "items": { "type": "string", "maxLength": 16 }, "maxItems": 12 },
+          "values": { "type": "array", "items": { "type": "number" }, "maxItems": 12 },
+          "callout_label": { "type": "string", "maxLength": 40 }
+        }
+      }
+    },
+    {
+      "id": "gen.remotion.map_route_draw.v1",
+      "title": "Generated: map route draw (Remotion)",
+      "description": "Route draw-on over a static map image with a moving dot and waypoint labels.",
+      "backend": "generated_overlay",
+      "tags": ["remotion", "map", "route", "generated_overlay"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "generator": {
+        "type": "remotion",
+        "entrypoint": "remotion_overlays/src/index.ts",
+        "command_hint": "Render the Remotion composition 'MapRouteDraw' with props (map_image_path/path_points) and output ProRes 4444 w/ alpha."
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["map_image_path", "path_points"],
+        "properties": {
+          "map_image_path": { "type": "string", "minLength": 1 },
+          "path_points": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 200,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "gen.maplibre.cinematic_route.v1",
+      "title": "Generated: cinematic map route (MapLibre)",
+      "description": "Deterministic, time-sliced headless MapLibre render: camera moves + route draw + moving marker.",
+      "backend": "generated_overlay",
+      "tags": ["maplibre", "map", "route", "generated_overlay"],
+      "output": { "asset_type": "alpha_video", "width": 1080, "height": 1920, "fps": 60 },
+      "generator": {
+        "type": "maplibre",
+        "command_hint": "Use tools/maplibre_cinematic_render.py to export a frame-perfect overlay video (ProRes 4444)."
+      },
+      "params_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["route_lng_lat"],
+        "properties": {
+          "route_lng_lat": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 400,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "number" }
+            }
+          },
+          "duration_sec": { "type": "number", "minimum": 0.5, "maximum": 60, "default": 6.0 },
+          "style_url": { "type": "string", "minLength": 1, "default": "https://demotiles.maplibre.org/style.json" },
+          "line_color": { "type": "string", "minLength": 1, "default": "#00E5FF" },
+          "line_width": { "type": "number", "minimum": 1, "maximum": 24, "default": 8.0 },
+          "marker_color": { "type": "string", "minLength": 1, "default": "#FFFFFF" },
+          "zoom": { "type": "number", "minimum": 0, "maximum": 22, "default": 4.0 },
+          "pitch": { "type": "number", "minimum": 0, "maximum": 85, "default": 45.0 },
+          "bearing": { "type": "number", "minimum": -180, "maximum": 180, "default": 0.0 }
+        }
+      }
+    }
+  ]
+}

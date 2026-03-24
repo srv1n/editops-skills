@@ -4,7 +4,7 @@
 Signals runner: standardize analysis outputs (words/faces/mattes/planes) into runs/<id>/signals/.
 
 Design goals:
-- Stable on-disk contract (schemas in `.claude/skills/video-clipper/signals/SCHEMA.md`)
+- Stable on-disk contract (schemas in `signals/SCHEMA.md`)
 - Works locally now; compatible with future cloud backends later.
 - Simple caching: if output exists, skip unless --force.
 """

@@ -1,0 +1,16 @@
+{
+  "project": {
+    "fps": 30.0,
+    "tick_rate": 60000
+  },
+  "ranges": [
+    {
+      "asset": "main",
+      "dst_in_ticks": 0,
+      "dur_ticks": 240000,
+      "kind": "sample_video",
+      "src_in_ticks": 0
+    }
+  ],
+  "schema": "clipops.segment_map.v0.1"
+}

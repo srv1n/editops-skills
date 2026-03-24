@@ -1,0 +1,71 @@
+{
+  "schema": "clipops.signal.sections.v0.1",
+  "source_file": "examples/integrated_demo/inputs/music.wav",
+  "duration_ms": 132049,
+  "bpm": 97.51,
+  "sections": [
+    {
+      "label": "intro",
+      "start_ms": 0,
+      "end_ms": 19690,
+      "start_bar": 1,
+      "end_bar": 8,
+      "energy": 0.297,
+      "brightness": 0.273
+    },
+    {
+      "label": "verse",
+      "start_ms": 19690,
+      "end_ms": 39381,
+      "start_bar": 9,
+      "end_bar": 16,
+      "energy": 0.515,
+      "brightness": 0.38
+    },
+    {
+      "label": "chorus",
+      "start_ms": 39381,
+      "end_ms": 59071,
+      "start_bar": 17,
+      "end_bar": 24,
+      "energy": 0.644,
+      "brightness": 0.434
+    },
+    {
+      "label": "bridge",
+      "start_ms": 59071,
+      "end_ms": 78762,
+      "start_bar": 25,
+      "end_bar": 32,
+      "energy": 0.192,
+      "brightness": 0.322
+    },
+    {
+      "label": "verse",
+      "start_ms": 78762,
+      "end_ms": 98452,
+      "start_bar": 33,
+      "end_bar": 40,
+      "energy": 0.557,
+      "brightness": 0.347
+    },
+    {
+      "label": "chorus",
+      "start_ms": 98452,
+      "end_ms": 118143,
+      "start_bar": 41,
+      "end_bar": 48,
+      "energy": 0.644,
+      "brightness": 0.435
+    },
+    {
+      "label": "verse",
+      "start_ms": 118143,
+      "end_ms": 132049,
+      "start_bar": 49,
+      "end_bar": 53,
+      "energy": 0.519,
+      "brightness": 0.441
+    }
+  ]
+}

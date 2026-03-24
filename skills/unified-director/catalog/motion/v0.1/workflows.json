@@ -1,0 +1,299 @@
+{
+  "schema": "clipper.motion_workflow_catalog.v0.1",
+  "version": "0.1",
+  "meta": {
+    "purpose": "Allowlisted workflows for LLM-driven video generation",
+    "notes": "Workflows reference internal tools (video-clipper, creativeops-director, clipops). They are not render plans."
+  },
+  "workflows": [
+    {
+      "id": "yt_clip_basic_captions_v1",
+      "title": "YouTube clip: basic captions",
+      "description": "Clip a YouTube source into shorts with word-highlight captions and minimal motion.",
+      "tags": ["youtube", "clip", "captions", "baseline", "tier:fast"],
+      "inputs": [
+        { "key": "youtube_url", "type": "youtube_url", "required": true },
+        { "key": "transcript_json", "type": "transcript_json", "required": false }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["captions"],
+      "policy": { "max_template_instances": 2, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "yt_clip_hype_captions_v1",
+      "title": "YouTube clip: hype captions + stingers",
+      "description": "Captions plus restrained stingers/badges on emphasis beats (still readability-first).",
+      "tags": ["youtube", "clip", "captions", "stinger", "cta", "tier:nice"],
+      "inputs": [
+        { "key": "youtube_url", "type": "youtube_url", "required": true },
+        { "key": "transcript_json", "type": "transcript_json", "required": false },
+        { "key": "beat_grid_signal", "type": "beat_grid_signal", "required": false }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["captions", "stinger", "cta_badge"],
+      "policy": { "max_template_instances": 6, "max_concurrent_templates": 3 }
+    },
+    {
+      "id": "yt_clip_chapter_cards_v1",
+      "title": "YouTube clip: chapter cards",
+      "description": "Adds short interstitial cards between major beats for comprehension.",
+      "tags": ["youtube", "clip", "card", "chapters", "tier:nice"],
+      "inputs": [
+        { "key": "youtube_url", "type": "youtube_url", "required": true },
+        { "key": "transcript_json", "type": "transcript_json", "required": false }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["captions", "chapter_card"],
+      "policy": { "max_template_instances": 6, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "yt_clip_quote_pull_v1",
+      "title": "YouTube clip: quote pull freeze + resume",
+      "description": "Freezes on a key quote and overlays a branded quote card, then resumes playback.",
+      "tags": ["youtube", "clip", "hold", "card", "quote", "tier:nice"],
+      "inputs": [
+        { "key": "youtube_url", "type": "youtube_url", "required": true },
+        { "key": "transcript_json", "type": "transcript_json", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["captions", "quote_card"],
+      "policy": { "max_template_instances": 5, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "yt_clip_intro_outro_pack_v1",
+      "title": "YouTube clip: intro + outro pack",
+      "description": "Adds an opener and a short end card/CTA to a selected clip.",
+      "tags": ["youtube", "clip", "intro", "outro", "cta", "tier:nice"],
+      "inputs": [
+        { "key": "youtube_url", "type": "youtube_url", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["intro", "captions", "outro"],
+      "policy": { "max_template_instances": 6, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "yt_clip_commentary_lower_third_v1",
+      "title": "YouTube clip: commentary lower third",
+      "description": "Adds a creator lower-third (name/handle/topic) plus captions.",
+      "tags": ["youtube", "clip", "lower_third", "tier:nice"],
+      "inputs": [
+        { "key": "youtube_url", "type": "youtube_url", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["lower_third", "captions"],
+      "policy": { "max_template_instances": 4, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "yt_clip_jumpcuts_dip_v1",
+      "title": "YouTube clip: jumpcuts + dip joins",
+      "description": "Selects multiple short segments and stitches with v0.4 dip/crossfade/slide joins.",
+      "tags": ["youtube", "clip", "multiclip", "transition", "tier:nice"],
+      "inputs": [
+        { "key": "youtube_url", "type": "youtube_url", "required": true },
+        { "key": "transcript_json", "type": "transcript_json", "required": false }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["captions", "transition"],
+      "policy": { "max_template_instances": 4, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "yt_clip_recap_top3_v1",
+      "title": "YouTube clip: top-3 recap",
+      "description": "Builds a recap structure with numbered beats and short cards.",
+      "tags": ["youtube", "clip", "recap", "card", "tier:nice"],
+      "inputs": [
+        { "key": "youtube_url", "type": "youtube_url", "required": true },
+        { "key": "transcript_json", "type": "transcript_json", "required": false }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["captions", "recap_badge", "chapter_card"],
+      "policy": { "max_template_instances": 8, "max_concurrent_templates": 3 }
+    },
+    {
+      "id": "clipops_fx_fast_captions_v1",
+      "title": "ClipOps FX: fast captions",
+      "description": "Input video + word timestamps → readability-first ClipOps-native captions (fastest + most reliable).",
+      "tags": ["clipops", "fx", "captions", "baseline", "tier:fast"],
+      "inputs": [
+        { "key": "input_video", "type": "input_video", "required": true },
+        { "key": "words_signal", "type": "words_signal", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["captions"],
+      "policy": { "max_template_instances": 2, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "clipops_fx_nice_hype_v1",
+      "title": "ClipOps FX: nice captions + stingers",
+      "description": "Input video + word timestamps → captions plus restrained alpha-overlay motion accents (still readability-first).",
+      "tags": ["clipops", "fx", "captions", "stinger", "cta", "tier:nice"],
+      "inputs": [
+        { "key": "input_video", "type": "input_video", "required": true },
+        { "key": "words_signal", "type": "words_signal", "required": true },
+        { "key": "beat_grid_signal", "type": "beat_grid_signal", "required": false }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["captions", "stinger", "cta_badge"],
+      "policy": { "max_template_instances": 6, "max_concurrent_templates": 3 }
+    },
+    {
+      "id": "clipops_fx_premium_matte_captions_v1",
+      "title": "ClipOps FX: premium matte occlusion captions",
+      "description": "Input video + word timestamps + matte sequence → captions occluded by matte (text behind subject).",
+      "tags": ["clipops", "fx", "captions", "matte", "occlusion", "tier:premium"],
+      "inputs": [
+        { "key": "input_video", "type": "input_video", "required": true },
+        { "key": "words_signal", "type": "words_signal", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["captions_behind_matte"],
+      "policy": { "max_template_instances": 3, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "product_demo_ios_editorial_v1",
+      "title": "Product demo: iOS editorial",
+      "description": "Producer run dir → Director compile → ClipOps render with editorial pacing + tap guides.",
+      "tags": ["ios", "demo", "creativeops", "clipops"],
+      "inputs": [
+        { "key": "run_dir", "type": "run_dir", "required": true },
+        { "key": "ios_ui_events", "type": "ios_ui_events", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" },
+        { "type": "qa_report", "path": "qa/report.json" }
+      ],
+      "template_slots": ["tap_ripple", "tap_guide", "card"],
+      "policy": { "max_template_instances": 6, "max_concurrent_templates": 3 }
+    },
+    {
+      "id": "product_demo_ios_quickstart_v1",
+      "title": "Product demo: iOS quickstart",
+      "description": "Same as editorial but with faster pacing and fewer holds/cards.",
+      "tags": ["ios", "demo", "quickstart"],
+      "inputs": [
+        { "key": "run_dir", "type": "run_dir", "required": true },
+        { "key": "ios_ui_events", "type": "ios_ui_events", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["tap_ripple", "tap_guide"],
+      "policy": { "max_template_instances": 4, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "llm_script_to_slides_v1",
+      "title": "LLM: script → slide explainer",
+      "description": "LLM generates a structured script; visuals are rendered as animated slides and composited in ClipOps.",
+      "tags": ["llm", "explainer", "slides", "revideo"],
+      "inputs": [
+        { "key": "narration_script", "type": "narration_script", "required": true },
+        { "key": "image_assets", "type": "image_assets", "required": false }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["intro_title", "slide_scene", "outro"],
+      "policy": { "max_template_instances": 12, "max_concurrent_templates": 3 }
+    },
+    {
+      "id": "llm_script_to_kinetic_titles_v1",
+      "title": "LLM: script → kinetic titles",
+      "description": "Kinetic typography scenes timed to narration; minimal imagery.",
+      "tags": ["llm", "kinetic_text", "revideo"],
+      "inputs": [
+        { "key": "narration_script", "type": "narration_script", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["intro_title", "chapter_title", "cta_badge"],
+      "policy": { "max_template_instances": 10, "max_concurrent_templates": 2 }
+    },
+    {
+      "id": "llm_data_chart_explainer_v1",
+      "title": "LLM: data → chart explainer",
+      "description": "Renders charts (bar/line) from data and adds callouts for key points.",
+      "tags": ["llm", "charts", "revideo"],
+      "inputs": [
+        { "key": "narration_script", "type": "narration_script", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["chart_scene", "callout_label"],
+      "policy": { "max_template_instances": 10, "max_concurrent_templates": 3 }
+    },
+    {
+      "id": "llm_map_route_story_v1",
+      "title": "LLM: map route story",
+      "description": "Draws routes over a static map image with waypoint labels.",
+      "tags": ["llm", "map", "route", "revideo"],
+      "inputs": [
+        { "key": "narration_script", "type": "narration_script", "required": true },
+        { "key": "image_assets", "type": "image_assets", "required": true }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" }
+      ],
+      "template_slots": ["map_scene", "callout_label"],
+      "policy": { "max_template_instances": 10, "max_concurrent_templates": 3 }
+    },
+    {
+      "id": "promo_montage_beat_synced_v1",
+      "title": "Promo: beat-synced montage",
+      "description": "Beat-grid driven montage with transitions and end card.",
+      "tags": ["promo", "montage", "beat_grid"],
+      "inputs": [
+        { "key": "run_dir", "type": "run_dir", "required": true },
+        { "key": "beat_grid_signal", "type": "beat_grid_signal", "required": true },
+        { "key": "music_track", "type": "music_track", "required": false }
+      ],
+      "outputs": [
+        { "type": "final_video", "path": "renders/final.mp4" },
+        { "type": "plan_timeline", "path": "plan/timeline.json" },
+        { "type": "review_pack", "path": "previews/review_pack/" }
+      ],
+      "template_slots": ["transition", "end_card", "stinger"],
+      "policy": { "max_template_instances": 8, "max_concurrent_templates": 3 }
+    }
+  ]
+}

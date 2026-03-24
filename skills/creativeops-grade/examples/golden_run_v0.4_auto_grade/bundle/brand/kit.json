@@ -1,0 +1,12 @@
+{
+  "id": "golden_v0.4_auto_grade",
+  "colors": {
+    "paper": [0.98, 0.97, 0.94, 1.0],
+    "black": [0.0, 0.0, 0.0, 1.0]
+  },
+  "fonts": {
+    "default": { "path": "fonts/AppleSymbols.ttf", "size_px": 48.0 }
+  },
+  "styles": {}
+}
+

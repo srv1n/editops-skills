@@ -1,18 +1,22 @@
 ---
 name: unified-director
-description: >
-  Unified video editing director that routes workflows based on content type.
-  Handles: YouTube clips, podcast clips, product demos, product promos,
-  app tutorials, and short films. Auto-detects content type or accepts explicit
-  type. Orchestrates beat analysis, face detection, timeline generation, and
-  ClipOps rendering.
+description: "Unified video editing director that routes workflows based on content type (YouTube clips, podcasts, product demos/promos, tutorials, short films). Use when the user wants “one director” to analyze inputs, generate a timeline, and orchestrate render/QA."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3. Depending on content type, may require ffmpeg, clipops, and optional model/API keys (ASR, face detection, music)."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: orchestration
+  tags: [director, orchestration, video, clipops, routing]
 ---
 
 # Unified Director
 
+## Overview
+
 One director to rule them all - routes video editing workflows based on content type.
 
-## When to Use This Skill
+## When to Use (Triggers)
 
 Use this skill when the user wants to:
 - Create any type of edited video from source materials
@@ -29,6 +33,30 @@ Use this skill when the user wants to:
 | `product_promo` | Beat-synced promotional video | Music analysis, stock footage, transitions |
 | `app_tutorial` | Step-by-step tutorial | Voiceover, screen recording, chapters |
 | `short_film` | Cinematic narrative | Transitions, color grading, music |
+
+## Inputs
+
+Required:
+- An `inputs_dir` containing source media (video clips, screen recordings, and/or audio).
+
+Optional:
+- `--type <content_type>` (skip auto-detect)
+- `--duration <seconds>` target length
+- `--run-dir <output_dir>` to control outputs
+
+## Outputs
+
+- A ClipOps-compatible run dir containing:
+  - `plan/timeline.json`
+  - `plan/director_report.json`
+  - `renders/` (after render step)
+
+## Safety / Security
+
+- Confirm the intended output type and destination before generating plans or rendering; workflows can download/process large media.
+- Treat all input media and URLs as untrusted; run in a dedicated workspace and avoid overwriting existing runs.
+- Rights: ensure the user has permission to process and redistribute any downloaded or provided content.
+- External tools: rendering uses `clipops` and `ffmpeg`; some content types may use models or API keys (keep secrets in env vars).
 
 ## Canonical Workflow
 
@@ -81,6 +109,14 @@ This will:
 2. Compile segment map and camera path
 3. Render video frames
 4. Mux audio (if music present)
+
+## Smoke Test
+
+Verify the unified director module imports:
+
+```bash
+python3 -c "import tools.unified_director.director"
+```
 
 ## Examples
 
@@ -328,3 +364,10 @@ Render Options:
 Content Types:
   youtube_clip, podcast_clip, product_demo, product_promo, app_tutorial, short_film
 ```
+
+## References
+
+- Trigger tests: `references/TRIGGER_TESTS.md`
+- Implementation: `tools/unified_director/director.py`
+- ClipOps timeline schema: `schemas/clipops/v0.4/timeline.schema.json`
+- Beat grid schema: `clipops.signal.beat_grid.v0.1` (used for `product_promo`)

@@ -1,0 +1,40 @@
+version: "0.1"
+preset: editorial
+meta:
+  title: "Integrated Demo Promo"
+steps:
+  - id: hook_card
+    card:
+      title: "Instant clarity"
+      subtitle: "A better way to present your product."
+      dur_ms: 1200
+
+  - id: hook_clip
+    title: "hook"
+    clips:
+      - id: clip_001
+    transition_to_next:
+      type: dip
+      ms: 220
+      suppress_overlays: true
+
+  - id: build_clip
+    title: "build"
+    clips:
+      - id: clip_002
+
+  - id: payoff_clip
+    title: "payoff"
+    clips:
+      - id: clip_003
+
+  - id: cta_card
+    card:
+      title: "Ready to launch?"
+      subtitle: "Ship the story in 60 seconds."
+      dur_ms: 1200
+
+  - id: cta_clip
+    title: "cta"
+    clips:
+      - id: clip_004

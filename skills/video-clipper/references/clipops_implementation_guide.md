@@ -136,7 +136,7 @@ The QA gate catches obvious production issues (tiny captions, too-fast flicker, 
 
 Run:
 ```bash
-python3 .claude/skills/video-clipper/scripts/clipops_run.py "https://www.youtube.com/watch?v=VIDEO_ID" \
+python3 scripts/clipops_run.py "https://www.youtube.com/watch?v=VIDEO_ID" \
   --render-count 10 \
   --candidate-count 18 \
   --buffer-sec 2.0 \
@@ -149,7 +149,7 @@ Outputs land in:
 ### The playbook registry
 
 File:
-- `.claude/skills/video-clipper/playbooks/playbooks_v1.json`
+- `playbooks/playbooks_v1.json`
 
 Contains:
 - PB01–PB20 (general)
@@ -223,13 +223,12 @@ These are good “safe” defaults before per-niche tuning:
 
 ## Where to add things (repo map)
 
-- Subtitles ingest: `.claude/skills/video-clipper/scripts/youtube_subtitles.py`
-- Coarse director: `.claude/skills/video-clipper/scripts/clip_director_subtitles.py`
-- Section downloads: `.claude/skills/video-clipper/scripts/download_sections.py`
-- Word-level refine: `.claude/skills/video-clipper/scripts/clip_refine_sections.py`
-- Playbooks: `.claude/skills/video-clipper/playbooks/playbooks_v1.json`
-- Router: `.claude/skills/video-clipper/scripts/playbook_router.py`
-- Overlay runner (cached): `.claude/skills/video-clipper/scripts/run_overlay_pipeline.py`
-- Batch render (full-video mode): `.claude/skills/video-clipper/scripts/reels_batch_render.py`
-- QA gate: `.claude/skills/video-clipper/scripts/qa_gate.py`
-
+- Subtitles ingest: `scripts/youtube_subtitles.py`
+- Coarse director: `scripts/clip_director_subtitles.py`
+- Section downloads: `scripts/download_sections.py`
+- Word-level refine: `scripts/clip_refine_sections.py`
+- Playbooks: `playbooks/playbooks_v1.json`
+- Router: `scripts/playbook_router.py`
+- Overlay runner (cached): `scripts/run_overlay_pipeline.py`
+- Batch render (full-video mode): `scripts/reels_batch_render.py`
+- QA gate: `scripts/qa_gate.py`

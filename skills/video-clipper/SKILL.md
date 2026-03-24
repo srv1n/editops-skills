@@ -1,6 +1,13 @@
 ---
 name: video-clipper
-description: Extract viral clips from YouTube videos. Use when asked to clip, extract highlights, or create short-form content from long videos. Tools for downloading (yt-dlp), transcribing (MLX Whisper on Mac, faster-whisper elsewhere), extracting clips (FFmpeg), and adding effects (SAM 3, subtitles, zoom).
+description: "Extract viral clips from YouTube videos. Use when asked to clip, extract highlights, or create short-form content from long videos. Tools for downloading (yt-dlp), transcribing (MLX Whisper on Mac, faster-whisper elsewhere), extracting clips (FFmpeg), and adding effects (SAM 3, subtitles, zoom)."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell and network access (Claude Code, Codex). Requires python3. Downloading requires yt-dlp. Rendering requires ffmpeg. Optional ASR/music backends may require API keys and extra deps."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: video
+  tags: [youtube, clipping, shorts, transcription, ffmpeg]
 ---
 
 # Video Clipper
@@ -40,6 +47,13 @@ Optional:
 - `clips/` (intermediate clips)
 - `renders/` (final outputs)
 - `*_report.json`, `qa_summary.json` (debuggable artifacts)
+
+## Safety / Security
+
+- Rights: confirm the user has permission to download/process the source video and publish derived clips.
+- Network: YouTube downloads and some ASR/music steps may call external services; confirm intent and expected costs.
+- Paths: ensure outputs land under a dedicated workspace (`VIDEO_CLIPPER_WORKSPACE`) and keep large artifacts out of git.
+- Secrets: store API keys (e.g. `GROQ_API_KEY`) only in env vars; never write them into reports or logs.
 
 ## Canonical Workflow / Commands
 
@@ -768,7 +782,10 @@ This is slower but handles movement within the clip.
 This is the deterministic “make N clips” entrypoint (preferred over manually calling individual scripts):
 
 ```bash
-bin/video-clipper clips "https://www.youtube.com/watch?v=VIDEO_ID" --count 10 --preset shorts_editorial
+python3 scripts/clipops_run.py "https://www.youtube.com/watch?v=VIDEO_ID" \
+  --render-count 10 \
+  --candidate-count 18 \
+  --default-treatment shorts_editorial
 ```
 
 Hard rules:
@@ -792,12 +809,11 @@ Crop motion (panning):
 
 Filler trimming (pace):
 - If you already have word timestamps, you can cut filler words (e.g. “like”, “um/uh”) with:
-  - `bin/video-clipper clips ... --remove-fillers` (or add `--remove-fillers-aggressive`)
-  - or `python3 scripts/clipops_run.py ... --remove-fillers`
+  - `python3 scripts/clipops_run.py ... --remove-fillers` (or add `--remove-fillers-aggressive`)
 
 Groq word-level ASR:
 - Default behavior is `--asr-backend auto` which will use Groq if `GROQ_API_KEY` is available.
-- To force Groq: add `--asr-backend groq` (supported by `bin/video-clipper` and `scripts/clipops_run.py`).
+- To force Groq: add `--asr-backend groq` (supported by `scripts/clipops_run.py`).
 
 ### Fast path (recommended): subs-first → download only winners
 
@@ -1007,6 +1023,7 @@ Contract + prompt scaffolding lives at `references/llm_clip_selection_contract.m
 
 ## References
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - `references/clipping_playbook.md` - 12 viral patterns to detect
 - `references/clipops_system_v1.md` - ClipOps architecture + optimization plan + team workstreams
 - `references/clipops_implementation_guide.md` - Subtitles-first end-to-end pipeline (implemented)

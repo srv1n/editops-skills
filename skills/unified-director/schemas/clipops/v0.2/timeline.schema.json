@@ -1,0 +1,964 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/clipops/timeline/v0.2",
+  "title": "ClipOps Timeline Plan (v0.2)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "project",
+    "brand",
+    "assets",
+    "signals",
+    "timeline"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "clipops.timeline.v0.2"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height",
+        "fps",
+        "tick_rate"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fps": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "tick_rate": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Ticks per second. Recommend 60000 so 30fps=2000 ticks/frame and 60fps=1000 ticks/frame."
+        }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kit"
+      ],
+      "properties": {
+        "kit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "overrides": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/AssetRef"
+      }
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/SignalRef"
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tracks"
+      ],
+      "properties": {
+        "tracks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/Track"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "AssetRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "path"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "video",
+            "audio",
+            "image",
+            "alpha_video",
+            "matte_sequence"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "SignalRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "path"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "focus_stream",
+            "pointer_events",
+            "word_timestamps"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "Track": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "items"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "video",
+            "audio",
+            "overlay"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/TimelineItem"
+          }
+        }
+      }
+    },
+    "TimelineItem": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/VideoClipItem"
+        },
+        {
+          "$ref": "#/$defs/HoldItem"
+        },
+        {
+          "$ref": "#/$defs/CardItem"
+        },
+        {
+          "$ref": "#/$defs/CaptionsItem"
+        },
+        {
+          "$ref": "#/$defs/CalloutsItem"
+        },
+        {
+          "$ref": "#/$defs/AudioClipItem"
+        }
+      ]
+    },
+    "VideoClipItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "asset",
+        "src_in_ms",
+        "dst_in_ms",
+        "dur_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "video_clip"
+        },
+        "asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "src_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Effect"
+          },
+          "default": []
+        }
+      }
+    },
+    "HoldItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "dur_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "hold"
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "anchor": {
+          "$ref": "#/$defs/CardAnchor"
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "freeze_video_pause_audio",
+            "freeze_video_keep_audio"
+          ],
+          "default": "freeze_video_pause_audio"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "dst_in_ms"
+          ]
+        },
+        {
+          "required": [
+            "anchor"
+          ]
+        }
+      ]
+    },
+    "CardItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "dur_ms",
+        "background",
+        "content"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "card"
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "anchor": {
+          "$ref": "#/$defs/CardAnchor"
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "splice",
+            "overlay"
+          ],
+          "default": "splice"
+        },
+        "transition": {
+          "$ref": "#/$defs/CardTransition"
+        },
+        "text_anim": {
+          "$ref": "#/$defs/TextAnimSpec"
+        },
+        "background": {
+          "$ref": "#/$defs/CardBackground"
+        },
+        "content": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/CardContent"
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "dst_in_ms"
+          ]
+        },
+        {
+          "required": [
+            "anchor"
+          ]
+        }
+      ]
+    },
+    "CardAnchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signal",
+        "event_type"
+      ],
+      "properties": {
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "event_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string"
+        },
+        "focus_id": {
+          "type": "string"
+        },
+        "occurrence": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "offset_ms": {
+          "type": "integer",
+          "default": 0
+        }
+      }
+    },
+    "CardTransition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "in": {
+          "$ref": "#/$defs/TransitionSpec"
+        },
+        "out": {
+          "$ref": "#/$defs/TransitionSpec"
+        }
+      }
+    },
+    "TransitionSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "ms"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "fade"
+          ]
+        },
+        "ms": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "TextAnimSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preset"
+      ],
+      "properties": {
+        "preset": {
+          "type": "string",
+          "enum": [
+            "fade_in",
+            "pop_bounce"
+          ]
+        },
+        "params": {
+          "$ref": "#/$defs/TextAnimParams"
+        }
+      }
+    },
+    "TextAnimParams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fade_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "overshoot": {
+          "type": "number",
+          "minimum": 0
+        },
+        "settle_ms": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "CardBackground": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "solid",
+            "image"
+          ]
+        },
+        "color": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "solid"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "color"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "image"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "path"
+            ]
+          }
+        }
+      ]
+    },
+    "CardContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "text"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "title",
+            "subtitle",
+            "body"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "style_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "CaptionsItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "dst_in_ms",
+        "dur_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "captions"
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "style_ref": {
+          "type": "string"
+        },
+        "highlight": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "word"
+              ]
+            },
+            "lookahead_ms": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        },
+        "occlusion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode"
+          ],
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "none",
+                "behind_matte"
+              ]
+            },
+            "matte_asset": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "signal"
+          ]
+        },
+        {
+          "required": [
+            "signals"
+          ]
+        }
+      ]
+    },
+    "CalloutsItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "dst_in_ms",
+        "dur_ms",
+        "preset"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "callouts"
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "preset": {
+          "type": "string",
+          "enum": [
+            "ripple",
+            "highlight_rect",
+            "highlight_ring"
+          ]
+        },
+        "ripple": {
+          "$ref": "#/$defs/CalloutsRippleStyle"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "signal"
+          ]
+        },
+        {
+          "required": [
+            "signals"
+          ]
+        }
+      ]
+    },
+    "CalloutsRippleStyle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lead_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outline_post_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "color_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "radius_px": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "stroke_px": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "outline_color_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outline_stroke_px": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "outline_padding_px": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "AudioClipItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "asset",
+        "dst_in_ms",
+        "dur_ms"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "audio_clip"
+        },
+        "asset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dst_in_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dur_ms": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mix": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "duck_original_db": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "Effect": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/CameraFollowEffect"
+        }
+      ]
+    },
+    "CameraFollowEffect": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/CameraFollowEffectExplicit"
+        },
+        {
+          "$ref": "#/$defs/CameraFollowEffectPreset"
+        }
+      ]
+    },
+    "CameraFollowEffectExplicit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "signal",
+        "rect_stream",
+        "target_aspect",
+        "padding",
+        "smoothing_ms",
+        "deadband_px",
+        "max_pan_px_per_s",
+        "max_zoom_per_s",
+        "ease"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "camera_follow"
+        },
+        "preset": {
+          "type": "string",
+          "enum": [
+            "editorial",
+            "quickstart"
+          ]
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rect_stream": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_aspect": {
+          "type": "string",
+          "pattern": "^[0-9]+:[0-9]+$"
+        },
+        "padding": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "smoothing_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deadband_px": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_pan_px_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "max_zoom_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ease": {
+          "type": "string",
+          "enum": [
+            "linear",
+            "cubic_in_out"
+          ]
+        },
+        "min_focus_area_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "clip_start": {
+          "type": "string",
+          "enum": [
+            "snap_to_focus",
+            "start_full_frame",
+            "carry_over"
+          ]
+        }
+      }
+    },
+    "CameraFollowEffectPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "signal",
+        "rect_stream",
+        "target_aspect",
+        "preset"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "camera_follow"
+        },
+        "preset": {
+          "type": "string",
+          "enum": [
+            "editorial",
+            "quickstart"
+          ]
+        },
+        "signal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rect_stream": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_aspect": {
+          "type": "string",
+          "pattern": "^[0-9]+:[0-9]+$"
+        },
+        "padding": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "smoothing_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deadband_px": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_pan_px_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "max_zoom_per_s": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ease": {
+          "type": "string",
+          "enum": [
+            "linear",
+            "cubic_in_out"
+          ]
+        },
+        "min_focus_area_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "clip_start": {
+          "type": "string",
+          "enum": [
+            "snap_to_focus",
+            "start_full_frame",
+            "carry_over"
+          ]
+        }
+      }
+    }
+  }
+}

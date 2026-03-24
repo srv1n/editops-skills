@@ -1,0 +1,136 @@
+{
+  "assets": {
+    "input": {
+      "path": "inputs/input.mp4",
+      "type": "video"
+    }
+  },
+  "brand": {
+    "kit": "bundle/brand/kit.json",
+    "overrides": {}
+  },
+  "meta": {},
+  "pacing": {
+    "after_tap_ms": 200,
+    "after_transition_end_ms": 650,
+    "before_tap_ms": 140,
+    "max_auto_hold_ms": 1200,
+    "preset": "editorial"
+  },
+  "project": {
+    "fps": 30.0,
+    "height": 1920,
+    "tick_rate": 60000,
+    "width": 1080
+  },
+  "schema": "clipops.timeline.v0.4",
+  "signals": {
+    "pulse_taps": {
+      "path": "signals/ios_pulse_taps.json",
+      "type": "pointer_events"
+    },
+    "tap_guides": {
+      "path": "signals/ios_tap_guides.json",
+      "type": "pointer_events"
+    },
+    "ui": {
+      "path": "signals/ios_ui_events.json",
+      "type": "pointer_events"
+    },
+    "words": {
+      "path": "signals/words.json",
+      "type": "word_timestamps"
+    }
+  },
+  "timeline": {
+    "tracks": [
+      {
+        "id": "video",
+        "items": [
+          {
+            "asset": "input",
+            "dst_in_ms": 0,
+            "dur_ms": 2130,
+            "effects": [],
+            "id": "input",
+            "src_in_ms": 0,
+            "type": "video_clip"
+          },
+          {
+            "dst_in_ms": 400,
+            "dur_ms": 280,
+            "id": "hold_001",
+            "mode": "freeze_video_pause_audio",
+            "type": "hold"
+          }
+        ],
+        "kind": "video"
+      },
+      {
+        "id": "overlay",
+        "items": [
+          {
+            "dst_in_ms": 0,
+            "dur_ms": 2130,
+            "id": "ripple",
+            "preset": "ripple",
+            "signal": "ui",
+            "type": "callouts"
+          },
+          {
+            "dst_in_ms": 0,
+            "dur_ms": 2130,
+            "id": "tap_guide",
+            "preset": "tap_guide",
+            "signal": "tap_guides",
+            "tap_guide": {
+              "arrow": {
+                "arrowhead": {
+                  "angle_deg": 26.0,
+                  "enabled": true,
+                  "length_px": 22.0
+                },
+                "color_ref": "tap",
+                "curve": {
+                  "curvature_px": 120.0,
+                  "start_angle_deg": -135.0,
+                  "start_offset_px": 240.0,
+                  "start_strategy": "auto_offset",
+                  "target": "focus_rect_center"
+                },
+                "draw_ms": 260,
+                "fade_out_ms": 120,
+                "hand_drawn": {
+                  "jitter_px": 2.2,
+                  "pass_offset_px": 0.9,
+                  "passes": 2,
+                  "wobble_cycles": 2.0,
+                  "wobble_px": 1.6
+                },
+                "hold_ms": 80,
+                "lead_ms": 420,
+                "stroke_px": 7.0
+              },
+              "outline_enabled": true,
+              "ripple_enabled": true
+            },
+            "type": "callouts"
+          },
+          {
+            "dst_in_ms": 0,
+            "dur_ms": 2130,
+            "highlight": {
+              "lookahead_ms": 80,
+              "mode": "word"
+            },
+            "id": "captions",
+            "signal": "words",
+            "style_ref": "brand.caption.primary",
+            "type": "captions"
+          }
+        ],
+        "kind": "overlay"
+      }
+    ]
+  }
+}

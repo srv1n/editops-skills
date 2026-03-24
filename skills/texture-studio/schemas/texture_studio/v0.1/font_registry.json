@@ -1,0 +1,55 @@
+{
+  "$comment": "Font registry mapping font family names to paths for each consumer context",
+  "Space Grotesk": {
+    "google_fonts": "@remotion/google-fonts/SpaceGrotesk",
+    "bundle_path": "fonts/SpaceGrotesk-Variable.ttf",
+    "css_family": "'Space Grotesk', sans-serif",
+    "css_import": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+  },
+  "Inter": {
+    "google_fonts": "@remotion/google-fonts/Inter",
+    "bundle_path": "fonts/Inter-Variable.ttf",
+    "css_family": "'Inter', sans-serif",
+    "css_import": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+  },
+  "DM Sans": {
+    "google_fonts": "@remotion/google-fonts/DMSans",
+    "bundle_path": "fonts/DMSans-Variable.ttf",
+    "css_family": "'DM Sans', sans-serif",
+    "css_import": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap"
+  },
+  "Manrope": {
+    "google_fonts": "@remotion/google-fonts/Manrope",
+    "bundle_path": "fonts/Manrope-Variable.ttf",
+    "css_family": "'Manrope', sans-serif",
+    "css_import": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+  },
+  "Plus Jakarta Sans": {
+    "google_fonts": "@remotion/google-fonts/PlusJakartaSans",
+    "bundle_path": "fonts/PlusJakartaSans-Variable.ttf",
+    "css_family": "'Plus Jakarta Sans', sans-serif",
+    "css_import": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+  },
+  "Instrument Serif": {
+    "google_fonts": "@remotion/google-fonts/InstrumentSerif",
+    "bundle_path": "fonts/InstrumentSerif-Regular.ttf",
+    "css_family": "'Instrument Serif', serif",
+    "css_import": "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+  },
+  "SF Pro": {
+    "system_path_macos": "/System/Library/Fonts/SF-Pro.ttf",
+    "bundle_path": "fonts/SFPro.ttf",
+    "css_family": "-apple-system, BlinkMacSystemFont, 'SF Pro', sans-serif",
+    "system_only": true
+  },
+  "SF Compact": {
+    "system_path_macos": "/System/Library/Fonts/SF-Compact.ttf",
+    "bundle_path": "fonts/SFCompact.ttf",
+    "css_family": "-apple-system, BlinkMacSystemFont, 'SF Compact', sans-serif",
+    "system_only": true
+  },
+  "system-ui": {
+    "css_family": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    "system_only": true
+  }
+}

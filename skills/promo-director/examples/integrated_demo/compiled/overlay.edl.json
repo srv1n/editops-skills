@@ -1,0 +1,11 @@
+{
+  "layers": [],
+  "project": {
+    "color_space": "srgb",
+    "duration_sec": 32.0,
+    "fps": 30.0,
+    "height": 1080,
+    "width": 1920
+  },
+  "version": "0.1"
+}

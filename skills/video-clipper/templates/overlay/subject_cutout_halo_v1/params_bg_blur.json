@@ -47,7 +47,7 @@
   "icons": [
     {
       "id": "spark_svg",
-      "path": ".claude/skills/video-clipper/assets/icons/spark.svg",
+      "path": "assets/icons/spark.svg",
       "size_px": [160, 160],
       "slot": "top_left",
       "anchor": [0.0, 0.0],
@@ -55,7 +55,7 @@
     },
     {
       "id": "badge_png",
-      "path": ".claude/skills/video-clipper/assets/icons/badge.png",
+      "path": "assets/icons/badge.png",
       "size_px": [140, 140],
       "slot": "top_right",
       "anchor": [1.0, 0.0],
@@ -63,4 +63,3 @@
     }
   ]
 }
-

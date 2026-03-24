@@ -1,0 +1,49 @@
+{
+  "elements": {
+    "demo.button": {
+      "kind": "button",
+      "label": "Demo"
+    }
+  },
+  "events": [
+    {
+      "focus_id": "demo.button",
+      "point": {
+        "x": 360,
+        "y": 1398
+      },
+      "seq": 1,
+      "t_ms": 1000,
+      "type": "tap"
+    }
+  ],
+  "focus": [
+    {
+      "confidence": 1.0,
+      "id": "demo.button",
+      "kind": "tap_target",
+      "rect": {
+        "h": 136,
+        "w": 136,
+        "x": 292,
+        "y": 1330
+      },
+      "t_ms": 900
+    }
+  ],
+  "safe_area_px": {
+    "bottom": 0,
+    "left": 0,
+    "right": 0,
+    "top": 0
+  },
+  "time_origin": {
+    "kind": "recording_marker"
+  },
+  "version": "0.1",
+  "video": {
+    "height": 1562,
+    "path": "inputs/input.mp4",
+    "width": 720
+  }
+}

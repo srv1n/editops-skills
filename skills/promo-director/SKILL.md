@@ -1,9 +1,13 @@
 ---
 name: promo-director
-description: >
-  Deterministic product promo editor: given a promo run dir (music + clips + beat grid),
-  compile a beat-synced ClipOps v0.4 timeline (montage) and a director report.
-  Use for trailers, promos, and montage edits that should cut on bars/downbeats.
+description: "Deterministic product promo editor: given a promo run dir (music + clips + beat grid), compile a beat-synced ClipOps v0.4 timeline (montage) and a director report. Use for trailers, promos, and montage edits that should cut on bars/downbeats."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3, a clipops binary on PATH (or CLIPOPS_BIN), and ffmpeg for renders. Beat grid generation uses bin/audio-analyze."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: promo
+  tags: [promo, director, montage, beat-synced, clipops]
 ---
 
 # Promo Director
@@ -64,6 +68,13 @@ Known behavior note:
 - ClipOps v0.4 `crossfade`/`slide` depend on `join_layout`:
   - `gap`: transition lives in the *time gap* between clips → **freeze-frame** join (last frame A → first frame B)
   - `overlap`: clips overlap and the transition window matches the overlap → **true moving** crossfade/slide
+
+## Safety / Security
+
+- Confirm the promo run dir before running compile/verify; these commands write `plan/`, may write `bundle/`, and can render outputs.
+- Treat music and clips as untrusted inputs; validate schemas and keep all paths run-dir-relative for portability.
+- Rights: ensure the user has rights to use the music/clips for the intended distribution (App Store, ads, social).
+- External tools: rendering uses `clipops` and `ffmpeg`; avoid running unknown binaries or untrusted SFX packs.
 
 ## Canonical Commands
 
@@ -257,6 +268,7 @@ python3 tools/promo_tune_sweep.py --run-dir <run_dir> --format 16:9 --tempo-temp
 
 ## References
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - `docs/PROMO_RUN_DIR_CONTRACT_V0.4.md`
 - `docs/SCENE_TRANSITIONS_PLAYBOOK_V0.1.md`
 - `docs/TEMPO_TEMPLATES_V0.1.md`

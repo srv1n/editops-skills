@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/director/grade_plan/v0.1",
+  "title": "Director Grade Plan (v0.1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "slot", "template", "correction", "lut", "qa"],
+  "properties": {
+    "version": { "type": "string", "const": "0.1" },
+    "slot": { "type": "string", "enum": ["slot_a", "slot_b"] },
+    "template": { "type": "string", "minLength": 1 },
+    "lut_id": { "type": "string", "minLength": 1, "description": "Optional LUT id from assets/grade/manifest.json (alias of lut.id)." },
+
+    "correction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["brightness", "contrast", "saturation"],
+      "properties": {
+        "brightness": { "type": "number", "minimum": -0.15, "maximum": 0.15 },
+        "contrast": { "type": "number", "minimum": 0.8, "maximum": 1.25 },
+        "saturation": { "type": "number", "minimum": 0.75, "maximum": 1.35 }
+      }
+    },
+
+    "lut": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "strength"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "id": { "type": "string", "minLength": 1, "description": "Optional LUT id from assets/grade/manifest.json." },
+        "path": { "type": "string", "minLength": 1, "description": "Optional LUT path under run dir (e.g. bundle/grade/luts/<name>.cube)." },
+        "strength": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "enabled": { "const": true } }, "required": ["enabled"] },
+          "then": { "anyOf": [{ "required": ["path"] }, { "required": ["id"] }] }
+        }
+      ]
+    },
+
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "slot_a": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["input", "output"],
+          "properties": {
+            "input": { "type": "string", "minLength": 1 },
+            "output": { "type": "string", "minLength": 1 }
+          }
+        },
+        "slot_b": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["dir"],
+          "properties": {
+            "dir": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+
+    "qa": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "max_retries"],
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "max_retries": { "type": "integer", "minimum": 0, "maximum": 1, "default": 1 },
+        "thresholds": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "highlights_clipped_frame_rate_max": { "type": "number", "minimum": 0, "maximum": 1 },
+            "shadows_crushed_frame_rate_max": { "type": "number", "minimum": 0, "maximum": 1 },
+            "oversat_frame_rate_max": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        }
+      }
+    }
+  }
+}

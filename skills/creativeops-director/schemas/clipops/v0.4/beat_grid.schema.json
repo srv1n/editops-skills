@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/clipops/beat_grid/v0.1",
+  "title": "ClipOps Beat Grid Signal",
+  "description": "Beat and tempo analysis for music synchronization",
+  "type": "object",
+  "required": ["schema", "analysis", "beats"],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "clipops.signal.beat_grid.v0.1"
+    },
+    "source_file": {
+      "type": "string",
+      "description": "Path to the analyzed audio file"
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total duration of the audio in milliseconds"
+    },
+    "analysis": {
+      "type": "object",
+      "required": ["bpm", "meter", "first_downbeat_ms"],
+      "properties": {
+        "bpm": {
+          "type": "number",
+          "minimum": 20,
+          "maximum": 300,
+          "description": "Beats per minute"
+        },
+        "bpm_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Confidence score for BPM detection"
+        },
+        "meter": {
+          "type": "object",
+          "required": ["beats_per_bar", "beat_unit"],
+          "properties": {
+            "beats_per_bar": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16,
+              "default": 4,
+              "description": "Number of beats per bar (e.g., 4 for 4/4 time)"
+            },
+            "beat_unit": {
+              "type": "integer",
+              "enum": [1, 2, 4, 8, 16],
+              "default": 4,
+              "description": "Note value that represents one beat"
+            }
+          }
+        },
+        "first_downbeat_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Timestamp of the first downbeat in milliseconds"
+        },
+        "key": {
+          "type": "string",
+          "description": "Detected musical key (e.g., 'C major', 'A minor')"
+        }
+      }
+    },
+    "beats": {
+      "type": "array",
+      "description": "Array of all detected beats",
+      "items": {
+        "type": "object",
+        "required": ["time_ms", "beat_in_bar", "bar", "is_downbeat"],
+        "properties": {
+          "time_ms": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Beat timestamp in milliseconds"
+          },
+          "beat_in_bar": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Beat position within the bar (1-indexed)"
+          },
+          "bar": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Bar number (1-indexed)"
+          },
+          "is_downbeat": {
+            "type": "boolean",
+            "description": "True if this is the first beat of a bar"
+          },
+          "strength": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Beat strength/confidence"
+          }
+        }
+      }
+    },
+    "downbeats_ms": {
+      "type": "array",
+      "description": "Convenience array of downbeat timestamps",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "sections": {
+      "type": "array",
+      "description": "Optional structural sections detected in the audio",
+      "items": {
+        "type": "object",
+        "required": ["label", "start_ms", "end_ms"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Section label (e.g., 'intro', 'verse', 'chorus', 'bridge', 'outro')"
+          },
+          "start_ms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end_ms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "start_bar": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "end_bar": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "energy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Normalized energy level of the section"
+          }
+        }
+      }
+    }
+  }
+}

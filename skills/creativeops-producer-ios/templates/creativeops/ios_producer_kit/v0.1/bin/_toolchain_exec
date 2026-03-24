@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TOOL_NAME="${1:-}"
+shift || true
+
+if [[ -z "${TOOL_NAME}" ]]; then
+  echo "usage: bin/_toolchain_exec <tool-name> [args...]" >&2
+  exit 2
+fi
+
+if [[ -n "${CREATIVEOPS_TOOLKIT:-}" && -x "${CREATIVEOPS_TOOLKIT}/bin/${TOOL_NAME}" ]]; then
+  exec "${CREATIVEOPS_TOOLKIT}/bin/${TOOL_NAME}" "$@"
+fi
+
+if [[ -n "${CLIPPER_REPO:-}" && -x "${CLIPPER_REPO}/bin/${TOOL_NAME}" ]]; then
+  exec "${CLIPPER_REPO}/bin/${TOOL_NAME}" "$@"
+fi
+
+echo "❌ Tool not found: ${TOOL_NAME}" >&2
+echo "   Set CREATIVEOPS_TOOLKIT=/path/to/creativeops-toolkit (bundle or clipper repo)" >&2
+echo "   Or set CLIPPER_REPO=/path/to/clipper (for non-bundled tools)" >&2
+exit 2
+

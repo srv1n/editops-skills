@@ -1,0 +1,24 @@
+{
+  "colors": {
+    "black": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "paper": [
+      0.9800000190734863,
+      0.9700000286102295,
+      0.9399999976158142,
+      1.0
+    ]
+  },
+  "fonts": {
+    "default": {
+      "path": "fonts/AppleSymbols.ttf",
+      "size_px": 48.0
+    }
+  },
+  "id": "golden_v0.4_dip",
+  "styles": {}
+}

@@ -1,0 +1,4805 @@
+{
+  "luts": [
+    {
+      "format": "cube",
+      "id": "product_clean_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (subtle variant 01/20)",
+      "path": "assets/grade/luts/product_clean_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (subtle variant 02/20)",
+      "path": "assets/grade/luts/product_clean_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (subtle variant 03/20)",
+      "path": "assets/grade/luts/product_clean_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (subtle variant 04/20)",
+      "path": "assets/grade/luts/product_clean_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (subtle variant 05/20)",
+      "path": "assets/grade/luts/product_clean_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (subtle variant 06/20)",
+      "path": "assets/grade/luts/product_clean_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (subtle variant 07/20)",
+      "path": "assets/grade/luts/product_clean_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (medium variant 08/20)",
+      "path": "assets/grade/luts/product_clean_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (medium variant 09/20)",
+      "path": "assets/grade/luts/product_clean_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (medium variant 10/20)",
+      "path": "assets/grade/luts/product_clean_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (medium variant 11/20)",
+      "path": "assets/grade/luts/product_clean_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (medium variant 12/20)",
+      "path": "assets/grade/luts/product_clean_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (medium variant 13/20)",
+      "path": "assets/grade/luts/product_clean_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (strong variant 14/20)",
+      "path": "assets/grade/luts/product_clean_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (strong variant 15/20)",
+      "path": "assets/grade/luts/product_clean_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (strong variant 16/20)",
+      "path": "assets/grade/luts/product_clean_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (strong variant 17/20)",
+      "path": "assets/grade/luts/product_clean_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (strong variant 18/20)",
+      "path": "assets/grade/luts/product_clean_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (strong variant 19/20)",
+      "path": "assets/grade/luts/product_clean_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "product_clean_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Neutral polish for product/UI captures; preserves whites. (strong variant 20/20)",
+      "path": "assets/grade/luts/product_clean_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "product",
+        "ui_demo",
+        "clean",
+        "neutral",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (subtle variant 01/20)",
+      "path": "assets/grade/luts/ad_warm_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (subtle variant 02/20)",
+      "path": "assets/grade/luts/ad_warm_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (subtle variant 03/20)",
+      "path": "assets/grade/luts/ad_warm_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (subtle variant 04/20)",
+      "path": "assets/grade/luts/ad_warm_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (subtle variant 05/20)",
+      "path": "assets/grade/luts/ad_warm_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (subtle variant 06/20)",
+      "path": "assets/grade/luts/ad_warm_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (subtle variant 07/20)",
+      "path": "assets/grade/luts/ad_warm_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (medium variant 08/20)",
+      "path": "assets/grade/luts/ad_warm_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (medium variant 09/20)",
+      "path": "assets/grade/luts/ad_warm_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (medium variant 10/20)",
+      "path": "assets/grade/luts/ad_warm_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (medium variant 11/20)",
+      "path": "assets/grade/luts/ad_warm_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (medium variant 12/20)",
+      "path": "assets/grade/luts/ad_warm_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (medium variant 13/20)",
+      "path": "assets/grade/luts/ad_warm_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (strong variant 14/20)",
+      "path": "assets/grade/luts/ad_warm_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (strong variant 15/20)",
+      "path": "assets/grade/luts/ad_warm_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (strong variant 16/20)",
+      "path": "assets/grade/luts/ad_warm_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (strong variant 17/20)",
+      "path": "assets/grade/luts/ad_warm_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (strong variant 18/20)",
+      "path": "assets/grade/luts/ad_warm_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (strong variant 19/20)",
+      "path": "assets/grade/luts/ad_warm_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "ad_warm_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Warm lift for lifestyle/product ads; friendly mids. (strong variant 20/20)",
+      "path": "assets/grade/luts/ad_warm_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "ad",
+        "warm",
+        "bright",
+        "rec709",
+        "commercial",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (subtle variant 01/20)",
+      "path": "assets/grade/luts/cool_tech_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (subtle variant 02/20)",
+      "path": "assets/grade/luts/cool_tech_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (subtle variant 03/20)",
+      "path": "assets/grade/luts/cool_tech_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (subtle variant 04/20)",
+      "path": "assets/grade/luts/cool_tech_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (subtle variant 05/20)",
+      "path": "assets/grade/luts/cool_tech_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (subtle variant 06/20)",
+      "path": "assets/grade/luts/cool_tech_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (subtle variant 07/20)",
+      "path": "assets/grade/luts/cool_tech_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (medium variant 08/20)",
+      "path": "assets/grade/luts/cool_tech_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (medium variant 09/20)",
+      "path": "assets/grade/luts/cool_tech_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (medium variant 10/20)",
+      "path": "assets/grade/luts/cool_tech_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (medium variant 11/20)",
+      "path": "assets/grade/luts/cool_tech_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (medium variant 12/20)",
+      "path": "assets/grade/luts/cool_tech_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (medium variant 13/20)",
+      "path": "assets/grade/luts/cool_tech_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (strong variant 14/20)",
+      "path": "assets/grade/luts/cool_tech_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (strong variant 15/20)",
+      "path": "assets/grade/luts/cool_tech_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (strong variant 16/20)",
+      "path": "assets/grade/luts/cool_tech_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (strong variant 17/20)",
+      "path": "assets/grade/luts/cool_tech_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (strong variant 18/20)",
+      "path": "assets/grade/luts/cool_tech_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (strong variant 19/20)",
+      "path": "assets/grade/luts/cool_tech_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "cool_tech_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool bias for tech/saas demos; keeps whites crisp. (strong variant 20/20)",
+      "path": "assets/grade/luts/cool_tech_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "tech",
+        "cool",
+        "clean",
+        "rec709",
+        "ui_demo",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (subtle variant 01/20)",
+      "path": "assets/grade/luts/trailer_punch_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (subtle variant 02/20)",
+      "path": "assets/grade/luts/trailer_punch_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (subtle variant 03/20)",
+      "path": "assets/grade/luts/trailer_punch_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (subtle variant 04/20)",
+      "path": "assets/grade/luts/trailer_punch_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (subtle variant 05/20)",
+      "path": "assets/grade/luts/trailer_punch_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (subtle variant 06/20)",
+      "path": "assets/grade/luts/trailer_punch_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (subtle variant 07/20)",
+      "path": "assets/grade/luts/trailer_punch_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (medium variant 08/20)",
+      "path": "assets/grade/luts/trailer_punch_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (medium variant 09/20)",
+      "path": "assets/grade/luts/trailer_punch_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (medium variant 10/20)",
+      "path": "assets/grade/luts/trailer_punch_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (medium variant 11/20)",
+      "path": "assets/grade/luts/trailer_punch_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (medium variant 12/20)",
+      "path": "assets/grade/luts/trailer_punch_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (medium variant 13/20)",
+      "path": "assets/grade/luts/trailer_punch_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (strong variant 14/20)",
+      "path": "assets/grade/luts/trailer_punch_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (strong variant 15/20)",
+      "path": "assets/grade/luts/trailer_punch_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (strong variant 16/20)",
+      "path": "assets/grade/luts/trailer_punch_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (strong variant 17/20)",
+      "path": "assets/grade/luts/trailer_punch_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (strong variant 18/20)",
+      "path": "assets/grade/luts/trailer_punch_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (strong variant 19/20)",
+      "path": "assets/grade/luts/trailer_punch_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "trailer_punch_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cinematic",
+      "notes": "High-contrast punch for trailers/b-roll; use on dynamic footage. (strong variant 20/20)",
+      "path": "assets/grade/luts/trailer_punch_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "trailer",
+        "punch",
+        "contrast_plus",
+        "sat_plus",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (subtle variant 01/20)",
+      "path": "assets/grade/luts/vintage_fade_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (subtle variant 02/20)",
+      "path": "assets/grade/luts/vintage_fade_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (subtle variant 03/20)",
+      "path": "assets/grade/luts/vintage_fade_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (subtle variant 04/20)",
+      "path": "assets/grade/luts/vintage_fade_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (subtle variant 05/20)",
+      "path": "assets/grade/luts/vintage_fade_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (subtle variant 06/20)",
+      "path": "assets/grade/luts/vintage_fade_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (subtle variant 07/20)",
+      "path": "assets/grade/luts/vintage_fade_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (medium variant 08/20)",
+      "path": "assets/grade/luts/vintage_fade_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (medium variant 09/20)",
+      "path": "assets/grade/luts/vintage_fade_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (medium variant 10/20)",
+      "path": "assets/grade/luts/vintage_fade_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (medium variant 11/20)",
+      "path": "assets/grade/luts/vintage_fade_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (medium variant 12/20)",
+      "path": "assets/grade/luts/vintage_fade_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (medium variant 13/20)",
+      "path": "assets/grade/luts/vintage_fade_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (strong variant 14/20)",
+      "path": "assets/grade/luts/vintage_fade_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (strong variant 15/20)",
+      "path": "assets/grade/luts/vintage_fade_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (strong variant 16/20)",
+      "path": "assets/grade/luts/vintage_fade_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (strong variant 17/20)",
+      "path": "assets/grade/luts/vintage_fade_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (strong variant 18/20)",
+      "path": "assets/grade/luts/vintage_fade_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (strong variant 19/20)",
+      "path": "assets/grade/luts/vintage_fade_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "vintage_fade_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "vintage",
+      "notes": "Soft faded look for nostalgia/b-roll; gentle blacks. (strong variant 20/20)",
+      "path": "assets/grade/luts/vintage_fade_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "vintage",
+        "fade",
+        "sat_minus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (subtle variant 01/20)",
+      "path": "assets/grade/luts/moody_teal_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (subtle variant 02/20)",
+      "path": "assets/grade/luts/moody_teal_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (subtle variant 03/20)",
+      "path": "assets/grade/luts/moody_teal_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (subtle variant 04/20)",
+      "path": "assets/grade/luts/moody_teal_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (subtle variant 05/20)",
+      "path": "assets/grade/luts/moody_teal_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (subtle variant 06/20)",
+      "path": "assets/grade/luts/moody_teal_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (subtle variant 07/20)",
+      "path": "assets/grade/luts/moody_teal_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (medium variant 08/20)",
+      "path": "assets/grade/luts/moody_teal_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (medium variant 09/20)",
+      "path": "assets/grade/luts/moody_teal_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (medium variant 10/20)",
+      "path": "assets/grade/luts/moody_teal_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (medium variant 11/20)",
+      "path": "assets/grade/luts/moody_teal_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (medium variant 12/20)",
+      "path": "assets/grade/luts/moody_teal_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (medium variant 13/20)",
+      "path": "assets/grade/luts/moody_teal_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (strong variant 14/20)",
+      "path": "assets/grade/luts/moody_teal_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (strong variant 15/20)",
+      "path": "assets/grade/luts/moody_teal_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (strong variant 16/20)",
+      "path": "assets/grade/luts/moody_teal_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (strong variant 17/20)",
+      "path": "assets/grade/luts/moody_teal_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (strong variant 18/20)",
+      "path": "assets/grade/luts/moody_teal_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (strong variant 19/20)",
+      "path": "assets/grade/luts/moody_teal_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "moody_teal_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "moody",
+      "notes": "Moody teal drift for dramatic b-roll; cooler shadows. (strong variant 20/20)",
+      "path": "assets/grade/luts/moody_teal_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "moody",
+        "teal",
+        "contrast_plus",
+        "rec709",
+        "broll",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (subtle variant 01/20)",
+      "path": "assets/grade/luts/clean_bright_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (subtle variant 02/20)",
+      "path": "assets/grade/luts/clean_bright_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (subtle variant 03/20)",
+      "path": "assets/grade/luts/clean_bright_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (subtle variant 04/20)",
+      "path": "assets/grade/luts/clean_bright_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (subtle variant 05/20)",
+      "path": "assets/grade/luts/clean_bright_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (subtle variant 06/20)",
+      "path": "assets/grade/luts/clean_bright_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (subtle variant 07/20)",
+      "path": "assets/grade/luts/clean_bright_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (medium variant 08/20)",
+      "path": "assets/grade/luts/clean_bright_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (medium variant 09/20)",
+      "path": "assets/grade/luts/clean_bright_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (medium variant 10/20)",
+      "path": "assets/grade/luts/clean_bright_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (medium variant 11/20)",
+      "path": "assets/grade/luts/clean_bright_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (medium variant 12/20)",
+      "path": "assets/grade/luts/clean_bright_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (medium variant 13/20)",
+      "path": "assets/grade/luts/clean_bright_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (strong variant 14/20)",
+      "path": "assets/grade/luts/clean_bright_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (strong variant 15/20)",
+      "path": "assets/grade/luts/clean_bright_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (strong variant 16/20)",
+      "path": "assets/grade/luts/clean_bright_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (strong variant 17/20)",
+      "path": "assets/grade/luts/clean_bright_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (strong variant 18/20)",
+      "path": "assets/grade/luts/clean_bright_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (strong variant 19/20)",
+      "path": "assets/grade/luts/clean_bright_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "clean_bright_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "clean",
+      "notes": "Brighten mids for product/talking-head; keep neutral. (strong variant 20/20)",
+      "path": "assets/grade/luts/clean_bright_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "clean",
+        "bright",
+        "product",
+        "rec709",
+        "talking_head",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (subtle variant 01/20)",
+      "path": "assets/grade/luts/soft_pastel_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (subtle variant 02/20)",
+      "path": "assets/grade/luts/soft_pastel_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (subtle variant 03/20)",
+      "path": "assets/grade/luts/soft_pastel_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (subtle variant 04/20)",
+      "path": "assets/grade/luts/soft_pastel_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (subtle variant 05/20)",
+      "path": "assets/grade/luts/soft_pastel_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (subtle variant 06/20)",
+      "path": "assets/grade/luts/soft_pastel_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (subtle variant 07/20)",
+      "path": "assets/grade/luts/soft_pastel_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (medium variant 08/20)",
+      "path": "assets/grade/luts/soft_pastel_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (medium variant 09/20)",
+      "path": "assets/grade/luts/soft_pastel_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (medium variant 10/20)",
+      "path": "assets/grade/luts/soft_pastel_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (medium variant 11/20)",
+      "path": "assets/grade/luts/soft_pastel_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (medium variant 12/20)",
+      "path": "assets/grade/luts/soft_pastel_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (medium variant 13/20)",
+      "path": "assets/grade/luts/soft_pastel_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (strong variant 14/20)",
+      "path": "assets/grade/luts/soft_pastel_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (strong variant 15/20)",
+      "path": "assets/grade/luts/soft_pastel_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (strong variant 16/20)",
+      "path": "assets/grade/luts/soft_pastel_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (strong variant 17/20)",
+      "path": "assets/grade/luts/soft_pastel_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (strong variant 18/20)",
+      "path": "assets/grade/luts/soft_pastel_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (strong variant 19/20)",
+      "path": "assets/grade/luts/soft_pastel_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "soft_pastel_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "soft",
+      "notes": "Soft pastel wash for lifestyle scenes; gentle saturation. (strong variant 20/20)",
+      "path": "assets/grade/luts/soft_pastel_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "pastel",
+        "soft",
+        "sat_minus",
+        "rec709",
+        "lifestyle",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (subtle variant 01/20)",
+      "path": "assets/grade/luts/night_blue_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (subtle variant 02/20)",
+      "path": "assets/grade/luts/night_blue_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (subtle variant 03/20)",
+      "path": "assets/grade/luts/night_blue_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (subtle variant 04/20)",
+      "path": "assets/grade/luts/night_blue_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (subtle variant 05/20)",
+      "path": "assets/grade/luts/night_blue_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (subtle variant 06/20)",
+      "path": "assets/grade/luts/night_blue_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (subtle variant 07/20)",
+      "path": "assets/grade/luts/night_blue_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (medium variant 08/20)",
+      "path": "assets/grade/luts/night_blue_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (medium variant 09/20)",
+      "path": "assets/grade/luts/night_blue_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (medium variant 10/20)",
+      "path": "assets/grade/luts/night_blue_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (medium variant 11/20)",
+      "path": "assets/grade/luts/night_blue_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (medium variant 12/20)",
+      "path": "assets/grade/luts/night_blue_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (medium variant 13/20)",
+      "path": "assets/grade/luts/night_blue_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (strong variant 14/20)",
+      "path": "assets/grade/luts/night_blue_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (strong variant 15/20)",
+      "path": "assets/grade/luts/night_blue_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (strong variant 16/20)",
+      "path": "assets/grade/luts/night_blue_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (strong variant 17/20)",
+      "path": "assets/grade/luts/night_blue_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (strong variant 18/20)",
+      "path": "assets/grade/luts/night_blue_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (strong variant 19/20)",
+      "path": "assets/grade/luts/night_blue_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "night_blue_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "cool",
+      "notes": "Cool night tone for low-light scenes; tighten contrast. (strong variant 20/20)",
+      "path": "assets/grade/luts/night_blue_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "night",
+        "cool",
+        "moody",
+        "rec709",
+        "contrast_plus",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v01",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (subtle variant 01/20)",
+      "path": "assets/grade/luts/warm_skin_v01.cube",
+      "recommended_strength": 0.25,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v02",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (subtle variant 02/20)",
+      "path": "assets/grade/luts/warm_skin_v02.cube",
+      "recommended_strength": 0.28,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v03",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (subtle variant 03/20)",
+      "path": "assets/grade/luts/warm_skin_v03.cube",
+      "recommended_strength": 0.31,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v04",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (subtle variant 04/20)",
+      "path": "assets/grade/luts/warm_skin_v04.cube",
+      "recommended_strength": 0.34,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v05",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (subtle variant 05/20)",
+      "path": "assets/grade/luts/warm_skin_v05.cube",
+      "recommended_strength": 0.37,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v06",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (subtle variant 06/20)",
+      "path": "assets/grade/luts/warm_skin_v06.cube",
+      "recommended_strength": 0.39,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v07",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (subtle variant 07/20)",
+      "path": "assets/grade/luts/warm_skin_v07.cube",
+      "recommended_strength": 0.42,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "subtle"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v08",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (medium variant 08/20)",
+      "path": "assets/grade/luts/warm_skin_v08.cube",
+      "recommended_strength": 0.45,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v09",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (medium variant 09/20)",
+      "path": "assets/grade/luts/warm_skin_v09.cube",
+      "recommended_strength": 0.48,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v10",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (medium variant 10/20)",
+      "path": "assets/grade/luts/warm_skin_v10.cube",
+      "recommended_strength": 0.51,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v11",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (medium variant 11/20)",
+      "path": "assets/grade/luts/warm_skin_v11.cube",
+      "recommended_strength": 0.54,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v12",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (medium variant 12/20)",
+      "path": "assets/grade/luts/warm_skin_v12.cube",
+      "recommended_strength": 0.57,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v13",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (medium variant 13/20)",
+      "path": "assets/grade/luts/warm_skin_v13.cube",
+      "recommended_strength": 0.6,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "medium"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v14",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (strong variant 14/20)",
+      "path": "assets/grade/luts/warm_skin_v14.cube",
+      "recommended_strength": 0.63,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v15",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (strong variant 15/20)",
+      "path": "assets/grade/luts/warm_skin_v15.cube",
+      "recommended_strength": 0.66,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v16",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (strong variant 16/20)",
+      "path": "assets/grade/luts/warm_skin_v16.cube",
+      "recommended_strength": 0.68,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v17",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (strong variant 17/20)",
+      "path": "assets/grade/luts/warm_skin_v17.cube",
+      "recommended_strength": 0.71,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v18",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (strong variant 18/20)",
+      "path": "assets/grade/luts/warm_skin_v18.cube",
+      "recommended_strength": 0.74,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v19",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (strong variant 19/20)",
+      "path": "assets/grade/luts/warm_skin_v19.cube",
+      "recommended_strength": 0.77,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "strong"
+      ]
+    },
+    {
+      "format": "cube",
+      "id": "warm_skin_v20",
+      "license": {
+        "name": "internal",
+        "url": null
+      },
+      "mood": "warm",
+      "notes": "Subtle skin-friendly warmth for talking heads/podcasts. (strong variant 20/20)",
+      "path": "assets/grade/luts/warm_skin_v20.cube",
+      "recommended_strength": 0.8,
+      "source": {
+        "name": "generated",
+        "url": null
+      },
+      "tags": [
+        "skin",
+        "warm",
+        "talking_head",
+        "podcast",
+        "rec709",
+        "strong"
+      ]
+    }
+  ],
+  "version": "0.1"
+}

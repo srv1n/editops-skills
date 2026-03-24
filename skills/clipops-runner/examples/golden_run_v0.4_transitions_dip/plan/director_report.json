@@ -1,0 +1,78 @@
+{
+  "decisions": {
+    "allowlists": {
+      "camera_pulse_focus_ids": {
+        "clip_001": [],
+        "clip_002": []
+      },
+      "max_hero_taps": {
+        "clip_001": 3,
+        "clip_002": 3
+      },
+      "sources": {
+        "clip_001": {
+          "camera_pulse": "heuristic",
+          "tap_guide": "heuristic"
+        },
+        "clip_002": {
+          "camera_pulse": "heuristic",
+          "tap_guide": "heuristic"
+        }
+      },
+      "tap_guide_focus_ids": {
+        "clip_001": [],
+        "clip_002": []
+      }
+    },
+    "asset_order": [
+      "clip_001",
+      "clip_002"
+    ],
+    "audio": null,
+    "audio_join_ms": 40,
+    "audio_join_policy": "micro_crossfade",
+    "card_fade_ms": 120,
+    "holds": {
+      "clip_001": [],
+      "clip_002": []
+    },
+    "id_registry_selected": null,
+    "join_defaults": {
+      "color": "brand.paper",
+      "ease": "cubic_in_out",
+      "ms": 250,
+      "suppress_overlays": true,
+      "type": "dip"
+    },
+    "join_profile": "youtube_talking_head",
+    "pulse_taps": {
+      "clip_001": [],
+      "clip_002": []
+    },
+    "tap_guides": {
+      "clip_001": [],
+      "clip_002": []
+    },
+    "tempo_template": "standard_dip",
+    "trims": {
+      "clip_001": {
+        "base_dur_ms": 2000,
+        "output_dur_ms": 2000,
+        "src_in_ms": 0,
+        "src_out_ms": 2000
+      },
+      "clip_002": {
+        "base_dur_ms": 2000,
+        "output_dur_ms": 2000,
+        "src_in_ms": 0,
+        "src_out_ms": 2000
+      }
+    }
+  },
+  "inputs": {
+    "signals": []
+  },
+  "preset": "editorial",
+  "schema": "creativeops.director_report.v0.1",
+  "warnings": []
+}

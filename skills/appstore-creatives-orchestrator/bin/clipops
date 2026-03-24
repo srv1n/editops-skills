@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+
+"""
+Repo-local entrypoint for the ClipOps Rust CLI (`clipops`).
+
+This wrapper exists so a fresh checkout can run workflows that invoke ClipOps
+without requiring a global `clipops` install on PATH.
+
+Resolution order:
+1) `CLIPOPS_BIN` environment variable (path to a `clipops` binary)
+2) `clipops` found on PATH
+3) `clipops/target/{debug,release}/clipops` (already-built repo-local binary)
+4) Build via Cargo, then run the repo-local binary
+"""
+
+from __future__ import annotations
+
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parent.parent
+
+
+def _abs(p: Path) -> Path:
+    return p if p.is_absolute() else (Path.cwd() / p).resolve()
+
+
+def _resolve_clipops_bin(repo_root: Path, *, release: bool) -> Path | None:
+    env = os.environ.get("CLIPOPS_BIN")
+    if env:
+        p = _abs(Path(env))
+        return p
+
+    which = shutil.which("clipops")
+    if which:
+        return Path(which)
+
+    first = "release" if release else "debug"
+    second = "debug" if release else "release"
+    for cand in (
+        repo_root / "clipops" / "target" / first / "clipops",
+        repo_root / "clipops" / "target" / second / "clipops",
+    ):
+        if cand.exists():
+            return cand
+
+    return None
+
+
+def _build(repo_root: Path, *, release: bool) -> int:
+    manifest_path = repo_root / "clipops" / "Cargo.toml"
+    if not manifest_path.exists():
+        print(f"ERROR: missing Rust workspace manifest: {manifest_path}", file=sys.stderr)
+        return 2
+
+    cmd = [
+        "cargo",
+        "build",
+        "--manifest-path",
+        str(manifest_path),
+        "-p",
+        "clipops-cli",
+    ]
+    if release:
+        cmd.insert(2, "--release")
+
+    proc = subprocess.run(cmd, cwd=str(repo_root))
+    return int(proc.returncode)
+
+
+def main() -> int:
+    args = sys.argv[1:]
+    if not args:
+        print("Usage: bin/clipops <validate|qa|bundle-run|lint-paths|render|render-card> [args...]", file=sys.stderr)
+        return 2
+
+    repo_root = _repo_root()
+    release = args[0] in {"render", "render-card"}
+
+    clipops_bin = _resolve_clipops_bin(repo_root, release=release)
+    if clipops_bin is None:
+        rc = _build(repo_root, release=release)
+        if rc != 0:
+            return rc
+        clipops_bin = _resolve_clipops_bin(repo_root, release=release)
+
+    if clipops_bin is None or not clipops_bin.exists():
+        print("ERROR: failed to resolve a clipops binary (set CLIPOPS_BIN or build clipops)", file=sys.stderr)
+        return 2
+
+    proc = subprocess.run([str(clipops_bin), *args], cwd=str(repo_root))
+    return int(proc.returncode)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

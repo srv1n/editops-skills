@@ -1,0 +1,115 @@
+{
+  "decisions": {
+    "allowlists": {
+      "camera_pulse_focus_ids": {
+        "input": [
+          "demo.button"
+        ]
+      },
+      "max_hero_taps": {
+        "input": 1
+      },
+      "sources": {
+        "input": {
+          "camera_pulse": "heuristic",
+          "tap_guide": "heuristic"
+        }
+      },
+      "tap_guide_focus_ids": {
+        "input": [
+          "demo.button"
+        ]
+      }
+    },
+    "asset_order": [
+      "input"
+    ],
+    "audio": [
+      {
+        "asset": "audio_music_bed",
+        "dst_in_ms": 0,
+        "duck_original_db": null,
+        "dur_ms": 4150,
+        "id": "music_bed",
+        "loop": true,
+        "path": "inputs/music.wav",
+        "type": "music"
+      },
+      {
+        "asset": "audio_voiceover",
+        "dst_in_ms": 0,
+        "duck_original_db": -18.0,
+        "dur_ms": 1800,
+        "id": "voiceover",
+        "loop": false,
+        "path": "inputs/voiceover.wav",
+        "type": "voiceover"
+      }
+    ],
+    "audio_join_ms": 40,
+    "audio_join_policy": "micro_crossfade",
+    "card_fade_ms": 120,
+    "holds": {
+      "input": [
+        {
+          "dst_rel_ms": 620,
+          "dur_ms": 280,
+          "src_rel_ms": 620,
+          "tap_t_ms": 1000
+        }
+      ]
+    },
+    "id_registry_selected": null,
+    "join_defaults": {
+      "color": "brand.paper",
+      "ease": "cubic_in_out",
+      "ms": 250,
+      "suppress_overlays": true,
+      "type": "dip"
+    },
+    "join_layout": "gap",
+    "join_profile": "ios_editorial",
+    "pulse_taps": {
+      "input": [
+        {
+          "focus_id": "demo.button",
+          "seq": 1,
+          "t_ms": 1000
+        }
+      ]
+    },
+    "tap_guides": {
+      "input": [
+        {
+          "focus_id": "demo.button",
+          "seq": 1,
+          "t_ms": 1000
+        }
+      ]
+    },
+    "tempo_template": "standard_dip",
+    "trims": {
+      "input": {
+        "base_dur_ms": 1070,
+        "output_dur_ms": 1350,
+        "src_in_ms": 580,
+        "src_out_ms": 1650
+      }
+    }
+  },
+  "inputs": {
+    "signals": [
+      "signals/ios_ui_events.json"
+    ],
+    "storyboard": "plan/storyboard.yaml"
+  },
+  "preset": "editorial",
+  "schema": "creativeops.director_report.v0.1",
+  "storyboard_meta": {
+    "review": {
+      "approved": false,
+      "notes": "Golden explainator fixture: cards + camera + audio lanes"
+    }
+  },
+  "warnings": []
+}

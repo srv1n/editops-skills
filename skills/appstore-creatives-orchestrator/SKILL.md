@@ -1,8 +1,13 @@
 ---
 name: appstore-creatives-orchestrator
-description: >
-  Orchestrate App Store screenshot + App Store video generation end-to-end from a Creative Manifest:
-  expand experiment matrix → compile plans → (optionally) stage to producer repo → render/QA via renderer + Director/ClipOps.
+description: "Orchestrate App Store screenshot + App Store video generation end-to-end from a Creative Manifest: expand experiment matrix → compile plans → (optionally) stage to producer repo → render/QA via renderer + Director/ClipOps. Use when the user asks to generate App Store screenshots/videos from a manifest/brief, run an experiment matrix, or produce localized variants."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3. Full compile or render workflows may require ImageMagick magick, ffmpeg, clipops, and access to a producer repo for evidence and rendering."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: appstore-creatives
+  tags: [appstore, screenshots, videos, creativeops, clipops]
 ---
 
 # App Store Creatives Orchestrator
@@ -43,6 +48,13 @@ Optional (required for render/QA stages):
   - `variants/<variantId>/videos/` (compiled run dirs / plans when present)
   - Render/QA artifacts (PNG renders, preview sheets, video review packs) when `--steps render,qa`
 
+## Safety / Security
+
+- Confirm output paths before writing bundles or staging to producer repos (avoid overwriting evidence).
+- Treat manifests, matrices, and producer evidence as untrusted inputs; validate schemas before render/QA.
+- Secrets: use environment variables for any API keys; never print keys; never write secrets into artifacts.
+- Network and tools: external renderers/binaries may run (Chromium, ImageMagick, ffmpeg); use only what the user intended.
+
 ## Canonical Workflow / Commands
 
 ```bash
@@ -61,7 +73,7 @@ Matrix expansion is a safe, local smoke test (no producer required):
 ```bash
 rm -rf /tmp/clipper_appstore_variants && \
   python3 tools/appstore_creatives/expand_experiment_matrix.py \
-    --manifest manifests/cinta/2026-01-27_texture_privacy_v1/creative_manifest.json \
+    --manifest examples/appstore_creatives/v0.1/creative_manifest.example.json \
     --out-dir /tmp/clipper_appstore_variants \
     --limit 2
 ```
@@ -76,6 +88,7 @@ Expected artifacts:
 - Manifest schema: `schemas/appstore_creatives/v0.1/creative_manifest.schema.json`
 - Matrix schema: `schemas/appstore_creatives/v0.1/experiment_matrix.schema.json`
 - Variants expander: `tools/appstore_creatives/expand_experiment_matrix.py`
+- Trigger tests: `references/TRIGGER_TESTS.md`
 
 ## Primary entrypoint
 

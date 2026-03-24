@@ -1,0 +1,24 @@
+{
+  "schema": "clipops.manifest.v0.1",
+  "run_dir": "/Users/sarav/Downloads/play/clipper/examples/golden_run",
+  "output": "/Users/sarav/Downloads/play/clipper/examples/golden_run/renders/final.mp4",
+  "output_sha256": "2fcc72c6120d5b09ba1a82a533222f6baef75ce332dcac188a68f95b6b9f626c",
+  "clipops": {
+    "cargo_pkg_version": "0.1.0",
+    "git_sha": null
+  },
+  "ffmpeg_version": "ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers",
+  "inputs_sha256": {
+    "assets.main_video": "28ad878d147d379ae97fd43845b5964e9ebf1980bd4a782a524fa1af29f6f563",
+    "brand.kit": "d020428883745d87270f4d94542ec82f43f0a0c33b4825c6aa71d513dbf25830",
+    "compiled.camera_path.json": "85b2c14743010b59eb7c41854f599868b7c7c0e5bac1a026e47d22411c225d2e",
+    "compiled.overlay.edl.json": "8c8594f0ac9af2b8f1a91372933b6c2e52808d1f2adf033de7f78a5c7d759a60",
+    "compiled.segment_map.json": "4aa6c2fdb4bd5fd3e02cf541e0f99cb3cf736f1c890e57c410d6d2db437d981f",
+    "fonts.caption": "519a78f73cd5ac6286d3b2d820e4ec68dca2169c6930870ab9e5cee1fd4c1804",
+    "fonts.headline": "296ac5e08bea4da51b7c46eb9647f69be0f56077a9c35b4bc9f433d7e8734771",
+    "plan.timeline.json": "49f53403969b0e336b3d39a11b1940b47c312a2d1b4afede56e3240a0e12571e",
+    "signals.focus": "ec0dbadfb873c8c5b5903e461d26bd21f766e886077af04b9f71b3c653294a70",
+    "signals.taps": "ec0dbadfb873c8c5b5903e461d26bd21f766e886077af04b9f71b3c653294a70",
+    "signals.words": "75a061f85812eb3038f1d49a81c8852e6cfe4fa6a6b35507ca612af43ae5c435"
+  }
+}

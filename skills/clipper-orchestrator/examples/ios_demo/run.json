@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "runId": "example_ios_demo_v0_1",
+  "kind": "ios_demo",
+  "notes": "Example run directory for iOS demo videos. Put the recording at inputs/input.mp4 and emit signals/ios_ui_events.json aligned to it."
+}
+

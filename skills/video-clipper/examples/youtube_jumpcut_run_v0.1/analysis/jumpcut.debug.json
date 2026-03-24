@@ -1,0 +1,78 @@
+{
+  "version": "0.1",
+  "generated_at_unix": 0,
+  "inputs": {
+    "video": "examples/youtube_jumpcut_run_v0.1/inputs/input.mp4",
+    "transcript": "examples/youtube_jumpcut_run_v0.1/signals/words.json"
+  },
+  "outputs": {
+    "video": "examples/youtube_jumpcut_run_v0.1/analysis/jumpcut.local.mp4",
+    "transcript": "examples/youtube_jumpcut_run_v0.1/analysis/jumpcut.transcript.json",
+    "debug": "examples/youtube_jumpcut_run_v0.1/analysis/jumpcut.debug.json"
+  },
+  "params": {
+    "min_silence_sec": 0.35,
+    "pad_sec": 0.06,
+    "min_segment_sec": 0.25,
+    "micro_xfade_sec": 0.04
+  },
+  "analysis": {
+    "duration_sec": 6.0,
+    "min_silence_sec": 0.35,
+    "pad_sec": 0.06,
+    "min_segment_sec": 0.25,
+    "word_count": 9,
+    "removed_silences": [
+      {
+        "start": 0.9,
+        "end": 2.1,
+        "dur": 1.2
+      },
+      {
+        "start": 2.9,
+        "end": 4.1,
+        "dur": 1.2
+      }
+    ],
+    "dropped_segments": [],
+    "segments": [
+      {
+        "start": 0.04,
+        "end": 0.96,
+        "dur": 0.92
+      },
+      {
+        "start": 2.04,
+        "end": 2.96,
+        "dur": 0.92
+      },
+      {
+        "start": 4.04,
+        "end": 4.96,
+        "dur": 0.92
+      }
+    ],
+    "segment_count": 3,
+    "kept_duration_sec": 2.76
+  },
+  "seams": [
+    {
+      "index": 0,
+      "d": 0.04,
+      "prev_dur": 0.92,
+      "next_dur": 0.92
+    },
+    {
+      "index": 1,
+      "d": 0.04,
+      "prev_dur": 0.92,
+      "next_dur": 0.92
+    }
+  ],
+  "ffmpeg": {
+    "has_audio": true,
+    "filter_complex": "[0:v]trim=start=0.040:end=0.920,setpts=PTS-STARTPTS,fps=30.000,format=yuv420p[v0];[0:a]atrim=start=0.040:end=0.960,asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo[a0];[0:v]trim=start=2.040:end=2.920,setpts=PTS-STARTPTS,fps=30.000,format=yuv420p[v1];[0:a]atrim=start=2.040:end=2.960,asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo[a1];[0:v]trim=start=4.040:end=4.960,setpts=PTS-STARTPTS,fps=30.000,format=yuv420p[v2];[0:a]atrim=start=4.040:end=4.960,asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo[a2];[v0][v1][v2]concat=n=3:v=1:a=0[outv];[a0][a1]acrossfade=d=0.0400:c1=tri:c2=tri[ax1];[ax1][a2]acrossfade=d=0.0400:c1=tri:c2=tri[ax2]",
+    "map_video": "[outv]",
+    "map_audio": "[ax2]"
+  }
+}

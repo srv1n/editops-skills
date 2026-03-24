@@ -1,0 +1,17 @@
+{
+  "video": "examples/integrated_demo/inputs/clip_002.mp4",
+  "timestamp": 0.0,
+  "frame_width": 3840,
+  "frame_height": 2160,
+  "success": true,
+  "x": 0.31197916666666664,
+  "y": 0.3527777777777778,
+  "width": 0.13072916666666667,
+  "height": 0.2324074074074074,
+  "confidence": 0.6612924337387085,
+  "method": "face",
+  "crop_x": 591,
+  "crop_width": 1215,
+  "crop_height": 2160,
+  "crop_x_normalized": 0.22514285714285714
+}

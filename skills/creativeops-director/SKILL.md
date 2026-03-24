@@ -1,12 +1,13 @@
 ---
 name: creativeops-director
-description: >
-  Director workflow for CreativeOps/ClipOps. Use when converting producer run
-  directories (inputs + ui_events signals) into ClipOps plans
-  (`plan/timeline.json`, schema clipops.timeline.v0.4), generating derived
-  signals (pulse taps, tap guides), and running the verification pipeline
-  (bundle→lint→validate→qa→render). Also use when defining/updating the Director
-  CLI contract or debugging pacing/auto-edit decisions.
+description: "Director workflow for CreativeOps/ClipOps. Use when converting producer run directories (inputs + ui_events signals) into ClipOps plans (`plan/timeline.json`, schema clipops.timeline.v0.4), generating derived signals (pulse taps, tap guides), and running the verification pipeline (bundle→lint→validate→qa→render). Also use when defining/updating the Director CLI contract or debugging pacing/auto-edit decisions."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3. Verify/render workflows require a clipops binary on PATH (or CLIPOPS_BIN) and ffmpeg; vendored schemas/docs are included when packed."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: creativeops
+  tags: [creativeops, director, clipops, pacing, run-dirs]
 ---
 
 # CreativeOps Director
@@ -35,6 +36,13 @@ Optional:
 - `plan/director_report.json` (decision log)
 - `signals/ios_pulse_taps*.json` (optional)
 - `signals/ios_tap_guides*.json` (optional)
+
+## Safety / Security
+
+- Confirm the run dir path before writing `plan/` and derived `signals/` (this workflow creates/overwrites outputs).
+- Treat producer signals as untrusted inputs; validate against v0.4 schemas before compiling a plan or rendering.
+- Rendering invokes external tools (`clipops`, `ffmpeg`); ensure dependencies are trusted and the user intends to render.
+- Keep run dirs portable: avoid absolute paths, bundle fonts/brand kit, and run lint/validate before sharing.
 
 ## Canonical Workflow / Commands
 
@@ -179,6 +187,7 @@ Expected artifacts:
 
 Open these for the exact contracts and heuristics:
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - `references/CREATIVEOPS_DIRECTOR_CLI_CONTRACT_V0.1.md`
 - `references/CLIPOPS_DIRECTOR_PACING_AND_AUTO_EDIT_V0.4.md`
 - `references/CLIPOPS_DIRECTOR_STORYBOARD_SPEC_V0.1.md`

@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "source": { "type": "video", "path": "inputs/input.mp4" },
+  "language": "en",
+  "words": [
+    { "text": "ONE", "start": 0.10, "end": 0.30, "confidence": 0.99 },
+    { "text": "TWO", "start": 0.35, "end": 0.55, "confidence": 0.99 },
+    { "text": "THREE", "start": 0.60, "end": 0.90, "confidence": 0.99 },
+
+    { "text": "FOUR", "start": 2.10, "end": 2.30, "confidence": 0.99 },
+    { "text": "FIVE", "start": 2.35, "end": 2.55, "confidence": 0.99 },
+    { "text": "SIX", "start": 2.60, "end": 2.90, "confidence": 0.99 },
+
+    { "text": "SEVEN", "start": 4.10, "end": 4.30, "confidence": 0.99 },
+    { "text": "EIGHT", "start": 4.35, "end": 4.55, "confidence": 0.99 },
+    { "text": "NINE", "start": 4.60, "end": 4.90, "confidence": 0.99 }
+  ]
+}
+

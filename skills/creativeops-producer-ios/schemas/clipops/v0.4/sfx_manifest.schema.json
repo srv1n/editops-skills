@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/clipops/sfx_manifest/v0.1",
+  "title": "ClipOps SFX Library Manifest",
+  "type": "object",
+  "required": ["schema", "items"],
+  "properties": {
+    "schema": { "const": "clipops.sfx_manifest.v0.1" },
+    "description": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "path", "cat"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "cat": {
+            "type": "string",
+            "enum": ["hit", "suckback", "whoosh", "riser", "drone", "boom", "stomp", "foley"]
+          },
+          "duration_ms": { "type": "integer", "minimum": 1 },
+          "peak_db": { "type": "number" },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}

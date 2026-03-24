@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipops.dev/schemas/clipops/segment_map/v0.3",
+  "title": "ClipOps Segment Map (v0.3)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "project", "ranges"],
+  "properties": {
+    "schema": { "type": "string", "const": "clipops.segment_map.v0.1" },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fps", "tick_rate"],
+      "properties": {
+        "fps": { "type": "number", "exclusiveMinimum": 0 },
+        "tick_rate": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "ranges": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/Range" }
+    }
+  },
+  "$defs": {
+    "Range": {
+      "oneOf": [
+        { "$ref": "#/$defs/SampleVideoRange" },
+        { "$ref": "#/$defs/FreezeVideoRange" },
+        { "$ref": "#/$defs/NoSourceRange" }
+      ]
+    },
+    "SampleVideoRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dst_in_ticks", "dur_ticks", "kind", "asset", "src_in_ticks"],
+      "properties": {
+        "dst_in_ticks": { "type": "integer", "minimum": 0 },
+        "dur_ticks": { "type": "integer", "minimum": 1 },
+        "kind": { "type": "string", "const": "sample_video" },
+        "asset": { "type": "string", "minLength": 1 },
+        "src_in_ticks": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "FreezeVideoRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dst_in_ticks", "dur_ticks", "kind", "asset", "src_at_ticks"],
+      "properties": {
+        "dst_in_ticks": { "type": "integer", "minimum": 0 },
+        "dur_ticks": { "type": "integer", "minimum": 1 },
+        "kind": { "type": "string", "const": "freeze_video" },
+        "asset": { "type": "string", "minLength": 1 },
+        "src_at_ticks": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "NoSourceRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dst_in_ticks", "dur_ticks", "kind"],
+      "properties": {
+        "dst_in_ticks": { "type": "integer", "minimum": 0 },
+        "dur_ticks": { "type": "integer", "minimum": 1 },
+        "kind": { "type": "string", "const": "no_source" }
+      }
+    }
+  }
+}

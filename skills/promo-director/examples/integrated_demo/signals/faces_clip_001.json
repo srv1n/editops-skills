@@ -1,0 +1,15 @@
+{
+  "video": "examples/integrated_demo/inputs/clip_001.mp4",
+  "timestamp": 0.0,
+  "frame_width": 1920,
+  "frame_height": 1080,
+  "success": true,
+  "x": 0.5,
+  "y": 0.5,
+  "method": "fallback",
+  "warning": "No subject detected, using center",
+  "crop_x": 657,
+  "crop_width": 607,
+  "crop_height": 1080,
+  "crop_x_normalized": 0.5003808073115004
+}

@@ -10,8 +10,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-import numpy as np
-
 
 from skill_paths import resolve_skill_root
 
@@ -19,6 +17,105 @@ from skill_paths import resolve_skill_root
 SKILL_ROOT = resolve_skill_root()
 TEMPLATES_ROOT = SKILL_ROOT / "templates" / "overlay"
 DEFAULT_BRAND = SKILL_ROOT / "brands" / "default.json"
+
+_SKILL_RELATIVE_PREFIXES = (
+    "assets/",
+    "templates/",
+    "brands/",
+)
+
+
+def _resolve_asset_path(path_str: str) -> str:
+    """
+    Resolve a file path string into an absolute path when possible.
+
+    Why:
+    - The Rust renderer (`overlay-cli`) resolves *relative* paths by searching:
+      - EDL directory
+      - CWD
+      - nearest ancestor containing `.claude/` (repo_root)
+    - In portable skill installs, assets live under the skill folder, not the repo root.
+      This helper makes compiled EDLs stable regardless of install location.
+
+    Rules:
+    - URLs/data URIs are returned unchanged
+    - absolute paths are returned unchanged
+    - relative paths under `assets/`, `templates/`, `brands/` are resolved relative to SKILL_ROOT
+    - legacy skill install prefixes like `.claude/skills/video-clipper/...` are mapped to SKILL_ROOT
+    - otherwise, try CWD first, then SKILL_ROOT
+    """
+    s = str(path_str or "").strip()
+    if not s:
+        return s
+    if "://" in s or s.startswith("data:"):
+        return s
+
+    p = Path(s).expanduser()
+    if p.is_absolute():
+        return str(p)
+
+    # Map legacy install prefixes to the current skill root.
+    legacy_prefixes = (
+        Path(".claude/skills/video-clipper"),
+        Path(".agents/skills/video-clipper"),
+        Path(".codex/skills/video-clipper"),
+    )
+    for legacy in legacy_prefixes:
+        try:
+            rel = p.relative_to(legacy)
+        except Exception:
+            continue
+        cand = SKILL_ROOT / rel
+        if cand.exists():
+            return str(cand.resolve())
+
+    # Prefer deterministic, skill-bundled prefixes.
+    if any(s.startswith(pref) for pref in _SKILL_RELATIVE_PREFIXES):
+        cand = SKILL_ROOT / p
+        if cand.exists():
+            return str(cand.resolve())
+
+    # Otherwise prefer workspace/CWD-relative paths (user-provided assets).
+    cand = Path.cwd() / p
+    if cand.exists():
+        return str(cand.resolve())
+
+    cand = SKILL_ROOT / p
+    if cand.exists():
+        return str(cand.resolve())
+
+    # Best-effort support for frame patterns (renderer will expand at runtime).
+    if ("%" in s or "{frame}" in s) and (cand.parent.exists() or (Path.cwd() / p).parent.exists()):
+        try:
+            return str((SKILL_ROOT / p).resolve())
+        except Exception:
+            return str(SKILL_ROOT / p)
+
+    return s
+
+
+def _normalize_edl_paths(edl: Dict[str, Any]) -> Dict[str, Any]:
+    layers = edl.get("layers")
+    if not isinstance(layers, list):
+        return edl
+
+    for layer in layers:
+        if not isinstance(layer, dict):
+            continue
+        t = layer.get("type")
+        if t == "text":
+            font = layer.get("font")
+            if isinstance(font, dict) and isinstance(font.get("path"), str):
+                font["path"] = _resolve_asset_path(font["path"])
+        elif t == "image":
+            if isinstance(layer.get("path"), str):
+                layer["path"] = _resolve_asset_path(layer["path"])
+        elif t == "background":
+            kind = layer.get("kind")
+            if isinstance(kind, dict) and kind.get("kind") in ("image", "video") and isinstance(kind.get("path"), str):
+                kind["path"] = _resolve_asset_path(kind["path"])
+
+    return edl
 
 
 @dataclass
@@ -621,11 +718,6 @@ def _matte_coverage_for_bbox(
     """
     Returns max(mean_alpha) over sample times for the given bbox. Alpha in [0..1].
     """
-    try:
-        import numpy as np  # type: ignore
-    except Exception:
-        return None
-
     x0, y0, x1, y1 = bbox_px
     if x1 <= x0 or y1 <= y0:
         return 1.0
@@ -644,7 +736,18 @@ def _matte_coverage_for_bbox(
         yy1 = max(0, min(h, int(y1)))
         if xx1 <= xx0 or yy1 <= yy0:
             continue
-        mean = float(np.mean(a[yy0:yy1, xx0:xx1]))
+        region = a[yy0:yy1, xx0:xx1]
+        try:
+            mean = float(region.mean())
+        except Exception:
+            # Fallback for non-numpy array-likes (should be rare).
+            total = 0.0
+            count = 0
+            for row in region:
+                for v in row:
+                    total += float(v)
+                    count += 1
+            mean = total / max(1, count)
         best = max(best, mean)
     if not any_ok:
         return None
@@ -2247,6 +2350,44 @@ def template_painted_wall_occluded_v1(
                 return None
         return pts
 
+    def _solve_linear_system(a: List[List[float]], b: List[float]) -> List[float]:
+        """
+        Solve Ax=b for a square matrix A using Gaussian elimination with partial pivoting.
+
+        This avoids requiring numpy for the painted-wall homography template.
+        """
+        n = len(b)
+        if n == 0 or any(len(row) != n for row in a):
+            raise RuntimeError("Invalid linear system dimensions")
+
+        # Augmented matrix [A | b]
+        m: List[List[float]] = [list(map(float, row)) + [float(bi)] for row, bi in zip(a, b)]
+
+        for col in range(n):
+            # Pivot: select row with largest absolute value in this column.
+            pivot = max(range(col, n), key=lambda r: abs(m[r][col]))
+            if abs(m[pivot][col]) < 1e-12:
+                raise RuntimeError("Singular matrix while solving homography")
+            if pivot != col:
+                m[col], m[pivot] = m[pivot], m[col]
+
+            # Normalize pivot row.
+            pv = m[col][col]
+            for j in range(col, n + 1):
+                m[col][j] /= pv
+
+            # Eliminate this column in other rows.
+            for r in range(n):
+                if r == col:
+                    continue
+                factor = m[r][col]
+                if abs(factor) < 1e-18:
+                    continue
+                for j in range(col, n + 1):
+                    m[r][j] -= factor * m[col][j]
+
+        return [m[i][n] for i in range(n)]
+
     def _homography_from_quads(src: List[Tuple[float, float]], dst: List[Tuple[float, float]]) -> List[float]:
         # Solve for H such that [u v 1]^T ~ H * [x y 1]^T with H[2,2]=1
         # Unknowns: h11 h12 h13 h21 h22 h23 h31 h32 (8)
@@ -2257,10 +2398,8 @@ def template_painted_wall_occluded_v1(
             b_rows.append(u)
             a_rows.append([0.0, 0.0, 0.0, x, y, 1.0, -v2 * x, -v2 * y])
             b_rows.append(v2)
-        a = np.array(a_rows, dtype=np.float64)
-        b = np.array(b_rows, dtype=np.float64)
-        h8 = np.linalg.solve(a, b)
-        h11, h12, h13, h21, h22, h23, h31, h32 = [float(x) for x in h8.tolist()]
+        h8 = _solve_linear_system(a_rows, b_rows)
+        h11, h12, h13, h21, h22, h23, h31, h32 = [float(x) for x in h8]
         return [h11, h12, h13, h21, h22, h23, h31, h32, 1.0]
 
     plane_w, plane_h = _parse_plane_space(plane_space)
@@ -2905,7 +3044,7 @@ def main() -> int:
     ap.add_argument("--template", required=True, help="Template id (e.g. captions_kinetic_v1)")
     ap.add_argument("--params", help="Path to params JSON (template-specific)")
     ap.add_argument("--signals", help="Signals directory (words.json, mattes/, planes/, faces/...)")
-    ap.add_argument("--brand", help="Brand kit JSON path (defaults to .claude/skills/video-clipper/brands/default.json)")
+    ap.add_argument("--brand", help="Brand kit JSON path (defaults to brands/default.json within the skill)")
     ap.add_argument("--input", help="Input video path for auto width/height/fps/duration via ffprobe")
     ap.add_argument("--width", type=int, help="Project width (if no --input)")
     ap.add_argument("--height", type=int, help="Project height (if no --input)")
@@ -2951,6 +3090,7 @@ def main() -> int:
         edl, report_obj = template_podcast_vertical_2up_v1_with_report(meta=meta, brand=brand, signals_dir=signals_dir, params=params)
     else:
         edl = fn(meta=meta, brand=brand, signals_dir=signals_dir, params=params)
+    edl = _normalize_edl_paths(edl)
     write_json(Path(args.output_edl), edl)
     if args.output_report:
         if report_obj is None:

@@ -1,0 +1,42 @@
+{
+  "id": "braindump_green_video",
+  "source": {
+    "bundle": "themes/builds/ios/light/warm/braindump_bundle.json",
+    "variant_id": "variant_2"
+  },
+  "fonts": {
+    "headline": { "family": "Space Grotesk", "weight": 700, "size_px": 92, "letter_spacing_em": -0.04 },
+    "subtitle": { "family": "Space Grotesk", "weight": 450, "size_px": 36, "letter_spacing_em": -0.02 },
+    "badge": { "family": "Space Grotesk", "weight": 450, "size_px": 22, "letter_spacing_em": 0 }
+  },
+  "colors": {
+    "gradient_start": "#BEC97E",
+    "gradient_end": "#164F4A",
+    "gradient_angle_deg": 135,
+    "text_primary": [1, 1, 1, 1],
+    "text_secondary": [1, 1, 1, 0.84],
+    "warm_white": "#F5F5F4"
+  },
+  "splice_card": {
+    "background": "gradient",
+    "textures": [
+      { "kind": "dust", "blend_mode": "screen", "opacity": 0.30, "seed": 719247, "tile_px": 156 },
+      { "kind": "noise", "blend_mode": "multiply", "opacity": 0.25, "seed": 815945, "tile_px": 178 }
+    ],
+    "text_effects": {
+      "grain": { "enabled": true, "intensity": 0.66, "pattern": "stains", "seed": 140767, "tile_px": 142 },
+      "knockout": { "enabled": true, "amount": 0.19, "pattern": "scratches", "seed": 112739, "tile_px": 97 }
+    },
+    "animation": { "preset": "fade_in", "duration_s": 0.8 },
+    "remotion_composition": "IntroTitle"
+  },
+  "end_card": {
+    "remotion_composition": "SlideScene",
+    "title": "Brain Dump",
+    "body": "Voice-first Markdown notes"
+  },
+  "transitions": {
+    "default": { "type": "dip_to_color", "color": "#F5F5F4", "duration_ms": 200, "ease": "cubic_in_out" },
+    "mood_shift": { "type": "crossfade", "duration_ms": 300, "ease": "cubic_in_out" }
+  }
+}

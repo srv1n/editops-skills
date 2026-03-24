@@ -1,0 +1,20 @@
+{
+  "clipops": {
+    "cargo_pkg_version": "0.1.0"
+  },
+  "ffmpeg_version": "ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers",
+  "inputs_sha256": {
+    "assets.main": "48fcfd3a2eb4a45948240a5ebdd5a4738f8de75f0589b9076eb47dc2ee21d5ec",
+    "brand.kit": "f12845b4b354bf7c21c8c00c1dd66df4889ef660c66250a481ec6bba90a76fa5",
+    "compiled.camera_path.json": "206a5c3543f732aceb843f13cad27dc5b7210ee87776d248f846f60f400b1513",
+    "compiled.overlay.edl.json": "e6dc89aa10a44eb28cc5af50726ba672e6f1fc547dea7184bf230d1a107012df",
+    "compiled.segment_map.json": "0d78eb469fe2a6c7dfdfe32a465e5b25453adae938eeeb12f2e59ae3051735c1",
+    "compiled.transition.edl.json": "e6dc89aa10a44eb28cc5af50726ba672e6f1fc547dea7184bf230d1a107012df",
+    "fonts.default": "99b1a177669c568bcb157c107ea4ba0f1f60c77021df990cc5c1d7afa3863b92",
+    "plan.timeline.json": "be3a2689964311a010807a51b357675eea828796abeae8ee57db1500bb46156f"
+  },
+  "output": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_auto_grade/renders/final.mp4",
+  "output_sha256": "2b819dd5f148e6c2fbeabb1627dac85985cb4dfc2cf36184d57e9b163f86351c",
+  "run_dir": "/Users/sarav/Downloads/play/clipper/examples/golden_run_v0.4_auto_grade",
+  "schema": "clipops.manifest.v0.1"
+}

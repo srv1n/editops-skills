@@ -1,0 +1,671 @@
+{
+  "schema": "clipper.texture_studio.bundle.v0.1",
+  "id": "variant_6",
+  "active_variant_id": "variant_6",
+  "variants": [
+    {
+      "schema": "clipper.texture_studio.preset.v0.2",
+      "id": "variant_1",
+      "background": {
+        "gradient": {
+          "start": "#E1ECEB",
+          "end": "#ABCFE2",
+          "angle_deg": 135
+        },
+        "image": {
+          "enabled": true,
+          "source": "file",
+          "file_path": "images/bckonb1.png",
+          "opacity": 0.85,
+          "blend_mode": "multiply",
+          "fit": "cover",
+          "mask_with_gradient": false,
+          "apply_gradient": false,
+          "pos_x": 50,
+          "pos_y": 50,
+          "scale": 1
+        },
+        "textures": {
+          "layers": [
+            {
+              "id": "screen",
+              "enabled": true,
+              "opacity": 0.24691438545338223,
+              "blend_mode": "screen",
+              "kind": "dust",
+              "seed": 802742,
+              "tile_px": 74
+            },
+            {
+              "id": "multiply",
+              "enabled": true,
+              "opacity": 0.19310816679295853,
+              "blend_mode": "multiply",
+              "kind": "noise",
+              "seed": 172836,
+              "tile_px": 145
+            },
+            {
+              "id": "overlay",
+              "enabled": true,
+              "opacity": 0.363479468302445,
+              "blend_mode": "overlay",
+              "kind": "vignette",
+              "seed": 831086,
+              "tile_px": 260
+            }
+          ],
+          "screen": {
+            "enabled": true,
+            "opacity": 0.24691438545338223
+          },
+          "multiply": {
+            "enabled": true,
+            "opacity": 0.19310816679295853
+          },
+          "overlay": {
+            "enabled": true,
+            "opacity": 0.363479468302445
+          }
+        },
+        "blur_px": 0.4
+      },
+      "typography": {
+        "font_family": "Space Grotesk",
+        "font_weight": 700,
+        "letter_spacing_em": -0.04
+      },
+      "text_effects": {
+        "ink_bleed": {
+          "enabled": false,
+          "amount": 3
+        },
+        "blur": {
+          "enabled": false,
+          "amount": 0
+        },
+        "grain": {
+          "enabled": true,
+          "intensity": 0.5,
+          "pattern": "stains",
+          "seed": 140767,
+          "tile_px": 85
+        },
+        "knockout": {
+          "enabled": true,
+          "amount": 0.4,
+          "pattern": "scratches",
+          "seed": 112739,
+          "tile_px": 74
+        },
+        "letterpress": {
+          "enabled": false,
+          "depth": 1
+        }
+      },
+      "color_palette": {
+        "primary": "#E1ECEB",
+        "secondary": "#ABCFE2"
+      }
+    },
+    {
+      "schema": "clipper.texture_studio.preset.v0.2",
+      "id": "variant_2",
+      "background": {
+        "gradient": {
+          "start": "#DDE2B2",
+          "end": "#EDEECF",
+          "angle_deg": 135
+        },
+        "textures": {
+          "layers": [
+            {
+              "id": "screen",
+              "enabled": true,
+              "opacity": 0.3,
+              "blend_mode": "screen",
+              "kind": "dust",
+              "seed": 719247,
+              "tile_px": 156
+            },
+            {
+              "id": "multiply",
+              "enabled": true,
+              "opacity": 0.25,
+              "blend_mode": "multiply",
+              "kind": "noise",
+              "seed": 815945,
+              "tile_px": 178
+            },
+            {
+              "id": "overlay",
+              "enabled": false,
+              "opacity": 0.2,
+              "blend_mode": "overlay",
+              "kind": "dust",
+              "seed": 855731,
+              "tile_px": 158
+            }
+          ],
+          "screen": {
+            "enabled": true,
+            "opacity": 0.3
+          },
+          "multiply": {
+            "enabled": true,
+            "opacity": 0.25
+          },
+          "overlay": {
+            "enabled": false,
+            "opacity": 0.2
+          }
+        },
+        "blur_px": 0.2
+      },
+      "typography": {
+        "font_family": "Space Grotesk",
+        "font_weight": 700,
+        "letter_spacing_em": -0.04
+      },
+      "text_effects": {
+        "ink_bleed": {
+          "enabled": false,
+          "amount": 3
+        },
+        "blur": {
+          "enabled": false,
+          "amount": 0
+        },
+        "grain": {
+          "enabled": true,
+          "intensity": 0.08,
+          "pattern": "fine",
+          "seed": 140767,
+          "tile_px": 142
+        },
+        "knockout": {
+          "enabled": true,
+          "amount": 0.19,
+          "pattern": "scratches",
+          "seed": 112739,
+          "tile_px": 97
+        },
+        "letterpress": {
+          "enabled": false,
+          "depth": 1
+        }
+      },
+      "color_palette": {
+        "primary": "#DDE2B2",
+        "secondary": "#EDEECF"
+      }
+    },
+    {
+      "schema": "clipper.texture_studio.preset.v0.2",
+      "id": "variant_3",
+      "background": {
+        "gradient": {
+          "start": "#F6E2A0",
+          "end": "#FFCABB",
+          "angle_deg": 135
+        },
+        "textures": {
+          "layers": [
+            {
+              "id": "screen",
+              "enabled": true,
+              "opacity": 0.24691438545338223,
+              "blend_mode": "screen",
+              "kind": "dust",
+              "seed": 802742,
+              "tile_px": 164
+            },
+            {
+              "id": "multiply",
+              "enabled": true,
+              "opacity": 0.19310816679295853,
+              "blend_mode": "multiply",
+              "kind": "paper",
+              "seed": 172836,
+              "tile_px": 180
+            },
+            {
+              "id": "overlay",
+              "enabled": true,
+              "opacity": 0.363479468302445,
+              "blend_mode": "overlay",
+              "kind": "vignette",
+              "seed": 831086,
+              "tile_px": 132
+            }
+          ],
+          "screen": {
+            "enabled": true,
+            "opacity": 0.24691438545338223
+          },
+          "multiply": {
+            "enabled": true,
+            "opacity": 0.19310816679295853
+          },
+          "overlay": {
+            "enabled": true,
+            "opacity": 0.363479468302445
+          }
+        },
+        "blur_px": 0
+      },
+      "typography": {
+        "font_family": "Space Grotesk",
+        "font_weight": 700,
+        "letter_spacing_em": -0.04
+      },
+      "text_effects": {
+        "ink_bleed": {
+          "enabled": false,
+          "amount": 3
+        },
+        "blur": {
+          "enabled": false,
+          "amount": 0
+        },
+        "grain": {
+          "enabled": true,
+          "intensity": 0.16,
+          "pattern": "stains",
+          "seed": 140767,
+          "tile_px": 83
+        },
+        "knockout": {
+          "enabled": true,
+          "amount": 0.22,
+          "pattern": "scratches",
+          "seed": 112739,
+          "tile_px": 124
+        },
+        "letterpress": {
+          "enabled": false,
+          "depth": 1
+        }
+      },
+      "color_palette": {
+        "primary": "#F6E2A0",
+        "secondary": "#FFCABB"
+      }
+    },
+    {
+      "schema": "clipper.texture_studio.preset.v0.2",
+      "id": "variant_4",
+      "background": {
+        "gradient": {
+          "start": "#C6DDE8",
+          "end": "#E1ECEB",
+          "angle_deg": 135
+        },
+        "textures": {
+          "layers": [
+            {
+              "id": "screen",
+              "enabled": true,
+              "opacity": 0.24691438545338223,
+              "blend_mode": "screen",
+              "kind": "dust",
+              "seed": 802742,
+              "tile_px": 164
+            },
+            {
+              "id": "multiply",
+              "enabled": true,
+              "opacity": 0.19310816679295853,
+              "blend_mode": "multiply",
+              "kind": "noise",
+              "seed": 172836,
+              "tile_px": 141
+            },
+            {
+              "id": "overlay",
+              "enabled": true,
+              "opacity": 0.3,
+              "blend_mode": "overlay",
+              "kind": "vignette",
+              "seed": 831086,
+              "tile_px": 146
+            }
+          ],
+          "screen": {
+            "enabled": true,
+            "opacity": 0.24691438545338223
+          },
+          "multiply": {
+            "enabled": true,
+            "opacity": 0.19310816679295853
+          },
+          "overlay": {
+            "enabled": true,
+            "opacity": 0.3
+          }
+        },
+        "blur_px": 0
+      },
+      "typography": {
+        "font_family": "Space Grotesk",
+        "font_weight": 700,
+        "letter_spacing_em": -0.04
+      },
+      "text_effects": {
+        "ink_bleed": {
+          "enabled": false,
+          "amount": 3
+        },
+        "blur": {
+          "enabled": false,
+          "amount": 0
+        },
+        "grain": {
+          "enabled": true,
+          "intensity": 0.18,
+          "pattern": "fine",
+          "seed": 140767,
+          "tile_px": 95
+        },
+        "knockout": {
+          "enabled": true,
+          "amount": 0.34,
+          "pattern": "scratches",
+          "seed": 112739,
+          "tile_px": 91
+        },
+        "letterpress": {
+          "enabled": false,
+          "depth": 1
+        }
+      },
+      "color_palette": {
+        "primary": "#C6DDE8",
+        "secondary": "#E1ECEB"
+      }
+    },
+    {
+      "schema": "clipper.texture_studio.preset.v0.2",
+      "id": "variant_5",
+      "background": {
+        "gradient": {
+          "start": "#F6E2A0",
+          "end": "#F1D67E",
+          "angle_deg": 135
+        },
+        "textures": {
+          "layers": [
+            {
+              "id": "screen",
+              "enabled": true,
+              "opacity": 0.24691438545338223,
+              "blend_mode": "screen",
+              "kind": "grain",
+              "seed": 802742,
+              "tile_px": 164
+            },
+            {
+              "id": "multiply",
+              "enabled": true,
+              "opacity": 0.19310816679295853,
+              "blend_mode": "multiply",
+              "kind": "paper",
+              "seed": 172836,
+              "tile_px": 180
+            },
+            {
+              "id": "overlay",
+              "enabled": false,
+              "opacity": 0.363479468302445,
+              "blend_mode": "overlay",
+              "kind": "grain",
+              "seed": 831086,
+              "tile_px": 132
+            }
+          ],
+          "screen": {
+            "enabled": true,
+            "opacity": 0.24691438545338223
+          },
+          "multiply": {
+            "enabled": true,
+            "opacity": 0.19310816679295853
+          },
+          "overlay": {
+            "enabled": false,
+            "opacity": 0.363479468302445
+          }
+        },
+        "blur_px": 0
+      },
+      "typography": {
+        "font_family": "Space Grotesk",
+        "font_weight": 700,
+        "letter_spacing_em": -0.04
+      },
+      "text_effects": {
+        "ink_bleed": {
+          "enabled": false,
+          "amount": 3
+        },
+        "blur": {
+          "enabled": false,
+          "amount": 0
+        },
+        "grain": {
+          "enabled": true,
+          "intensity": 0.13,
+          "pattern": "fine",
+          "seed": 140767,
+          "tile_px": 85
+        },
+        "knockout": {
+          "enabled": true,
+          "amount": 0.19,
+          "pattern": "scratches",
+          "seed": 112739,
+          "tile_px": 110
+        },
+        "letterpress": {
+          "enabled": false,
+          "depth": 1
+        }
+      },
+      "color_palette": {
+        "primary": "#F6E2A0",
+        "secondary": "#F1D67E"
+      }
+    },
+    {
+      "schema": "clipper.texture_studio.preset.v0.2",
+      "id": "variant_6",
+      "background": {
+        "gradient": {
+          "start": "#FEE4E5",
+          "end": "#FCCFDA",
+          "angle_deg": 135
+        },
+        "textures": {
+          "layers": [
+            {
+              "id": "screen",
+              "enabled": false,
+              "opacity": 0.24691438545338223,
+              "blend_mode": "screen",
+              "kind": "halftone",
+              "seed": 802742,
+              "tile_px": 164
+            },
+            {
+              "id": "multiply",
+              "enabled": true,
+              "opacity": 0.19310816679295853,
+              "blend_mode": "multiply",
+              "kind": "noise",
+              "seed": 172836,
+              "tile_px": 180
+            },
+            {
+              "id": "overlay",
+              "enabled": true,
+              "opacity": 0.363479468302445,
+              "blend_mode": "overlay",
+              "kind": "dust",
+              "seed": 831086,
+              "tile_px": 132
+            }
+          ],
+          "screen": {
+            "enabled": false,
+            "opacity": 0.24691438545338223
+          },
+          "multiply": {
+            "enabled": true,
+            "opacity": 0.19310816679295853
+          },
+          "overlay": {
+            "enabled": true,
+            "opacity": 0.363479468302445
+          }
+        },
+        "blur_px": 0
+      },
+      "typography": {
+        "font_family": "Space Grotesk",
+        "font_weight": 700,
+        "letter_spacing_em": -0.04
+      },
+      "text_effects": {
+        "ink_bleed": {
+          "enabled": false,
+          "amount": 3
+        },
+        "blur": {
+          "enabled": false,
+          "amount": 0
+        },
+        "grain": {
+          "enabled": true,
+          "intensity": 0.21,
+          "pattern": "fine",
+          "seed": 140767,
+          "tile_px": 69
+        },
+        "knockout": {
+          "enabled": true,
+          "amount": 0.22,
+          "pattern": "scratches",
+          "seed": 112739,
+          "tile_px": 82
+        },
+        "letterpress": {
+          "enabled": false,
+          "depth": 1
+        }
+      },
+      "color_palette": {
+        "primary": "#FEE4E5",
+        "secondary": "#FCCFDA"
+      }
+    }
+  ],
+  "style_blueprint": {
+    "paletteKey": "blue",
+    "palette": {
+      "name": "Blue",
+      "colors": {
+        "50": "#E1ECEB",
+        "100": "#C6DDE8",
+        "150": "#ABCFE2",
+        "200": "#92BFDB",
+        "300": "#66A0C8",
+        "400": "#4385BE",
+        "500": "#3171B2",
+        "600": "#205EA6",
+        "700": "#1A4F8C",
+        "800": "#163B66",
+        "850": "#133051",
+        "900": "#12253B",
+        "950": "#101A24"
+      }
+    },
+    "shadeKeys": [
+      50,
+      100,
+      150,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      850,
+      900,
+      950
+    ],
+    "baseStart": 0,
+    "step": 2,
+    "delta": 2,
+    "gradientAngle": 135,
+    "fontFamily": "DM Sans",
+    "fontWeight": 700,
+    "letterSpacing": -0.04,
+    "bgLayers": {
+      "screen": {
+        "enabled": true,
+        "opacity": 0.24691438545338223,
+        "kind": "halftone",
+        "seed": 802742,
+        "tile": 164
+      },
+      "multiply": {
+        "enabled": true,
+        "opacity": 0.19310816679295853,
+        "kind": "dust",
+        "seed": 172836,
+        "tile": 180
+      },
+      "overlay": {
+        "enabled": true,
+        "opacity": 0.363479468302445,
+        "kind": "scanlines",
+        "seed": 831086,
+        "tile": 132
+      },
+      "blur": 0
+    },
+    "textEffects": {
+      "inkBleed": {
+        "enabled": false,
+        "amount": 3
+      },
+      "grain": {
+        "enabled": true,
+        "intensity": 0.66,
+        "pattern": "halftone",
+        "seed": 140767,
+        "tile": 142
+      },
+      "knockout": {
+        "enabled": false,
+        "amount": 0.51,
+        "pattern": "splatter",
+        "seed": 112739,
+        "tile": 138
+      },
+      "letterpress": {
+        "enabled": false,
+        "depth": 1
+      },
+      "blur": {
+        "enabled": false,
+        "amount": 0
+      }
+    }
+  },
+  "meta": {
+    "variant_count": 6,
+    "generated_at": "2026-01-28T06:25:44.836Z"
+  }
+}

@@ -27,7 +27,7 @@ New projects should not copy the entire `clipper` repo. They should consume the 
 
 See also:
 - Producer adapter layout + “what to copy”: `docs/CREATIVEOPS_PRODUCER_ADAPTERS_LAYOUT_V0.1.md`
-- Producer integration docs (Web/Tauri): `docs/producers/README.md`
+- Producer integration docs (Web/Tauri): `docs/producers/INDEX.md`
 
 ---
 

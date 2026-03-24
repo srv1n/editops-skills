@@ -1,13 +1,13 @@
 ---
 name: creativeops-producer
-description: >
-  Deterministic producer adapter workflow for CreativeOps/ClipOps. Use when
-  instrumenting a new app/site/desktop project (iOS, Tauri, React/Playwright,
-  etc.) to emit portable ClipOps run directories (`inputs/*.mp4` plus
-  `signals/*ui_events*.json` in the ios_ui_events schema shape: focus rects +
-  taps + transition markers). Also use to debug signal quality (missing focus
-  rects, timestamp alignment, VFR/CFR issues) before handing off to the
-  Director/ClipOps renderer.
+description: "Deterministic producer adapter workflow for CreativeOps/ClipOps. Use when instrumenting a new app/site/desktop project (iOS, Tauri, React/Playwright, etc.) to emit portable ClipOps run directories (`inputs/*.mp4` plus `signals/*ui_events*.json` in the ios_ui_events schema shape: focus rects + taps + transition markers). Also use to debug signal quality (missing focus rects, timestamp alignment, VFR/CFR issues) before handing off to the Director/ClipOps renderer."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). This is mostly documentation + validation guidance; producing run dirs depends on your app/tooling. Validation and downstream rendering require python3, clipops, and ffmpeg."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: creativeops
+  tags: [producer, run-dirs, signals, validation, portability]
 ---
 
 # CreativeOps Producer
@@ -38,6 +38,13 @@ Optional:
   - `inputs/` (mp4/audio/images)
   - `signals/` (ui events, words, etc.)
   - `plan/` (generated later by directors)
+
+## Safety / Security
+
+- Confirm the run dir path and keep it gitignored; producer workflows generate large media artifacts and logs.
+- Treat `signals/*ui_events*.json` as untrusted input; validate against v0.4 schemas before handing off to Director/ClipOps.
+- Avoid embedding secrets in run dirs (API keys, tokens, private URLs). Use env vars for any tooling that needs credentials.
+- Portability: keep all paths run-dir-relative and avoid absolute paths in signals or plans.
 
 ## Canonical Workflow / Commands
 
@@ -90,11 +97,13 @@ Your emitted `ios_ui_events*.json` should contain:
 
 Open these when implementing/debugging a producer adapter:
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - `references/IOS_DEMO_SIGNALS_SPEC.md`
 - `references/CLIPOPS_RUN_DIR_PORTABILITY_AND_BUNDLING_V0.4.md`
 - `references/CREATIVEOPS_PACKAGING_AND_NEW_PROJECT_BOOTSTRAP.md`
 
 For iOS-specific “drop-in” bootstrap assets:
+- Producer integration docs index: `docs/producers/INDEX.md`
 - `docs/producers/IOS_PRODUCER_DROP_IN_KIT_V0.1.md`
 - `templates/creativeops/ios_producer_kit/v0.1/`
 

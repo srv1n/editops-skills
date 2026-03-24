@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clipper.dev/schemas/appstore_creatives/producer_evidence_catalog/v0.1",
+  "title": "Producer Evidence Catalog (App Store Creatives) (v0.1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "appId", "generatedAt", "screenshots", "videos", "evidence"],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "clipper.appstore_creatives.producer_evidence_catalog.v0.1"
+    },
+    "appId": { "type": "string", "minLength": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "screenshots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["routes"],
+      "properties": {
+        "routes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ScreenshotRoute" }
+        }
+      }
+    },
+    "videos": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["flows"],
+      "properties": {
+        "flows": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/VideoFlow" }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/EvidenceEntry" }
+    }
+  },
+  "$defs": {
+    "ScreenshotRoute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["routeId"],
+      "properties": {
+        "routeId": { "type": "string", "minLength": 1 },
+        "waitForAccessibilityId": { "type": ["string", "null"] },
+        "captureElements": {
+          "type": ["array", "null"],
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "VideoFlow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["flowId", "routeId"],
+      "properties": {
+        "flowId": { "type": "string", "minLength": 1 },
+        "routeId": { "type": "string", "minLength": 1 },
+        "waitForAccessibilityId": { "type": ["string", "null"] },
+        "supportedActions": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "string",
+            "enum": ["wait", "tap", "type", "swipe", "scrollTo", "waitFor", "transition_start", "transition_end", "hold"]
+          }
+        },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "EvidenceEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidenceId", "kind"],
+      "properties": {
+        "evidenceId": { "type": "string", "minLength": 1 },
+        "kind": { "type": "string", "enum": ["screenshot", "video_segment"] },
+        "routeId": { "type": ["string", "null"] },
+        "flowId": { "type": ["string", "null"] },
+        "captureElementIds": {
+          "type": ["array", "null"],
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "notes": { "type": ["string", "null"] }
+      },
+      "oneOf": [
+        { "required": ["routeId"] },
+        { "required": ["flowId"] }
+      ]
+    }
+  }
+}
+

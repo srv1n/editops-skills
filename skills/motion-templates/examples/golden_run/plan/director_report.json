@@ -1,0 +1,57 @@
+{
+  "decisions": {
+    "allowlists": {
+      "max_hero_taps": {
+        "input": 3
+      },
+      "tap_guide_focus_ids": {
+        "input": []
+      }
+    },
+    "asset_order": [
+      "input"
+    ],
+    "holds": {
+      "input": [
+        {
+          "dst_rel_ms": 400,
+          "dur_ms": 280,
+          "src_rel_ms": 400,
+          "tap_t_ms": 200
+        }
+      ]
+    },
+    "join_defaults": {
+      "color": "brand.paper",
+      "ms": 250,
+      "suppress_overlays": true,
+      "type": "dip"
+    },
+    "join_profile": "ios_editorial",
+    "tap_guides": {
+      "input": [
+        {
+          "focus_id": "step_1",
+          "seq": 1,
+          "t_ms": 200
+        }
+      ]
+    },
+    "trims": {
+      "input": {
+        "base_dur_ms": 1850,
+        "output_dur_ms": 2130,
+        "src_in_ms": 0,
+        "src_out_ms": 1850
+      }
+    }
+  },
+  "inputs": {
+    "signals": [
+      "signals/ios_ui_events.json"
+    ]
+  },
+  "preset": "editorial",
+  "schema": "creativeops.director_report.v0.1",
+  "warnings": []
+}

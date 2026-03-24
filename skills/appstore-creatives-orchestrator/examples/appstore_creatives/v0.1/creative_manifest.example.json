@@ -1,0 +1,46 @@
+{
+  "schema": "clipper.appstore_creatives.manifest.v0.1",
+  "meta": {
+    "id": "demo_manifest",
+    "createdAt": "2026-01-10T00:00:00Z",
+    "notes": "Example manifest to validate schema wiring; compilers resolve evidence via producer catalog."
+  },
+  "inputs": {
+    "producerCatalog": "examples/appstore_creatives/v0.1/producer_evidence_catalog.example.json"
+  },
+  "style": { "styleId": "minimal_premium" },
+  "storyboard": {
+    "screenshots": [
+      {
+        "id": "slide_01",
+        "archetype": "BillboardHero",
+        "messageRole": "Promise",
+        "evidenceId": "evidence.record_button",
+        "copy": {
+          "en_US": { "title": "Capture every thought", "subtitle": "Just press record." }
+        },
+        "callouts": [{ "elementId": "note.recordButton", "zoom": 2.2, "position": "bottomRight" }]
+      }
+    ],
+    "videos": [
+      {
+        "id": "video_demo",
+        "mode": "demo_fullscale",
+        "segments": [
+          { "segmentId": "seg_01", "evidenceId": "evidence.segment_record_transcribe_rewrite", "intent": "mechanism" }
+        ],
+        "chapterCards": [
+          { "afterSegmentId": "seg_01", "seconds": 1.2, "copy": { "title": "Get clean notes", "subtitle": "Transcript + rewrite" } }
+        ],
+        "callouts": { "tapPulseEnabled": true, "rippleEnabled": true, "tapGuideEnabled": true, "density": "high" }
+      }
+    ]
+  },
+  "experiment": {
+    "kind": "PPO",
+    "hypothesis": "Hook style changes conversion by improving 1-second comprehension.",
+    "locales": [{ "locale": "en_US", "language": "en" }],
+    "devices": ["iPhone 16 Pro Max"],
+    "matrix": "examples/appstore_creatives/v0.1/experiment_matrix.example.json"
+  }
+}

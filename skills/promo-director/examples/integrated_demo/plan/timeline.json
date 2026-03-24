@@ -1,0 +1,154 @@
+{
+  "schema": "clipops.timeline.v0.4",
+  "meta": {
+    "title": "Integrated Demo - Beat Synced with Transitions",
+    "description": "Demonstrates: beat analysis → face detection → transitions → stitching"
+  },
+  "project": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30.0,
+    "tick_rate": 60000
+  },
+  "pacing": {
+    "preset": "editorial",
+    "before_tap_ms": 140,
+    "after_tap_ms": 200,
+    "after_transition_end_ms": 650,
+    "max_auto_hold_ms": 1200
+  },
+  "brand": {
+    "kit": "bundle/brand/kit.json",
+    "overrides": {}
+  },
+  "assets": {
+    "music": {
+      "type": "audio",
+      "path": "inputs/music.wav"
+    },
+    "clip_001": {
+      "type": "video",
+      "path": "inputs/clip_001.mp4"
+    },
+    "clip_002": {
+      "type": "video",
+      "path": "inputs/clip_002.mp4"
+    },
+    "clip_003": {
+      "type": "video",
+      "path": "inputs/clip_003.mp4"
+    },
+    "clip_004": {
+      "type": "video",
+      "path": "inputs/clip_004.mp4"
+    }
+  },
+  "signals": {
+    "beat_grid": {
+      "type": "beat_grid",
+      "path": "signals/beat_grid.json"
+    }
+  },
+  "timeline": {
+    "tracks": [
+      {
+        "id": "video",
+        "kind": "video",
+        "items": [
+          {
+            "id": "scene_1",
+            "type": "video_clip",
+            "asset": "clip_001",
+            "src_in_ms": 2000,
+            "dst_in_ms": 0,
+            "dur_ms": 9397,
+            "effects": []
+          },
+          {
+            "id": "trans_1",
+            "type": "transition",
+            "dst_in_ms": 9397,
+            "dur_ms": 250,
+            "suppress_overlays": true,
+            "transition": {
+              "type": "dip",
+              "ms": 250,
+              "color": "#000000",
+              "ease": "cubic_in_out"
+            }
+          },
+          {
+            "id": "scene_2",
+            "type": "video_clip",
+            "asset": "clip_002",
+            "src_in_ms": 3000,
+            "dst_in_ms": 9647,
+            "dur_ms": 7111,
+            "effects": []
+          },
+          {
+            "id": "trans_2",
+            "type": "transition",
+            "dst_in_ms": 16758,
+            "dur_ms": 250,
+            "suppress_overlays": true,
+            "transition": {
+              "type": "dip",
+              "ms": 250,
+              "color": "#000000",
+              "ease": "cubic_in_out"
+            }
+          },
+          {
+            "id": "scene_3",
+            "type": "video_clip",
+            "asset": "clip_003",
+            "src_in_ms": 1000,
+            "dst_in_ms": 17008,
+            "dur_ms": 9419,
+            "effects": []
+          },
+          {
+            "id": "trans_3",
+            "type": "transition",
+            "dst_in_ms": 26427,
+            "dur_ms": 250,
+            "suppress_overlays": true,
+            "transition": {
+              "type": "dip",
+              "ms": 250,
+              "color": "#000000",
+              "ease": "cubic_in_out"
+            }
+          },
+          {
+            "id": "scene_4",
+            "type": "video_clip",
+            "asset": "clip_004",
+            "src_in_ms": 0,
+            "dst_in_ms": 26677,
+            "dur_ms": 5323,
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "audio",
+        "kind": "audio",
+        "items": [
+          {
+            "id": "bg_music",
+            "type": "audio_clip",
+            "asset": "music",
+            "src_in_ms": 0,
+            "dst_in_ms": 0,
+            "dur_ms": 32000,
+            "gain_db": -3,
+            "fade_in_ms": 500,
+            "fade_out_ms": 2000
+          }
+        ]
+      }
+    ]
+  }
+}

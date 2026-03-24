@@ -1,0 +1,8 @@
+{
+  "schema": "clipops.grade_plan.v0.1",
+  "slot": "B",
+  "lut": { "path": "bundle/grade/luts/warm_v0.1.cube", "strength": 0.55 },
+  "correction": { "brightness": 0.01, "contrast": 1.03, "saturation": 0.97, "gamma": 1.0 },
+  "slot_b": { "inputs": ["inputs/input.mp4"] }
+}
+

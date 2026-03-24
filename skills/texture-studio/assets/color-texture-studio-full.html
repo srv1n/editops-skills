@@ -1,0 +1,2970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Palette + Texture Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0c0c0c;
+      --bg-secondary: #161616;
+      --bg-tertiary: #1e1e1e;
+      --text-primary: #ffffff;
+      --text-secondary: #888888;
+      --text-muted: #555555;
+      --accent: #4f46e5;
+      --border: #2a2a2a;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 22px;
+      font-style: italic;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--text-muted);
+      font-style: normal;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      margin-left: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Main Layout */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      min-height: calc(100vh - 65px);
+    }
+
+    @media (max-width: 1100px) {
+      .main { grid-template-columns: 1fr; }
+      .sidebar { border-left: none; border-top: 1px solid var(--border); }
+    }
+
+    /* Preview Area */
+    .preview-section {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview-card {
+      position: relative;
+      flex: 1;
+      min-height: 380px;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bg-gradient {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 1;
+      transition: background 0.3s ease;
+    }
+
+    .bg-stack {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .bg-texture {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    #bg-image {
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+      transform-origin: 50% 50%;
+    }
+
+    #bg-screen { z-index: 3; mix-blend-mode: screen; }
+    #bg-multiply { z-index: 4; mix-blend-mode: multiply; }
+    #bg-overlay { z-index: 5; mix-blend-mode: overlay; }
+
+    .text-container {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .main-text {
+      font-size: clamp(60px, 12vw, 150px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: #fff;
+      display: inline-block;
+      word-break: break-word;
+      max-width: 100%;
+    }
+
+    .main-text.has-texture {
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .ink-bleed-light { text-shadow: 0 0 1px rgba(255,255,255,0.9), 0 0 2px rgba(255,255,255,0.5); }
+    .ink-bleed { text-shadow: 0 0 2px #fff, 0 0 4px rgba(255,255,255,0.6), 0 0 6px rgba(255,255,255,0.3), 1px 1px 2px rgba(255,255,255,0.5); }
+    .ink-bleed-heavy { text-shadow: 0 0 3px #fff, 0 0 6px rgba(255,255,255,0.8), 0 0 10px rgba(255,255,255,0.5), 2px 2px 4px rgba(255,255,255,0.6); }
+    .letterpress { text-shadow: 0 -1px 0 rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.2), 0 2px 3px rgba(0,0,0,0.3) !important; }
+
+    .sub-text {
+      font-size: clamp(12px, 2vw, 18px);
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      margin-top: 20px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border);
+      overflow-y: auto;
+      max-height: calc(100vh - 65px);
+    }
+
+    .panel {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-header {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .panel-header:hover {
+      background: var(--bg-tertiary);
+    }
+
+    .panel-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary);
+    }
+
+    .panel-toggle {
+      font-size: 16px;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+
+    .panel.collapsed .panel-toggle {
+      transform: rotate(-90deg);
+    }
+
+    .panel.collapsed .panel-content {
+      display: none;
+    }
+
+    .panel-content {
+      padding: 0 18px 18px;
+    }
+
+    /* Text Input */
+    .text-input-group {
+      margin-bottom: 12px;
+    }
+
+    .text-input-group label {
+      display: block;
+      font-size: 9px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      transition: border-color 0.2s;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Color Palette Grid */
+    .palette-section {
+      margin-bottom: 12px;
+    }
+
+    .palette-name {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .palette-name .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .palette-row {
+      display: grid;
+      grid-template-columns: repeat(13, 1fr);
+      gap: 2px;
+    }
+
+    .color-swatch {
+      aspect-ratio: 1;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.3);
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .color-swatch.selected {
+      outline: 2px solid #fff;
+      outline-offset: 1px;
+      transform: scale(1.15);
+      z-index: 5;
+    }
+
+    .color-swatch[data-tooltip]:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      padding: 3px 6px;
+      border-radius: 3px;
+      font-size: 8px;
+      white-space: nowrap;
+      z-index: 100;
+    }
+
+    /* Selected Color Display */
+    .selected-colors {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 10px;
+      background: var(--bg-tertiary);
+      border-radius: 6px;
+    }
+
+    .selected-color-item {
+      flex: 1;
+      text-align: center;
+    }
+
+    .selected-color-preview {
+      width: 100%;
+      height: 28px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+
+    .selected-color-label {
+      font-size: 8px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .selected-color-value {
+      font-size: 9px;
+      color: var(--text-secondary);
+      font-family: monospace;
+    }
+
+    .copy-btn {
+      padding: 8px 14px;
+      background: var(--accent);
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background: #4338ca;
+    }
+
+    /* Effect Controls */
+    .layer-control {
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+
+    .layer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .layer-name {
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge {
+      font-size: 7px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    .badge-screen { background: #3b82f6; }
+    .badge-multiply { background: #f59e0b; }
+    .badge-overlay { background: #10b981; }
+    .badge-blur { background: #ec4899; }
+    .badge-knockout { background: #ef4444; }
+    .badge-clip { background: #8b5cf6; }
+
+    .toggle {
+      width: 34px;
+      height: 18px;
+      background: #333;
+      border-radius: 9px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .toggle.active { background: var(--accent); }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 14px;
+      height: 14px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle.active::after {
+      transform: translateX(16px);
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .slider-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .slider-label {
+      font-size: 9px;
+      color: var(--text-muted);
+      min-width: 45px;
+    }
+
+    .slider {
+      flex: 1;
+      height: 3px;
+      -webkit-appearance: none;
+      background: #333;
+      border-radius: 2px;
+      outline: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .slider-value {
+      font-size: 9px;
+      color: var(--accent);
+      font-weight: 600;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    .seed-input {
+      width: 72px;
+      padding: 4px 6px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-primary);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+    }
+
+    .seed-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .mini-btn {
+      padding: 4px 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-primary);
+      font-size: 9px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .mini-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .dropdown {
+      width: 100%;
+      padding: 7px 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text-primary);
+      font-size: 10px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .dropdown:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .variant-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .variant-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .variant-btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .variant-btn.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(112, 212, 255, 0.35);
+    }
+
+    .variant-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.12);
+      flex-shrink: 0;
+    }
+
+    .variant-count {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      font-size: 9px;
+      color: var(--text-muted);
+      align-self: center;
+    }
+
+    .project-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .project-btn {
+      padding: 6px 10px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .project-list {
+      margin-top: 10px;
+      display: grid;
+      gap: 6px;
+      max-height: 160px;
+      overflow-y: auto;
+    }
+
+    .project-item {
+      padding: 7px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .project-meta {
+      margin-top: 8px;
+      font-size: 9px;
+      color: var(--text-muted);
+    }
+
+    .info-tip {
+      font-size: 8px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    #texture-canvas { display: none; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">Chromatic<span>Texture Studio</span></div>
+  </header>
+
+  <main class="main">
+    <!-- Preview -->
+    <section class="preview-section">
+      <div class="preview-card" id="preview-card">
+        <div class="bg-stack" id="bg-stack">
+          <div class="bg-gradient" id="bg-gradient"></div>
+          <img class="bg-texture" id="bg-image" alt="">
+          <canvas class="bg-texture" id="bg-screen"></canvas>
+          <canvas class="bg-texture" id="bg-multiply"></canvas>
+          <canvas class="bg-texture" id="bg-overlay"></canvas>
+        </div>
+        
+        <div class="text-container" id="text-container">
+          <div class="main-text ink-bleed" id="main-text">GRIT</div>
+          <div class="sub-text" id="sub-text">DISTRESSED TYPE</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Quick Variants Panel -->
+      <div class="panel" id="panel-variants">
+        <div class="panel-header" onclick="togglePanel('variants')">
+          <span class="panel-title">Quick Variants</span>
+          <span class="panel-toggle">▼</span>
+        </div>
+        <div class="panel-content">
+          <div class="project-controls" style="margin-bottom: 10px;">
+            <button class="project-btn" onclick="randomizeVariants()">Shuffle Variants</button>
+            <button class="project-btn" onclick="addVariant()">Add Variant</button>
+            <button class="project-btn" onclick="removeVariant()">Remove Variant</button>
+            <div class="variant-count" id="variant-count">6</div>
+          </div>
+          <div class="variant-grid" id="variant-grid"></div>
+          <p class="info-tip">Click a variant to apply a preset. Shuffle regenerates options.</p>
+        </div>
+      </div>
+
+      <!-- Project Panel -->
+      <div class="panel" id="panel-project">
+        <div class="panel-header" onclick="togglePanel('project')">
+          <span class="panel-title">Project Folder</span>
+          <span class="panel-toggle">▼</span>
+        </div>
+        <div class="panel-content">
+          <div class="project-controls">
+            <button class="project-btn" onclick="openProjectFolder()">Open Folder</button>
+            <button class="project-btn" onclick="savePresetToProject()">Save Preset</button>
+            <button class="project-btn" onclick="refreshProjectPresets()">Refresh</button>
+          </div>
+          <div class="project-meta" id="project-meta">No folder selected</div>
+          <div class="project-list" id="project-list"></div>
+          <p class="info-tip">Uses the File System Access API (Chromium). Safari/Firefox require manual import/export.</p>
+        </div>
+      </div>
+
+      <!-- Preset Export Panel -->
+      <div class="panel" id="panel-export">
+        <div class="panel-header" onclick="togglePanel('export')">
+          <span class="panel-title">Preset Export</span>
+          <span class="panel-toggle">▼</span>
+        </div>
+        <div class="panel-content">
+          <div class="text-input-group">
+            <label>Preset Name</label>
+            <input type="text" class="text-input" id="preset-name" value="" placeholder="my_texture_preset">
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <button class="copy-btn" id="export-json-btn" style="flex: 1;" onclick="exportPreset()">Export JSON</button>
+            <button class="copy-btn" id="copy-json-btn" style="flex: 1; background: #2d2d2d;" onclick="copyPresetToClipboard()">Copy JSON</button>
+          </div>
+          <div style="margin-top: 8px;">
+            <button class="copy-btn" style="background: #2d2d2d; width: 100%;" onclick="document.getElementById('import-file').click()">Import Preset</button>
+            <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importPreset(event)">
+          </div>
+          <p class="info-tip" style="margin-top: 10px;">When multiple variants exist, export/copy/save packages them as a single bundle.</p>
+        </div>
+      </div>
+
+      <!-- Text Panel -->
+      <div class="panel" id="panel-text">
+        <div class="panel-header" onclick="togglePanel('text')">
+          <span class="panel-title">Text</span>
+          <span class="panel-toggle">▼</span>
+        </div>
+        <div class="panel-content">
+          <div class="text-input-group">
+            <label>Main Text</label>
+            <input type="text" class="text-input" id="input-main" value="GRIT" placeholder="Enter text..." oninput="updateDisplayText()">
+          </div>
+          <div class="text-input-group">
+            <label>Subtext</label>
+            <input type="text" class="text-input" id="input-sub" value="DISTRESSED TYPE" placeholder="Enter subtext..." oninput="updateDisplayText()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography Panel -->
+      <div class="panel" id="panel-typography">
+        <div class="panel-header" onclick="togglePanel('typography')">
+          <span class="panel-title">Typography</span>
+          <span class="panel-toggle">▼</span>
+        </div>
+        <div class="panel-content">
+          <div class="text-input-group">
+            <label>Font Family</label>
+            <select class="dropdown" id="font-family" onchange="updateFontFamily(this.value)">
+              <option value="Space Grotesk">Space Grotesk</option>
+              <option value="Inter">Inter</option>
+              <option value="DM Sans">DM Sans</option>
+              <option value="Manrope">Manrope</option>
+              <option value="Plus Jakarta Sans">Plus Jakarta Sans</option>
+              <option value="Instrument Serif">Instrument Serif</option>
+              <option value="system-ui">System UI</option>
+            </select>
+          </div>
+          <div class="layer-control" style="margin-top: 12px;">
+            <div class="slider-row">
+              <span class="slider-label">Weight</span>
+              <input type="range" class="slider" id="font-weight" min="400" max="900" step="100" value="900" oninput="updateFontWeight(this.value)">
+              <span class="slider-value" id="val-weight">900</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Spacing</span>
+              <input type="range" class="slider" id="letter-spacing" min="-10" max="20" value="-4" oninput="updateLetterSpacing(this.value)">
+              <span class="slider-value" id="val-spacing">-0.04em</span>
+            </div>
+          </div>
+          <p class="info-tip">Font settings apply to main text display</p>
+        </div>
+      </div>
+
+      <!-- Colors Panel -->
+      <div class="panel" id="panel-colors">
+        <div class="panel-header" onclick="togglePanel('colors')">
+          <span class="panel-title">Color Palette</span>
+          <span class="panel-toggle">▼</span>
+        </div>
+        <div class="panel-content">
+          <div id="palette-container"></div>
+          
+          <div class="selected-colors">
+            <div class="selected-color-item">
+              <div class="selected-color-preview" id="preview-bg"></div>
+              <div class="selected-color-label">Background</div>
+              <div class="selected-color-value" id="value-bg">#92400E</div>
+            </div>
+            <div class="selected-color-item">
+              <div class="selected-color-preview" id="preview-bg2"></div>
+              <div class="selected-color-label">Gradient End</div>
+              <div class="selected-color-value" id="value-bg2">#D97706</div>
+            </div>
+          </div>
+          
+          <button class="copy-btn" id="copy-gradient-btn" onclick="copyColors()">Copy CSS Gradient</button>
+        </div>
+      </div>
+
+      <!-- Text Effects Panel -->
+      <div class="panel" id="panel-effects">
+        <div class="panel-header" onclick="togglePanel('effects')">
+          <span class="panel-title">Text Effects</span>
+          <span class="panel-toggle">▼</span>
+        </div>
+        <div class="panel-content">
+          <!-- Ink Bleed -->
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Ink Bleed <span class="badge badge-blur">GLOW</span></span>
+              <div class="toggle active" id="toggle-bleed" onclick="toggleEffect('bleed')"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Amount</span>
+              <input type="range" class="slider" id="bleed-amount" min="0" max="3" value="2" oninput="updateBleed(this.value)">
+              <span class="slider-value" id="val-bleed">Med</span>
+            </div>
+            <p class="info-tip">Ink spreading on paper — soft glow around edges</p>
+          </div>
+
+          <!-- Grain -->
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Grain Texture <span class="badge badge-clip">CLIPPED</span></span>
+              <div class="toggle active" id="toggle-grain" onclick="toggleEffect('grain')"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Intensity</span>
+              <input type="range" class="slider" id="grain-intensity" min="0" max="100" value="60" oninput="updateGrain(this.value)">
+              <span class="slider-value" id="val-grain">60%</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Scale</span>
+              <input type="range" class="slider" id="grain-scale" min="40" max="240" value="140" oninput="updateGrainScale(this.value)">
+              <span class="slider-value" id="val-grain-scale">140px</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Seed</span>
+              <input type="number" class="seed-input" id="grain-seed" min="0" max="999999" value="913" oninput="updateGrainSeed(this.value)">
+              <button class="mini-btn" onclick="reseedGrain()">Reseed</button>
+            </div>
+            <select class="dropdown" id="grain-pattern" onchange="changeGrainPattern(this.value)">
+              <option value="fine">Fine Grain</option>
+              <option value="coarse">Coarse Grain</option>
+              <option value="speckle">Ink Speckle</option>
+              <option value="halftone">Halftone Dots</option>
+              <option value="scanlines">Scan Lines</option>
+              <option value="noise">Heavy Noise</option>
+              <option value="fibers">Paper Fibers</option>
+              <option value="stains">Stains/Blotches</option>
+            </select>
+            <p class="info-tip">Texture fills ONLY the letter shapes</p>
+          </div>
+
+          <!-- Knockout -->
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Knockout/Erosion <span class="badge badge-knockout">MASK</span></span>
+              <div class="toggle" id="toggle-knockout" onclick="toggleEffect('knockout')"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Amount</span>
+              <input type="range" class="slider" id="knockout-amount" min="0" max="100" value="70" oninput="updateKnockout(this.value)">
+              <span class="slider-value" id="val-knockout">70%</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Scale</span>
+              <input type="range" class="slider" id="knockout-scale" min="40" max="240" value="150" oninput="updateKnockoutScale(this.value)">
+              <span class="slider-value" id="val-knockout-scale">150px</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Seed</span>
+              <input type="number" class="seed-input" id="knockout-seed" min="0" max="999999" value="4021" oninput="updateKnockoutSeed(this.value)">
+              <button class="mini-btn" onclick="reseedKnockout()">Reseed</button>
+            </div>
+            <select class="dropdown" id="knockout-pattern" onchange="changeKnockoutPattern(this.value)">
+              <option value="worn">Worn Ink</option>
+              <option value="scratches">Scratches</option>
+              <option value="heavy">Heavy Erosion</option>
+              <option value="splatter">Splatter</option>
+            </select>
+            <p class="info-tip">Punches holes through text — worn/faded ink look</p>
+          </div>
+
+          <!-- Letterpress -->
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Letterpress <span class="badge badge-overlay">EMBOSS</span></span>
+              <div class="toggle" id="toggle-letterpress" onclick="toggleEffect('letterpress')"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Depth</span>
+              <input type="range" class="slider" id="letterpress-depth" min="0" max="2" value="1" oninput="updateLetterpress(this.value)">
+              <span class="slider-value" id="val-letterpress">Med</span>
+            </div>
+            <p class="info-tip">Pressed/embossed effect — stamped into paper</p>
+          </div>
+
+          <!-- Text Blur -->
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Text Blur <span class="badge badge-blur">BLUR</span></span>
+              <div class="toggle" id="toggle-text-blur" onclick="toggleTextBlur()"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Amount</span>
+              <input type="range" class="slider" id="text-blur-amount" min="0" max="20" value="0" oninput="updateTextBlur(this.value)">
+              <span class="slider-value" id="val-text-blur">0px</span>
+            </div>
+            <p class="info-tip">Softens only text (background stays crisp)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background Textures Panel -->
+      <div class="panel" id="panel-bg">
+        <div class="panel-header" onclick="togglePanel('bg')">
+          <span class="panel-title">Background Texture Stack</span>
+          <span class="panel-toggle">▼</span>
+        </div>
+        <div class="panel-content">
+          <!-- Screen -->
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Scan/Dust <span class="badge badge-screen">SCREEN</span></span>
+              <div class="toggle active" id="toggle-screen" onclick="toggleBg('screen')"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Opacity</span>
+              <input type="range" class="slider" id="opacity-screen" min="0" max="100" value="35" oninput="updateBgOpacity('screen', this.value)">
+              <span class="slider-value" id="val-screen">35%</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Scale</span>
+              <input type="range" class="slider" id="scale-screen" min="40" max="260" value="160" oninput="updateBgScale('screen', this.value)">
+              <span class="slider-value" id="val-scale-screen">160px</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Seed</span>
+              <input type="number" class="seed-input" id="seed-screen" min="0" max="999999" value="1207" oninput="updateBgSeed('screen', this.value)">
+              <button class="mini-btn" onclick="reseedBg('screen')">Reseed</button>
+            </div>
+            <select class="dropdown" id="kind-screen" onchange="updateBgKind('screen', this.value)">
+              <option value="dust">Dust/Specks</option>
+              <option value="grain">Grain</option>
+              <option value="fibers">Paper Fibers</option>
+              <option value="scratches">Scratches</option>
+              <option value="stains">Stains</option>
+              <option value="halftone">Halftone</option>
+              <option value="scanlines">Scanlines</option>
+              <option value="vignette">Vignette</option>
+              <option value="noise">Noise</option>
+            </select>
+            <p class="info-tip">Dark texture → Screen mode → Lifts the darks</p>
+          </div>
+
+          <!-- Multiply -->
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Vintage Paper <span class="badge badge-multiply">MULTIPLY</span></span>
+              <div class="toggle active" id="toggle-multiply" onclick="toggleBg('multiply')"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Opacity</span>
+              <input type="range" class="slider" id="opacity-multiply" min="0" max="100" value="25" oninput="updateBgOpacity('multiply', this.value)">
+              <span class="slider-value" id="val-multiply">25%</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Scale</span>
+              <input type="range" class="slider" id="scale-multiply" min="40" max="260" value="210" oninput="updateBgScale('multiply', this.value)">
+              <span class="slider-value" id="val-scale-multiply">210px</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Seed</span>
+              <input type="number" class="seed-input" id="seed-multiply" min="0" max="999999" value="881" oninput="updateBgSeed('multiply', this.value)">
+              <button class="mini-btn" onclick="reseedBg('multiply')">Reseed</button>
+            </div>
+            <select class="dropdown" id="kind-multiply" onchange="updateBgKind('multiply', this.value)">
+              <option value="paper">Paper</option>
+              <option value="stains">Stains</option>
+              <option value="fibers">Fibers</option>
+              <option value="scratches">Scratches</option>
+              <option value="halftone">Halftone</option>
+              <option value="scanlines">Scanlines</option>
+              <option value="vignette">Vignette</option>
+              <option value="noise">Noise</option>
+            </select>
+            <p class="info-tip">Light texture → Multiply mode → Darkens/yellows the lights</p>
+          </div>
+
+          <!-- Overlay -->
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Grain/Noise <span class="badge badge-overlay">OVERLAY</span></span>
+              <div class="toggle active" id="toggle-overlay" onclick="toggleBg('overlay')"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Opacity</span>
+              <input type="range" class="slider" id="opacity-overlay" min="0" max="100" value="40" oninput="updateBgOpacity('overlay', this.value)">
+              <span class="slider-value" id="val-overlay">40%</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Scale</span>
+              <input type="range" class="slider" id="scale-overlay" min="40" max="260" value="120" oninput="updateBgScale('overlay', this.value)">
+              <span class="slider-value" id="val-scale-overlay">120px</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Seed</span>
+              <input type="number" class="seed-input" id="seed-overlay" min="0" max="999999" value="5221" oninput="updateBgSeed('overlay', this.value)">
+              <button class="mini-btn" onclick="reseedBg('overlay')">Reseed</button>
+            </div>
+            <select class="dropdown" id="kind-overlay" onchange="updateBgKind('overlay', this.value)">
+              <option value="grain">Grain</option>
+              <option value="dust">Dust/Specks</option>
+              <option value="fibers">Paper Fibers</option>
+              <option value="scratches">Scratches</option>
+              <option value="stains">Stains</option>
+              <option value="halftone">Halftone</option>
+              <option value="scanlines">Scanlines</option>
+              <option value="vignette">Vignette</option>
+              <option value="noise">Noise</option>
+            </select>
+            <p class="info-tip">Neutral texture → Overlay mode → Grain everywhere</p>
+          </div>
+
+          <!-- Pre-blur -->
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Background Blur <span class="badge badge-blur">BLUR</span></span>
+              <div class="toggle active" id="toggle-blur" onclick="toggleBg('blur')"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Amount</span>
+              <input type="range" class="slider" id="blur-amount" min="0" max="30" value="5" oninput="updateBlurAmount(this.value)">
+              <span class="slider-value" id="val-blur">0.5px</span>
+            </div>
+            <p class="info-tip">Softens background textures without blurring text</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background Image Panel -->
+      <div class="panel" id="panel-bg-image">
+        <div class="panel-header" onclick="togglePanel('bg-image')">
+          <span class="panel-title">Background Image</span>
+          <span class="panel-toggle">▼</span>
+        </div>
+        <div class="panel-content">
+          <div class="layer-control">
+            <div class="layer-header">
+              <span class="layer-name">Image Layer <span class="badge badge-overlay">IMAGE</span></span>
+              <div class="toggle" id="toggle-bg-image" onclick="toggleBgImage()"></div>
+            </div>
+            <div class="project-controls" style="margin-bottom: 8px;">
+              <button class="project-btn" onclick="triggerImageUpload()">Upload Image</button>
+              <button class="project-btn" onclick="removeBgImage()">Remove</button>
+              <input type="file" id="bg-image-file" accept="image/*" style="display: none;" onchange="handleBgImageUpload(event)">
+            </div>
+            <select class="dropdown" id="bg-image-source" onchange="updateBgImageSource(this.value)">
+              <option value="embedded">Embed Image (data URL)</option>
+              <option value="file">Link File (project folder)</option>
+            </select>
+            <div class="slider-row">
+              <span class="slider-label">Opacity</span>
+              <input type="range" class="slider" id="bg-image-opacity" min="0" max="100" value="85" oninput="updateBgImageOpacity(this.value)">
+              <span class="slider-value" id="val-bg-image-opacity">85%</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Zoom</span>
+              <input type="range" class="slider" id="bg-image-scale" min="50" max="160" value="100" oninput="updateBgImageScale(this.value)">
+              <span class="slider-value" id="val-bg-image-scale">100%</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Pan X</span>
+              <input type="range" class="slider" id="bg-image-pos-x" min="0" max="100" value="50" oninput="updateBgImagePosX(this.value)">
+              <span class="slider-value" id="val-bg-image-pos-x">50%</span>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Pan Y</span>
+              <input type="range" class="slider" id="bg-image-pos-y" min="0" max="100" value="50" oninput="updateBgImagePosY(this.value)">
+              <span class="slider-value" id="val-bg-image-pos-y">50%</span>
+            </div>
+            <select class="dropdown" id="bg-image-blend" onchange="updateBgImageBlend(this.value)">
+              <option value="normal">Normal</option>
+              <option value="multiply">Multiply</option>
+              <option value="screen">Screen</option>
+              <option value="overlay">Overlay</option>
+              <option value="soft-light">Soft Light</option>
+              <option value="hard-light">Hard Light</option>
+            </select>
+            <select class="dropdown" id="bg-image-fit" onchange="updateBgImageFit(this.value)">
+              <option value="cover">Cover</option>
+              <option value="contain">Contain</option>
+            </select>
+            <div class="slider-row">
+              <span class="slider-label">Mask</span>
+              <div class="toggle" id="toggle-bg-image-mask" onclick="toggleBgImageMask()"></div>
+            </div>
+            <div class="slider-row">
+              <span class="slider-label">Gradient</span>
+              <div class="toggle active" id="toggle-bg-image-gradient" onclick="toggleBgImageGradient()"></div>
+            </div>
+            <p class="info-tip">Image sits between gradient and textures — grain overlays apply on top.</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <canvas id="texture-canvas"></canvas>
+
+  <script>
+    // ============ COLOR PALETTE DATA ============
+    const palettes = {
+      base: {
+        name: 'Base',
+        colors: {
+          50: '#F2F0E5', 100: '#E6E4D9', 150: '#DAD8CE', 200: '#CECDC3', 300: '#B7B5AC',
+          400: '#9F9D96', 500: '#878580', 600: '#6F6E69', 700: '#575653', 800: '#403E3C',
+          850: '#343331', 900: '#282726', 950: '#1C1B1A'
+        }
+      },
+      red: {
+        name: 'Red',
+        colors: {
+          50: '#FFE1D5', 100: '#FFCABB', 150: '#FDB2A2', 200: '#F89A8A', 300: '#E8785F',
+          400: '#D14D41', 500: '#C63E35', 600: '#AF3029', 700: '#942822', 800: '#6C201C',
+          850: '#551B18', 900: '#3E1715', 950: '#261312'
+        }
+      },
+      orange: {
+        name: 'Orange',
+        colors: {
+          50: '#FFE7CE', 100: '#FED3AF', 150: '#FCC192', 200: '#F9AE77', 300: '#EC8B49',
+          400: '#DA702C', 500: '#CB6120', 600: '#BC5215', 700: '#9D4310', 800: '#71320D',
+          850: '#59290D', 900: '#40200D', 950: '#27180E'
+        }
+      },
+      yellow: {
+        name: 'Yellow',
+        colors: {
+          50: '#FAEEC6', 100: '#F6E2A0', 150: '#F1D67E', 200: '#ECCB60', 300: '#DFB431',
+          400: '#D0A215', 500: '#BE9207', 600: '#AD8301', 700: '#8E6B01', 800: '#664D01',
+          850: '#503D02', 900: '#3A2D04', 950: '#241E08'
+        }
+      },
+      green: {
+        name: 'Green',
+        colors: {
+          50: '#EDEECF', 100: '#DDE2B2', 150: '#CDD597', 200: '#BEC97E', 300: '#A0AF54',
+          400: '#879A39', 500: '#768D21', 600: '#66800B', 700: '#536907', 800: '#3D4C07',
+          850: '#313D07', 900: '#252D09', 950: '#1A1E0C'
+        }
+      },
+      cyan: {
+        name: 'Cyan',
+        colors: {
+          50: '#DDF1E4', 100: '#BFE8D9', 150: '#A2DECE', 200: '#87D3C3', 300: '#5ABDAC',
+          400: '#3AA99F', 500: '#2F968D', 600: '#24837B', 700: '#1C6C66', 800: '#164F4A',
+          850: '#143F3C', 900: '#122F2C', 950: '#101F1D'
+        }
+      },
+      blue: {
+        name: 'Blue',
+        colors: {
+          50: '#E1ECEB', 100: '#C6DDE8', 150: '#ABCFE2', 200: '#92BFDB', 300: '#66A0C8',
+          400: '#4385BE', 500: '#3171B2', 600: '#205EA6', 700: '#1A4F8C', 800: '#163B66',
+          850: '#133051', 900: '#12253B', 950: '#101A24'
+        }
+      },
+      purple: {
+        name: 'Purple',
+        colors: {
+          50: '#F0EAEC', 100: '#E2D9E9', 150: '#D3CAE6', 200: '#C4B9E0', 300: '#A699D0',
+          400: '#8B7EC8', 500: '#735EB5', 600: '#5E409D', 700: '#4F3685', 800: '#3C2A62',
+          850: '#31234E', 900: '#261C39', 950: '#1A1623'
+        }
+      },
+      magenta: {
+        name: 'Magenta',
+        colors: {
+          50: '#FEE4E5', 100: '#FCCFDA', 150: '#F9B9CF', 200: '#F4A4C2', 300: '#E47DA8',
+          400: '#CE5D97', 500: '#B74583', 600: '#A02F6F', 700: '#87285E', 800: '#641F46',
+          850: '#4F1B39', 900: '#39172B', 950: '#24131D'
+        }
+      }
+    };
+
+    // ============ STATE ============
+    const state = {
+      colors: {
+        bg1: '#92400e',
+        bg2: '#d97706'
+      },
+      font: {
+        family: 'Space Grotesk',
+        weight: 900,
+        letterSpacing: -0.04
+      },
+      text: {
+        main: 'GRIT',
+        sub: 'DISTRESSED TYPE',
+        bleed: { enabled: true, amount: 2 },
+        grain: { enabled: true, intensity: 0.6, pattern: 'fine', seed: 913, tile: 140 },
+        knockout: { enabled: false, amount: 0.7, pattern: 'worn', seed: 4021, tile: 150 },
+        letterpress: { enabled: false, depth: 1 },
+        blur: { enabled: false, amount: 0 }
+      },
+      bg: {
+        screen: { enabled: true, opacity: 0.35, kind: 'dust', seed: 1207, tile: 160 },
+        multiply: { enabled: true, opacity: 0.25, kind: 'paper', seed: 881, tile: 210 },
+        overlay: { enabled: true, opacity: 0.4, kind: 'grain', seed: 5221, tile: 120 },
+        image: {
+          enabled: false,
+          source: 'embedded',
+          dataUrl: null,
+          filePath: null,
+          opacity: 0.85,
+          blend: 'normal',
+          fit: 'cover',
+          mask: false,
+          applyGradient: true,
+          posX: 50,
+          posY: 50,
+          scale: 1
+        },
+        blur: { enabled: true, amount: 0.5 }
+      },
+      selectingColor: 'bg1'
+    };
+
+    // ============ HELPERS ============
+    function clamp(val, min, max) {
+      return Math.min(max, Math.max(min, val));
+    }
+
+    function randomSeed() {
+      return Math.floor(Math.random() * 900000) + 1000;
+    }
+
+    function mulberry32(seed) {
+      let t = seed >>> 0;
+      return function() {
+        t += 0x6D2B79F5;
+        let r = Math.imul(t ^ (t >>> 15), 1 | t);
+        r ^= r + Math.imul(r ^ (r >>> 7), 61 | r);
+        return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    // ============ INIT ============
+    function init() {
+      renderPalettes();
+      generateBgTextures();
+      updateBackground();
+      applyTypography();
+      updateText();
+      if (!isFileSystemAccessAvailable()) {
+        document.getElementById('project-meta').textContent = 'File system access unavailable in this browser.';
+      }
+      setupVariantAutosave();
+      randomizeVariants();
+    }
+
+    // ============ RENDER PALETTES ============
+    function renderPalettes() {
+      const container = document.getElementById('palette-container');
+      container.innerHTML = '';
+      
+      Object.keys(palettes).forEach(key => {
+        const palette = palettes[key];
+        const section = document.createElement('div');
+        section.className = 'palette-section';
+        
+        section.innerHTML = `
+          <div class="palette-name">
+            <span class="dot" style="background: ${palette.colors[500]}"></span>
+            ${palette.name}
+          </div>
+          <div class="palette-row" id="row-${key}"></div>
+        `;
+        
+        container.appendChild(section);
+        
+        const row = document.getElementById(`row-${key}`);
+        Object.entries(palette.colors).forEach(([shade, color]) => {
+          const swatch = document.createElement('div');
+          swatch.className = 'color-swatch';
+          swatch.style.background = color;
+          swatch.dataset.color = color;
+          swatch.dataset.tooltip = `${shade}: ${color}`;
+          swatch.onclick = () => selectColor(color);
+          row.appendChild(swatch);
+        });
+      });
+      
+      updateColorPreviews();
+    }
+
+    function selectColor(color) {
+      state.colors[state.selectingColor] = color;
+      state.selectingColor = state.selectingColor === 'bg1' ? 'bg2' : 'bg1';
+      updateColorPreviews();
+      updateBackground();
+    }
+
+    function updateColorPreviews() {
+      document.getElementById('preview-bg').style.background = state.colors.bg1;
+      document.getElementById('preview-bg2').style.background = state.colors.bg2;
+      document.getElementById('value-bg').textContent = state.colors.bg1.toUpperCase();
+      document.getElementById('value-bg2').textContent = state.colors.bg2.toUpperCase();
+      
+      document.querySelectorAll('.color-swatch').forEach(s => {
+        s.classList.remove('selected');
+        if (s.dataset.color.toLowerCase() === state.colors.bg1.toLowerCase() || 
+            s.dataset.color.toLowerCase() === state.colors.bg2.toLowerCase()) {
+          s.classList.add('selected');
+        }
+      });
+    }
+
+    // ============ BACKGROUND TEXTURES ============
+    function generateBgTextures() {
+      renderBgLayer('screen');
+      renderBgLayer('multiply');
+      renderBgLayer('overlay');
+      
+      document.querySelectorAll('.bg-texture').forEach(c => {
+        c.style.width = '100%';
+        c.style.height = '100%';
+      });
+    }
+
+    function getCanvasSize(canvas) {
+      const w = Math.max(1, Math.floor(canvas.clientWidth || 400));
+      const h = Math.max(1, Math.floor(canvas.clientHeight || 400));
+      return { w, h };
+    }
+
+    function renderBgLayer(layerKey) {
+      const canvas = document.getElementById(`bg-${layerKey}`);
+      const layer = state.bg[layerKey];
+      if (!canvas || !layer) return;
+
+      const ctx = canvas.getContext('2d');
+      const { w, h } = getCanvasSize(canvas);
+      canvas.width = w;
+      canvas.height = h;
+      ctx.clearRect(0, 0, w, h);
+
+      if (layer.kind === 'vignette') {
+        const radius = Math.max(w, h) * 0.75;
+        const vignette = ctx.createRadialGradient(w / 2, h / 2, radius * 0.15, w / 2, h / 2, radius);
+        vignette.addColorStop(0, 'rgba(255,255,255,0)');
+        vignette.addColorStop(1, 'rgba(0,0,0,0.9)');
+        ctx.fillStyle = vignette;
+        ctx.fillRect(0, 0, w, h);
+        return;
+      }
+
+      const tileSize = clamp(Math.round(layer.tile || 140), 40, 320);
+      const tileCanvas = generateTextureTile(layer.kind, tileSize, layer.seed || 1);
+      const pattern = ctx.createPattern(tileCanvas, 'repeat');
+      if (!pattern) return;
+      ctx.fillStyle = pattern;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    function generateTextureTile(kind, size, seed) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      const rng = mulberry32(seed || 1);
+
+      const img = ctx.createImageData(size, size);
+      const phaseA = rng() * Math.PI * 2;
+      const phaseB = rng() * Math.PI * 2;
+      const lineStride = Math.max(2, Math.round(size / 20));
+      const dotSize = Math.max(3, Math.round(size / 12));
+
+      for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
+          let r = 128;
+          let g = 128;
+          let b = 128;
+
+          switch (kind) {
+            case 'dust': {
+              const isSpeck = rng() > 0.93;
+              const v = isSpeck ? 200 + rng() * 55 : rng() * 25;
+              r = g = b = v;
+              break;
+            }
+            case 'paper': {
+              const isSpot = rng() > 0.96;
+              const base = isSpot ? 150 + rng() * 60 : 210 + rng() * 35;
+              r = clamp(base + 10 + rng() * 6, 0, 255);
+              g = clamp(base + rng() * 4, 0, 255);
+              b = clamp(base - 14 - rng() * 6, 0, 255);
+              break;
+            }
+            case 'grain': {
+              const v = 110 + rng() * 80;
+              r = g = b = v;
+              break;
+            }
+            case 'fibers': {
+              const fiber = Math.sin((x / size) * Math.PI * 12 + phaseA) * 30;
+              const fiber2 = Math.sin((y / size) * Math.PI * 3 + phaseB) * 14;
+              const v = 175 + fiber + fiber2 + (rng() - 0.5) * 25;
+              r = g = b = clamp(v, 0, 255);
+              break;
+            }
+            case 'stains': {
+              const stain = Math.sin((x / size) * Math.PI * 2.2 + phaseA) + Math.cos((y / size) * Math.PI * 2.1 + phaseB);
+              const blob = Math.sin((x + y) / size * Math.PI * 1.6);
+              const v = 200 + (stain + blob) * 18 + (rng() - 0.5) * 30;
+              r = g = b = clamp(v, 0, 255);
+              break;
+            }
+            case 'halftone': {
+              const dx = x % dotSize - dotSize / 2;
+              const dy = y % dotSize - dotSize / 2;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              const v = dist < dotSize / 2.2 ? 70 + rng() * 40 : 220 + rng() * 20;
+              r = g = b = clamp(v, 0, 255);
+              break;
+            }
+            case 'scanlines': {
+              const line = (y % lineStride) === 0;
+              const v = line ? 140 + rng() * 45 : 220 + rng() * 25;
+              r = g = b = clamp(v, 0, 255);
+              break;
+            }
+            case 'noise': {
+              const v = rng() * 255;
+              r = g = b = v;
+              break;
+            }
+            case 'scratches':
+            default: {
+              const v = 210 + rng() * 30;
+              r = g = b = v;
+              break;
+            }
+          }
+
+          const i = (y * size + x) * 4;
+          img.data[i] = r;
+          img.data[i + 1] = g;
+          img.data[i + 2] = b;
+          img.data[i + 3] = 255;
+        }
+      }
+
+      ctx.putImageData(img, 0, 0);
+
+      if (kind === 'scratches') {
+        ctx.strokeStyle = 'rgba(90,90,90,0.5)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 12; i++) {
+          if (rng() > 0.7) continue;
+          const y = rng() * size;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(size, y + rng() * 4);
+          ctx.stroke();
+        }
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 8; i++) {
+          const x = rng() * size;
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x + rng() * 4, size);
+          ctx.stroke();
+        }
+      }
+
+      return canvas;
+    }
+
+    // ============ TEXT TEXTURE ============
+    function generateTextTexture() {
+      const canvas = document.getElementById('texture-canvas');
+      const ctx = canvas.getContext('2d');
+      const { grain, knockout } = state.text;
+      const tileSize = clamp(Math.round(Math.max(grain.tile || 150, knockout.tile || 150)), 60, 320);
+      canvas.width = tileSize;
+      canvas.height = tileSize;
+      
+      const img = ctx.createImageData(tileSize, tileSize);
+      const grainRng = mulberry32(grain.seed || 1);
+      const knockoutRng = mulberry32(knockout.seed || 1);
+      const fiberPhase = grainRng() * Math.PI * 2;
+      const fiberPhase2 = grainRng() * Math.PI * 2;
+      const stainPhase = grainRng() * Math.PI * 2;
+      const stainPhase2 = grainRng() * Math.PI * 2;
+      const dotSize = Math.max(3, Math.round(tileSize / 10));
+      const lineStride = Math.max(2, Math.round(tileSize / 30));
+      const scale = 150 / tileSize;
+      
+      for (let i = 0; i < img.data.length; i += 4) {
+        const x = (i / 4) % tileSize;
+        const y = Math.floor((i / 4) / tileSize);
+        
+        // Start with white
+        let colorVal = 255;
+        let alpha = 255;
+        
+        // === GRAIN (darkens the white) ===
+        if (grain.enabled && grain.intensity > 0) {
+          let darken = 0;
+          const int = grain.intensity;
+          
+          switch (grain.pattern) {
+            case 'fine':
+              darken = grainRng() * 80 * int;
+              if (grainRng() > 0.85) darken += 40 * int;
+              break;
+            case 'coarse':
+              darken = grainRng() * 120 * int;
+              if (grainRng() > 0.7) darken += 60 * int;
+              break;
+            case 'speckle':
+              if (grainRng() > 0.85) {
+                darken = (150 + grainRng() * 100) * int;
+              }
+              break;
+            case 'halftone': {
+              const dx = x % dotSize - dotSize / 2;
+              const dy = y % dotSize - dotSize / 2;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < dotSize / 2.2) {
+                darken = 150 * int;
+              }
+              break;
+            }
+            case 'scanlines':
+              if (y % lineStride === 0) {
+                darken = 100 * int;
+              }
+              break;
+            case 'noise':
+              darken = grainRng() * 180 * int;
+              break;
+            case 'fibers': {
+              const fiber = Math.sin((x / tileSize) * Math.PI * 10 + fiberPhase) * 35;
+              const fiber2 = Math.sin((y / tileSize) * Math.PI * 3 + fiberPhase2) * 15;
+              darken = Math.max(0, fiber + fiber2 + (grainRng() - 0.5) * 40) * int;
+              break;
+            }
+            case 'stains': {
+              const freq = 0.08 * scale;
+              const stain = Math.sin((x * freq) + stainPhase) + Math.cos((y * freq) + stainPhase2);
+              const blob = Math.sin(((x + y) * freq) + stainPhase2);
+              darken = Math.max(0, (stain + blob) * 30 + (grainRng() - 0.5) * 30) * int;
+              break;
+            }
+          }
+          
+          colorVal = Math.max(0, Math.round(255 - darken));
+        }
+        
+        // === KNOCKOUT (punches transparent holes) ===
+        if (knockout.enabled && knockout.amount > 0) {
+          let isHole = false;
+          const amt = knockout.amount;
+          const sx = x * scale;
+          const sy = y * scale;
+          
+          switch (knockout.pattern) {
+            case 'worn': {
+              if (knockoutRng() < amt * 0.2) isHole = true;
+              const wornNoise = Math.sin(sx * 0.12) * Math.cos(sy * 0.12);
+              if (wornNoise > 0.2 && knockoutRng() < amt * 0.3) isHole = true;
+              break;
+            }
+            case 'scratches':
+              if ((Math.floor(sy) % 6) === 0 && knockoutRng() < amt * 0.8) isHole = true;
+              if (((Math.floor(sx + sy)) % 8) === 0 && knockoutRng() < amt * 0.7) isHole = true;
+              if (knockoutRng() < amt * 0.05) isHole = true;
+              break;
+            case 'heavy': {
+              if (knockoutRng() < amt * 0.35) isHole = true;
+              const heavyNoise = Math.sin(sx * 0.08) * Math.cos(sy * 0.08);
+              if (heavyNoise > 0 && knockoutRng() < amt * 0.4) isHole = true;
+              break;
+            }
+            case 'splatter': {
+              const blob1 = Math.sin(sx * 0.06) * Math.cos(sy * 0.05);
+              const blob2 = Math.sin(sx * 0.1 + 15) * Math.cos(sy * 0.08 + 10);
+              const blobVal = blob1 + blob2 * 0.7 + (knockoutRng() - 0.5) * 0.4;
+              if (blobVal > (0.5 - amt * 0.6)) isHole = true;
+              if (knockoutRng() < amt * 0.08) isHole = true;
+              break;
+            }
+          }
+          
+          if (isHole) {
+            alpha = 0;
+          }
+        }
+        
+        img.data[i] = colorVal;
+        img.data[i + 1] = colorVal;
+        img.data[i + 2] = colorVal;
+        img.data[i + 3] = alpha;
+      }
+      
+      ctx.putImageData(img, 0, 0);
+      
+      return {
+        url: canvas.toDataURL('image/png'),
+        tileSize,
+      };
+    }
+
+    // ============ UPDATE FUNCTIONS ============
+    function updateBackground() {
+      const gradient = `linear-gradient(135deg, ${state.colors.bg1} 0%, ${state.colors.bg2} 100%)`;
+      const gradientEnabled = !state.bg.image.enabled || state.bg.image.applyGradient;
+      document.getElementById('bg-gradient').style.background = gradientEnabled ? gradient : 'transparent';
+      
+      document.getElementById('bg-screen').style.opacity = state.bg.screen.enabled ? state.bg.screen.opacity : 0;
+      document.getElementById('bg-multiply').style.opacity = state.bg.multiply.enabled ? state.bg.multiply.opacity : 0;
+      document.getElementById('bg-overlay').style.opacity = state.bg.overlay.enabled ? state.bg.overlay.opacity : 0;
+
+      const bgImage = document.getElementById('bg-image');
+      if (state.bg.image.enabled && state.bg.image.dataUrl) {
+        bgImage.src = state.bg.image.dataUrl;
+        bgImage.style.opacity = state.bg.image.opacity;
+        bgImage.style.mixBlendMode = state.bg.image.blend;
+        bgImage.style.objectFit = state.bg.image.fit;
+        bgImage.style.objectPosition = `${state.bg.image.posX}% ${state.bg.image.posY}%`;
+        bgImage.style.transformOrigin = `${state.bg.image.posX}% ${state.bg.image.posY}%`;
+        bgImage.style.transform = `scale(${state.bg.image.scale})`;
+        if (state.bg.image.mask) {
+          const maskGradient = 'linear-gradient(135deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,1) 100%)';
+          bgImage.style.maskImage = maskGradient;
+          bgImage.style.webkitMaskImage = maskGradient;
+        } else {
+          bgImage.style.maskImage = 'none';
+          bgImage.style.webkitMaskImage = 'none';
+        }
+        bgImage.style.display = 'block';
+      } else {
+        bgImage.style.display = 'none';
+        bgImage.src = '';
+      }
+      
+      document.getElementById('bg-stack').style.filter = state.bg.blur.enabled ? `blur(${state.bg.blur.amount}px)` : 'none';
+    }
+
+    function updateText() {
+      const text = document.getElementById('main-text');
+      const subtext = document.getElementById('sub-text');
+      const textContainer = document.getElementById('text-container');
+      
+      // Clear all effect classes
+      text.classList.remove('ink-bleed-light', 'ink-bleed', 'ink-bleed-heavy', 'letterpress', 'has-texture');
+      subtext.classList.remove('ink-bleed-light', 'ink-bleed', 'ink-bleed-heavy');
+      
+      // Reset inline styles
+      text.style.backgroundImage = 'none';
+      text.style.color = '#fff';
+      textContainer.style.filter = state.text.blur.enabled ? `blur(${state.text.blur.amount}px)` : 'none';
+      
+      // Ink bleed
+      if (state.text.bleed.enabled && state.text.bleed.amount > 0) {
+        const classes = ['', 'ink-bleed-light', 'ink-bleed', 'ink-bleed-heavy'];
+        text.classList.add(classes[state.text.bleed.amount]);
+        subtext.classList.add(classes[Math.max(1, state.text.bleed.amount - 1)]);
+      }
+      
+      // Letterpress
+      if (state.text.letterpress.enabled) {
+        text.classList.add('letterpress');
+      }
+      
+      // Grain/Knockout texture - apply AFTER other effects
+      if (state.text.grain.enabled || state.text.knockout.enabled) {
+        const textureData = generateTextTexture();
+        
+        // Apply texture as background clipped to text
+        text.style.backgroundImage = `url(${textureData.url})`;
+        text.style.backgroundSize = `${textureData.tileSize}px ${textureData.tileSize}px`;
+        text.style.backgroundRepeat = 'repeat';
+        text.style.webkitBackgroundClip = 'text';
+        text.style.backgroundClip = 'text';
+        text.style.color = 'transparent';
+        
+        text.classList.add('has-texture');
+      }
+    }
+
+    function updateDisplayText() {
+      document.getElementById('main-text').textContent = document.getElementById('input-main').value || 'GRIT';
+      document.getElementById('sub-text').textContent = document.getElementById('input-sub').value || 'DISTRESSED TYPE';
+    }
+
+    // ============ CONTROL HANDLERS ============
+    function togglePanel(id) {
+      document.getElementById(`panel-${id}`).classList.toggle('collapsed');
+    }
+
+    function toggleEffect(effect) {
+      state.text[effect].enabled = !state.text[effect].enabled;
+      document.getElementById(`toggle-${effect}`).classList.toggle('active', state.text[effect].enabled);
+      updateText();
+    }
+
+    function updateBleed(val) {
+      state.text.bleed.amount = parseInt(val);
+      document.getElementById('val-bleed').textContent = ['None', 'Light', 'Med', 'Heavy'][val];
+      updateText();
+    }
+
+    function updateGrain(val) {
+      state.text.grain.intensity = val / 100;
+      document.getElementById('val-grain').textContent = val + '%';
+      updateText();
+    }
+
+    function updateGrainScale(val) {
+      const tile = parseInt(val, 10);
+      if (Number.isFinite(tile)) {
+        state.text.grain.tile = tile;
+        document.getElementById('val-grain-scale').textContent = tile + 'px';
+        updateText();
+      }
+    }
+
+    function updateGrainSeed(val) {
+      const seed = parseInt(val, 10);
+      if (Number.isFinite(seed)) {
+        state.text.grain.seed = seed;
+        updateText();
+      }
+    }
+
+    function reseedGrain() {
+      const seed = randomSeed();
+      state.text.grain.seed = seed;
+      document.getElementById('grain-seed').value = seed;
+      updateText();
+    }
+
+    function changeGrainPattern(pattern) {
+      state.text.grain.pattern = pattern;
+      updateText();
+    }
+
+    function updateKnockout(val) {
+      state.text.knockout.amount = val / 100;
+      document.getElementById('val-knockout').textContent = val + '%';
+      updateText();
+    }
+
+    function updateKnockoutScale(val) {
+      const tile = parseInt(val, 10);
+      if (Number.isFinite(tile)) {
+        state.text.knockout.tile = tile;
+        document.getElementById('val-knockout-scale').textContent = tile + 'px';
+        updateText();
+      }
+    }
+
+    function updateKnockoutSeed(val) {
+      const seed = parseInt(val, 10);
+      if (Number.isFinite(seed)) {
+        state.text.knockout.seed = seed;
+        updateText();
+      }
+    }
+
+    function reseedKnockout() {
+      const seed = randomSeed();
+      state.text.knockout.seed = seed;
+      document.getElementById('knockout-seed').value = seed;
+      updateText();
+    }
+
+    function changeKnockoutPattern(pattern) {
+      state.text.knockout.pattern = pattern;
+      updateText();
+    }
+
+    function updateLetterpress(val) {
+      state.text.letterpress.depth = parseInt(val);
+      document.getElementById('val-letterpress').textContent = ['None', 'Med', 'Deep'][val];
+      updateText();
+    }
+
+    function toggleTextBlur() {
+      state.text.blur.enabled = !state.text.blur.enabled;
+      document.getElementById('toggle-text-blur').classList.toggle('active', state.text.blur.enabled);
+      updateText();
+    }
+
+    function updateTextBlur(val) {
+      const amount = parseInt(val, 10) || 0;
+      state.text.blur.amount = amount;
+      document.getElementById('val-text-blur').textContent = amount + 'px';
+      state.text.blur.enabled = amount > 0;
+      document.getElementById('toggle-text-blur').classList.toggle('active', state.text.blur.enabled);
+      updateText();
+    }
+
+    function toggleBg(layer) {
+      state.bg[layer].enabled = !state.bg[layer].enabled;
+      document.getElementById(`toggle-${layer}`).classList.toggle('active', state.bg[layer].enabled);
+      updateBackground();
+    }
+
+    function updateBgOpacity(layer, val) {
+      state.bg[layer].opacity = val / 100;
+      document.getElementById(`val-${layer}`).textContent = val + '%';
+      updateBackground();
+    }
+
+    function updateBgScale(layer, val) {
+      const tile = parseInt(val, 10);
+      if (Number.isFinite(tile)) {
+        state.bg[layer].tile = tile;
+        document.getElementById(`val-scale-${layer}`).textContent = tile + 'px';
+        generateBgTextures();
+      }
+    }
+
+    function updateBgSeed(layer, val) {
+      const seed = parseInt(val, 10);
+      if (Number.isFinite(seed)) {
+        state.bg[layer].seed = seed;
+        generateBgTextures();
+      }
+    }
+
+    function reseedBg(layer) {
+      const seed = randomSeed();
+      state.bg[layer].seed = seed;
+      document.getElementById(`seed-${layer}`).value = seed;
+      generateBgTextures();
+    }
+
+    function updateBgKind(layer, kind) {
+      state.bg[layer].kind = kind;
+      generateBgTextures();
+    }
+
+    function updateBlurAmount(val) {
+      state.bg.blur.amount = val / 10;
+      document.getElementById('val-blur').textContent = (val / 10).toFixed(1) + 'px';
+      updateBackground();
+    }
+
+    function toggleBgImage() {
+      state.bg.image.enabled = !state.bg.image.enabled;
+      document.getElementById('toggle-bg-image').classList.toggle('active', state.bg.image.enabled);
+      updateBackground();
+    }
+
+    function triggerImageUpload() {
+      document.getElementById('bg-image-file').click();
+    }
+
+    function handleBgImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      if (state.bg.image.source === 'file') {
+        if (!projectHandle) {
+          alert('Open a project folder to link files. Falling back to embedded.');
+          state.bg.image.source = 'embedded';
+          document.getElementById('bg-image-source').value = 'embedded';
+        }
+      }
+
+      if (state.bg.image.source === 'file' && projectHandle) {
+        saveImageToProject(file).then(({ dataUrl, filePath }) => {
+          state.bg.image.dataUrl = dataUrl;
+          state.bg.image.filePath = filePath;
+          state.bg.image.enabled = true;
+          document.getElementById('toggle-bg-image').classList.add('active');
+          updateBackground();
+        }).catch(err => {
+          alert('Failed to save image: ' + err.message);
+        });
+      } else {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          state.bg.image.dataUrl = e.target.result;
+          state.bg.image.filePath = null;
+          state.bg.image.enabled = true;
+          document.getElementById('toggle-bg-image').classList.add('active');
+          updateBackground();
+        };
+        reader.readAsDataURL(file);
+      }
+      event.target.value = '';
+    }
+
+    function removeBgImage() {
+      state.bg.image.dataUrl = null;
+      state.bg.image.filePath = null;
+      state.bg.image.enabled = false;
+      document.getElementById('toggle-bg-image').classList.remove('active');
+      updateBackground();
+    }
+
+    function updateBgImageOpacity(val) {
+      state.bg.image.opacity = val / 100;
+      document.getElementById('val-bg-image-opacity').textContent = val + '%';
+      updateBackground();
+    }
+
+    function updateBgImageBlend(val) {
+      state.bg.image.blend = val;
+      updateBackground();
+    }
+
+    function updateBgImageFit(val) {
+      state.bg.image.fit = val;
+      updateBackground();
+    }
+
+    function updateBgImageSource(val) {
+      state.bg.image.source = val;
+      if (val === 'file' && !projectHandle) {
+        alert('Linking files requires an open project folder.');
+      }
+    }
+
+    function toggleBgImageMask() {
+      state.bg.image.mask = !state.bg.image.mask;
+      document.getElementById('toggle-bg-image-mask').classList.toggle('active', state.bg.image.mask);
+      updateBackground();
+    }
+
+    function toggleBgImageGradient() {
+      state.bg.image.applyGradient = !state.bg.image.applyGradient;
+      document.getElementById('toggle-bg-image-gradient').classList.toggle('active', state.bg.image.applyGradient);
+      updateBackground();
+    }
+
+    function updateBgImageScale(val) {
+      const scale = Math.max(0.5, Math.min(1.6, parseInt(val, 10) / 100));
+      state.bg.image.scale = scale;
+      document.getElementById('val-bg-image-scale').textContent = Math.round(scale * 100) + '%';
+      updateBackground();
+    }
+
+    function updateBgImagePosX(val) {
+      const pos = parseInt(val, 10);
+      state.bg.image.posX = pos;
+      document.getElementById('val-bg-image-pos-x').textContent = pos + '%';
+      updateBackground();
+    }
+
+    function updateBgImagePosY(val) {
+      const pos = parseInt(val, 10);
+      state.bg.image.posY = pos;
+      document.getElementById('val-bg-image-pos-y').textContent = pos + '%';
+      updateBackground();
+    }
+
+    async function saveImageToProject(file) {
+      const imagesDir = await projectHandle.getDirectoryHandle('images', { create: true });
+      const safeName = file.name.replace(/[^a-z0-9._-]+/gi, '_').toLowerCase();
+      const fileHandle = await imagesDir.getFileHandle(safeName, { create: true });
+      const writable = await fileHandle.createWritable();
+      await writable.write(await file.arrayBuffer());
+      await writable.close();
+
+      const dataUrl = await fileToDataUrl(file);
+      return { dataUrl, filePath: `images/${safeName}` };
+    }
+
+    function fileToDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = err => reject(err);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function copyColors() {
+      const css = `background: linear-gradient(135deg, ${state.colors.bg1} 0%, ${state.colors.bg2} 100%);`;
+      copyTextToClipboard(css, 'copy-gradient-btn', 'Copy CSS Gradient');
+    }
+
+    // ============ TYPOGRAPHY HANDLERS ============
+    function updateFontFamily(family) {
+      state.font.family = family;
+      applyTypography();
+    }
+
+    function updateFontWeight(weight) {
+      state.font.weight = parseInt(weight);
+      document.getElementById('val-weight').textContent = weight;
+      applyTypography();
+    }
+
+    function updateLetterSpacing(val) {
+      state.font.letterSpacing = val / 100;
+      document.getElementById('val-spacing').textContent = (val / 100).toFixed(2) + 'em';
+      applyTypography();
+    }
+
+    function applyTypography() {
+      const text = document.getElementById('main-text');
+      text.style.fontFamily = `'${state.font.family}', sans-serif`;
+      text.style.fontWeight = state.font.weight;
+      text.style.letterSpacing = state.font.letterSpacing + 'em';
+    }
+
+    // ============ PRESET EXPORT/IMPORT ============
+    function generatePreset() {
+      const presetName = document.getElementById('preset-name').value || `preset_${Date.now()}`;
+      const textureLayers = [
+        {
+          id: 'screen',
+          enabled: state.bg.screen.enabled,
+          opacity: state.bg.screen.opacity,
+          blend_mode: 'screen',
+          kind: state.bg.screen.kind,
+          seed: state.bg.screen.seed,
+          tile_px: state.bg.screen.tile
+        },
+        {
+          id: 'multiply',
+          enabled: state.bg.multiply.enabled,
+          opacity: state.bg.multiply.opacity,
+          blend_mode: 'multiply',
+          kind: state.bg.multiply.kind,
+          seed: state.bg.multiply.seed,
+          tile_px: state.bg.multiply.tile
+        },
+        {
+          id: 'overlay',
+          enabled: state.bg.overlay.enabled,
+          opacity: state.bg.overlay.opacity,
+          blend_mode: 'overlay',
+          kind: state.bg.overlay.kind,
+          seed: state.bg.overlay.seed,
+          tile_px: state.bg.overlay.tile
+        }
+      ];
+      return {
+        schema: "clipper.texture_studio.preset.v0.2",
+        id: presetName,
+        background: {
+          gradient: {
+            start: state.colors.bg1,
+            end: state.colors.bg2,
+            angle_deg: 135
+          },
+          image: (state.bg.image.dataUrl || state.bg.image.filePath) ? {
+            enabled: state.bg.image.enabled,
+            source: state.bg.image.source,
+            data_url: state.bg.image.source === 'embedded' ? state.bg.image.dataUrl : undefined,
+            file_path: state.bg.image.source === 'file' ? state.bg.image.filePath : undefined,
+            opacity: state.bg.image.opacity,
+            blend_mode: state.bg.image.blend,
+            fit: state.bg.image.fit,
+            mask_with_gradient: state.bg.image.mask,
+            apply_gradient: state.bg.image.applyGradient,
+            pos_x: state.bg.image.posX,
+            pos_y: state.bg.image.posY,
+            scale: state.bg.image.scale
+          } : undefined,
+          textures: {
+            layers: textureLayers,
+            screen: { enabled: state.bg.screen.enabled, opacity: state.bg.screen.opacity },
+            multiply: { enabled: state.bg.multiply.enabled, opacity: state.bg.multiply.opacity },
+            overlay: { enabled: state.bg.overlay.enabled, opacity: state.bg.overlay.opacity }
+          },
+          blur_px: state.bg.blur.enabled ? state.bg.blur.amount : 0
+        },
+        typography: {
+          font_family: state.font.family,
+          font_weight: state.font.weight,
+          letter_spacing_em: state.font.letterSpacing
+        },
+          text_effects: {
+            ink_bleed: { enabled: state.text.bleed.enabled, amount: state.text.bleed.amount },
+            blur: { enabled: state.text.blur.enabled, amount: state.text.blur.amount },
+            grain: {
+              enabled: state.text.grain.enabled,
+              intensity: state.text.grain.intensity,
+              pattern: state.text.grain.pattern,
+              seed: state.text.grain.seed,
+            tile_px: state.text.grain.tile
+          },
+          knockout: {
+            enabled: state.text.knockout.enabled,
+            amount: state.text.knockout.amount,
+            pattern: state.text.knockout.pattern,
+            seed: state.text.knockout.seed,
+            tile_px: state.text.knockout.tile
+          },
+          letterpress: { enabled: state.text.letterpress.enabled, depth: state.text.letterpress.depth }
+        },
+        color_palette: {
+          primary: state.colors.bg1,
+          secondary: state.colors.bg2
+        }
+      };
+    }
+
+    function sanitizeId(raw, fallback) {
+      const base = (raw || fallback || '').toString().trim();
+      const safe = base.replace(/[^a-z0-9._-]+/gi, '_').replace(/^_+|_+$/g, '');
+      return safe || fallback || `preset_${Date.now()}`;
+    }
+
+    function generateVariantBundle() {
+      // If variants haven't been initialized yet, fall back to a single preset.
+      if (typeof variantState === 'undefined' || !Array.isArray(variantState.presets) || !variantState.presets.length) {
+        return null;
+      }
+
+      // Persist the active variant before packaging.
+      if (variantState.activeIndex !== null) {
+        if (typeof clearVariantAutosave === 'function') clearVariantAutosave();
+        if (typeof saveActiveVariantFromState === 'function') saveActiveVariantFromState();
+      }
+
+      const bundleNameInput = document.getElementById('preset-name').value;
+      const bundleId = sanitizeId(bundleNameInput, `texture_bundle_${Date.now()}`);
+
+      const variants = variantState.presets.map((preset, index) => {
+        const clone = deepClone(preset);
+        clone.id = sanitizeId(clone.id, `variant_${index + 1}`);
+        return clone;
+      });
+
+      const activeIndex = variantState.activeIndex ?? 0;
+      const activeVariantId = variants[Math.max(0, Math.min(activeIndex, variants.length - 1))]?.id || variants[0]?.id;
+
+      return {
+        schema: "clipper.texture_studio.bundle.v0.1",
+        id: bundleId,
+        active_variant_id: activeVariantId,
+        variants,
+        style_blueprint: variantState.style ? deepClone(variantState.style) : undefined,
+        meta: {
+          variant_count: variants.length,
+          generated_at: new Date().toISOString()
+        }
+      };
+    }
+
+    function generateExportPayload() {
+      const bundle = generateVariantBundle();
+      // Only emit a bundle when it actually represents multiple variants.
+      if (bundle && bundle.variants && bundle.variants.length > 1) {
+        return bundle;
+      }
+      return generatePreset();
+    }
+
+    function exportPreset() {
+      const payload = generateExportPayload();
+      const json = JSON.stringify(payload, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const kind = payload.schema && payload.schema.includes('.bundle.') ? 'texture_bundle' : 'texture_preset';
+      a.download = `${kind}_${payload.id}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function copyPresetToClipboard() {
+      const payload = generateExportPayload();
+      const json = JSON.stringify(payload, null, 2);
+      copyTextToClipboard(json, 'copy-json-btn', 'Copy JSON');
+    }
+
+    function copyTextToClipboard(text, buttonId, defaultLabel) {
+      const btn = document.getElementById(buttonId);
+      const showStatus = (label, revert = true) => {
+        if (!btn) return;
+        const prev = btn.textContent;
+        btn.textContent = label;
+        if (revert) {
+          setTimeout(() => {
+            btn.textContent = prev || defaultLabel;
+          }, 1500);
+        }
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          showStatus('Copied!');
+        }).catch(err => {
+          console.warn('Clipboard API failed, falling back.', err);
+          fallbackCopyText(text, showStatus, defaultLabel);
+        });
+        return;
+      }
+
+      fallbackCopyText(text, showStatus, defaultLabel);
+    }
+
+    function fallbackCopyText(text, showStatus, defaultLabel) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.style.top = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+
+      let success = false;
+      try {
+        success = document.execCommand('copy');
+      } catch (err) {
+        console.warn('execCommand copy failed.', err);
+      }
+
+      document.body.removeChild(textarea);
+
+      if (success) {
+        showStatus('Copied!');
+      } else {
+        showStatus('Copy failed', true);
+        alert('Copy failed. Try Export JSON instead.');
+      }
+    }
+
+    function isVariantBundle(payload) {
+      return Boolean(
+        payload &&
+        typeof payload === 'object' &&
+        typeof payload.schema === 'string' &&
+        payload.schema.startsWith('clipper.texture_studio.bundle')
+      );
+    }
+
+    function applyVariantBundle(bundle) {
+      const rawVariants = Array.isArray(bundle.variants) ? bundle.variants : [];
+      if (!rawVariants.length) {
+        alert('Bundle has no variants.');
+        return;
+      }
+
+      variantState.isApplying = true;
+      variantState.style = bundle.style_blueprint ? deepClone(bundle.style_blueprint) : null;
+      variantState.presets = rawVariants.map((preset, index) => {
+        const clone = deepClone(preset);
+        clone.id = sanitizeId(clone.id, `variant_${index + 1}`);
+        return clone;
+      });
+
+      let activeIndex = 0;
+      if (bundle.active_variant_id) {
+        const found = variantState.presets.findIndex(p => p.id === bundle.active_variant_id);
+        if (found >= 0) activeIndex = found;
+      }
+
+      variantState.activeIndex = null;
+      renderVariantGrid();
+      variantState.isApplying = false;
+      selectVariant(activeIndex);
+
+      if (bundle.id) {
+        document.getElementById('preset-name').value = bundle.id;
+      }
+    }
+
+    function applyPayload(payload) {
+      if (isVariantBundle(payload)) {
+        applyVariantBundle(payload);
+        return;
+      }
+      applyPreset(payload);
+    }
+
+    function importPreset(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const payload = JSON.parse(e.target.result);
+          applyPayload(payload);
+        } catch (err) {
+          alert('Invalid JSON file: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = ''; // Reset input
+    }
+
+    function applyPreset(preset) {
+      // Apply preset name
+      if (preset.id) {
+        document.getElementById('preset-name').value = preset.id;
+      }
+
+      // Apply colors
+      if (preset.background?.gradient) {
+        state.colors.bg1 = preset.background.gradient.start;
+        state.colors.bg2 = preset.background.gradient.end;
+      } else if (preset.color_palette) {
+        state.colors.bg1 = preset.color_palette.primary;
+        state.colors.bg2 = preset.color_palette.secondary;
+      }
+      updateColorPreviews();
+
+      // Apply background textures
+      if (preset.background?.textures) {
+        const tex = preset.background.textures;
+        const applyLayer = (key, layer) => {
+          if (!layer) return;
+          if (layer.enabled !== undefined) {
+            state.bg[key].enabled = layer.enabled;
+            document.getElementById(`toggle-${key}`).classList.toggle('active', layer.enabled);
+          }
+          if (layer.opacity !== undefined) {
+            state.bg[key].opacity = layer.opacity;
+            document.getElementById(`opacity-${key}`).value = layer.opacity * 100;
+            document.getElementById(`val-${key}`).textContent = Math.round(layer.opacity * 100) + '%';
+          }
+          if (layer.kind) {
+            state.bg[key].kind = layer.kind;
+            const kindInput = document.getElementById(`kind-${key}`);
+            if (kindInput) kindInput.value = layer.kind;
+          }
+          if (layer.seed !== undefined) {
+            state.bg[key].seed = layer.seed;
+            const seedInput = document.getElementById(`seed-${key}`);
+            if (seedInput) seedInput.value = layer.seed;
+          }
+          if (layer.tile_px !== undefined) {
+            state.bg[key].tile = layer.tile_px;
+            const scaleInput = document.getElementById(`scale-${key}`);
+            if (scaleInput) scaleInput.value = layer.tile_px;
+            const scaleLabel = document.getElementById(`val-scale-${key}`);
+            if (scaleLabel) scaleLabel.textContent = Math.round(layer.tile_px) + 'px';
+          }
+        };
+
+        if (Array.isArray(tex.layers)) {
+          tex.layers.forEach(layer => {
+            const key = layer.id || layer.blend_mode;
+            if (key === 'screen' || key === 'multiply' || key === 'overlay') {
+              applyLayer(key, layer);
+            }
+          });
+        }
+
+        if (tex.screen) applyLayer('screen', tex.screen);
+        if (tex.multiply) applyLayer('multiply', tex.multiply);
+        if (tex.overlay) applyLayer('overlay', tex.overlay);
+      }
+
+      // Apply background image
+      if (preset.background?.image) {
+        const img = preset.background.image;
+        state.bg.image.enabled = img.enabled ?? true;
+        state.bg.image.source = img.source ?? (img.file_path ? 'file' : 'embedded');
+        state.bg.image.filePath = img.file_path ?? null;
+        state.bg.image.dataUrl = img.data_url ?? null;
+        state.bg.image.opacity = img.opacity ?? state.bg.image.opacity;
+        state.bg.image.blend = img.blend_mode ?? state.bg.image.blend;
+        state.bg.image.fit = img.fit ?? state.bg.image.fit;
+        state.bg.image.mask = img.mask_with_gradient ?? false;
+        state.bg.image.applyGradient = img.apply_gradient ?? true;
+        state.bg.image.posX = img.pos_x ?? state.bg.image.posX;
+        state.bg.image.posY = img.pos_y ?? state.bg.image.posY;
+        state.bg.image.scale = img.scale ?? state.bg.image.scale;
+
+        if (state.bg.image.source === 'file' && state.bg.image.filePath && projectHandle) {
+          resolveProjectImage(state.bg.image.filePath).then(dataUrl => {
+            state.bg.image.dataUrl = dataUrl;
+            updateBackground();
+          }).catch(err => {
+            console.warn('Unable to resolve linked image', err);
+          });
+        }
+
+        document.getElementById('toggle-bg-image').classList.toggle('active', state.bg.image.enabled);
+        document.getElementById('bg-image-source').value = state.bg.image.source;
+        document.getElementById('bg-image-opacity').value = (state.bg.image.opacity * 100);
+        document.getElementById('val-bg-image-opacity').textContent = Math.round(state.bg.image.opacity * 100) + '%';
+        document.getElementById('bg-image-blend').value = state.bg.image.blend;
+        document.getElementById('bg-image-fit').value = state.bg.image.fit;
+        document.getElementById('toggle-bg-image-mask').classList.toggle('active', state.bg.image.mask);
+        document.getElementById('toggle-bg-image-gradient').classList.toggle('active', state.bg.image.applyGradient);
+        document.getElementById('bg-image-scale').value = Math.round(state.bg.image.scale * 100);
+        document.getElementById('val-bg-image-scale').textContent = Math.round(state.bg.image.scale * 100) + '%';
+        document.getElementById('bg-image-pos-x').value = state.bg.image.posX;
+        document.getElementById('val-bg-image-pos-x').textContent = state.bg.image.posX + '%';
+        document.getElementById('bg-image-pos-y').value = state.bg.image.posY;
+        document.getElementById('val-bg-image-pos-y').textContent = state.bg.image.posY + '%';
+      } else {
+        state.bg.image.enabled = false;
+        state.bg.image.dataUrl = null;
+        state.bg.image.filePath = null;
+        document.getElementById('toggle-bg-image').classList.remove('active');
+        document.getElementById('bg-image-opacity').value = 85;
+        document.getElementById('val-bg-image-opacity').textContent = '85%';
+        document.getElementById('bg-image-source').value = 'embedded';
+        document.getElementById('bg-image-blend').value = 'normal';
+        document.getElementById('bg-image-fit').value = 'cover';
+        document.getElementById('toggle-bg-image-mask').classList.remove('active');
+        document.getElementById('toggle-bg-image-gradient').classList.add('active');
+        document.getElementById('bg-image-scale').value = 100;
+        document.getElementById('val-bg-image-scale').textContent = '100%';
+        document.getElementById('bg-image-pos-x').value = 50;
+        document.getElementById('val-bg-image-pos-x').textContent = '50%';
+        document.getElementById('bg-image-pos-y').value = 50;
+        document.getElementById('val-bg-image-pos-y').textContent = '50%';
+      }
+
+      // Apply blur
+      if (preset.background?.blur_px !== undefined) {
+        const blurVal = preset.background.blur_px;
+        state.bg.blur.enabled = blurVal > 0;
+        state.bg.blur.amount = blurVal;
+        document.getElementById('toggle-blur').classList.toggle('active', blurVal > 0);
+        document.getElementById('blur-amount').value = blurVal * 10;
+        document.getElementById('val-blur').textContent = blurVal.toFixed(1) + 'px';
+      }
+
+      // Apply typography
+      if (preset.typography) {
+        if (preset.typography.font_family) {
+          state.font.family = preset.typography.font_family;
+          document.getElementById('font-family').value = preset.typography.font_family;
+        }
+        if (preset.typography.font_weight) {
+          state.font.weight = preset.typography.font_weight;
+          document.getElementById('font-weight').value = preset.typography.font_weight;
+          document.getElementById('val-weight').textContent = preset.typography.font_weight;
+        }
+        if (preset.typography.letter_spacing_em !== undefined) {
+          state.font.letterSpacing = preset.typography.letter_spacing_em;
+          document.getElementById('letter-spacing').value = preset.typography.letter_spacing_em * 100;
+          document.getElementById('val-spacing').textContent = preset.typography.letter_spacing_em.toFixed(2) + 'em';
+        }
+      }
+
+      // Apply text effects
+      if (preset.text_effects) {
+        const fx = preset.text_effects;
+        if (fx.ink_bleed) {
+          state.text.bleed.enabled = fx.ink_bleed.enabled;
+          state.text.bleed.amount = fx.ink_bleed.amount;
+          document.getElementById('toggle-bleed').classList.toggle('active', fx.ink_bleed.enabled);
+          document.getElementById('bleed-amount').value = fx.ink_bleed.amount;
+          document.getElementById('val-bleed').textContent = ['None', 'Light', 'Med', 'Heavy'][fx.ink_bleed.amount];
+        }
+        if (fx.grain) {
+          state.text.grain.enabled = fx.grain.enabled;
+          state.text.grain.intensity = fx.grain.intensity;
+          state.text.grain.pattern = fx.grain.pattern;
+          document.getElementById('toggle-grain').classList.toggle('active', fx.grain.enabled);
+          document.getElementById('grain-intensity').value = fx.grain.intensity * 100;
+          document.getElementById('val-grain').textContent = Math.round(fx.grain.intensity * 100) + '%';
+          document.getElementById('grain-pattern').value = fx.grain.pattern;
+          if (fx.grain.seed !== undefined) {
+            state.text.grain.seed = fx.grain.seed;
+            document.getElementById('grain-seed').value = fx.grain.seed;
+          }
+          if (fx.grain.tile_px !== undefined) {
+            state.text.grain.tile = fx.grain.tile_px;
+            document.getElementById('grain-scale').value = fx.grain.tile_px;
+            document.getElementById('val-grain-scale').textContent = Math.round(fx.grain.tile_px) + 'px';
+          }
+        }
+        if (fx.knockout) {
+          state.text.knockout.enabled = fx.knockout.enabled;
+          state.text.knockout.amount = fx.knockout.amount;
+          state.text.knockout.pattern = fx.knockout.pattern;
+          document.getElementById('toggle-knockout').classList.toggle('active', fx.knockout.enabled);
+          document.getElementById('knockout-amount').value = fx.knockout.amount * 100;
+          document.getElementById('val-knockout').textContent = Math.round(fx.knockout.amount * 100) + '%';
+          document.getElementById('knockout-pattern').value = fx.knockout.pattern;
+          if (fx.knockout.seed !== undefined) {
+            state.text.knockout.seed = fx.knockout.seed;
+            document.getElementById('knockout-seed').value = fx.knockout.seed;
+          }
+          if (fx.knockout.tile_px !== undefined) {
+            state.text.knockout.tile = fx.knockout.tile_px;
+            document.getElementById('knockout-scale').value = fx.knockout.tile_px;
+            document.getElementById('val-knockout-scale').textContent = Math.round(fx.knockout.tile_px) + 'px';
+          }
+        }
+        if (fx.letterpress) {
+          state.text.letterpress.enabled = fx.letterpress.enabled;
+          state.text.letterpress.depth = fx.letterpress.depth;
+          document.getElementById('toggle-letterpress').classList.toggle('active', fx.letterpress.enabled);
+          document.getElementById('letterpress-depth').value = fx.letterpress.depth;
+          document.getElementById('val-letterpress').textContent = ['None', 'Med', 'Deep'][fx.letterpress.depth];
+        }
+        if (fx.blur) {
+          state.text.blur.enabled = fx.blur.enabled;
+          state.text.blur.amount = fx.blur.amount || 0;
+          document.getElementById('toggle-text-blur').classList.toggle('active', fx.blur.enabled);
+          document.getElementById('text-blur-amount').value = state.text.blur.amount;
+          document.getElementById('val-text-blur').textContent = state.text.blur.amount + 'px';
+        } else if (fx.blur_px !== undefined) {
+          state.text.blur.amount = fx.blur_px;
+          state.text.blur.enabled = fx.blur_px > 0;
+          document.getElementById('toggle-text-blur').classList.toggle('active', state.text.blur.enabled);
+          document.getElementById('text-blur-amount').value = fx.blur_px;
+          document.getElementById('val-text-blur').textContent = fx.blur_px + 'px';
+        } else {
+          state.text.blur.enabled = false;
+          state.text.blur.amount = 0;
+          document.getElementById('toggle-text-blur').classList.remove('active');
+          document.getElementById('text-blur-amount').value = 0;
+          document.getElementById('val-text-blur').textContent = '0px';
+        }
+      }
+
+      // Apply all updates
+      generateBgTextures();
+      updateBackground();
+      applyTypography();
+      updateText();
+    }
+
+    // ============ PROJECT FOLDER ============
+    let projectHandle = null;
+    let projectFiles = [];
+
+    function isFileSystemAccessAvailable() {
+      return typeof window.showDirectoryPicker === 'function';
+    }
+
+    async function openProjectFolder() {
+      if (!isFileSystemAccessAvailable()) {
+        alert('File System Access API not available in this browser. Use Import/Export instead.');
+        return;
+      }
+      try {
+        projectHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+        document.getElementById('project-meta').textContent = `Folder: ${projectHandle.name}`;
+        await refreshProjectPresets();
+      } catch (err) {
+        console.warn('Project folder open cancelled', err);
+      }
+    }
+
+    async function refreshProjectPresets() {
+      if (!projectHandle) {
+        document.getElementById('project-meta').textContent = 'No folder selected';
+        renderProjectList([]);
+        return;
+      }
+      projectFiles = [];
+      for await (const [name, handle] of projectHandle.entries()) {
+        if (handle.kind === 'file' && name.toLowerCase().endsWith('.json')) {
+          projectFiles.push({ name, handle });
+        }
+      }
+      projectFiles.sort((a, b) => a.name.localeCompare(b.name));
+      renderProjectList(projectFiles);
+    }
+
+    function renderProjectList(files = projectFiles) {
+      const list = document.getElementById('project-list');
+      list.innerHTML = '';
+      if (!files.length) {
+        list.innerHTML = '<div class="project-meta">No presets found.</div>';
+        return;
+      }
+      files.forEach(({ name, handle }) => {
+        const btn = document.createElement('button');
+        btn.className = 'project-item';
+        btn.textContent = name.replace(/\.json$/i, '');
+        btn.onclick = () => loadPresetFromHandle(handle);
+        list.appendChild(btn);
+      });
+    }
+
+    async function loadPresetFromHandle(handle) {
+      try {
+        const file = await handle.getFile();
+        const text = await file.text();
+        const payload = JSON.parse(text);
+        applyPayload(payload);
+      } catch (err) {
+        alert('Failed to load preset: ' + err.message);
+      }
+    }
+
+    async function savePresetToProject() {
+      if (!projectHandle) {
+        alert('Open a project folder first.');
+        return;
+      }
+      const payload = generateExportPayload();
+      const safeId = sanitizeId(payload.id, `preset_${Date.now()}`);
+      const isBundle = payload.schema && payload.schema.includes('.bundle.');
+      const filename = isBundle ? `${safeId}_bundle.json` : `${safeId}.json`;
+      try {
+        const fileHandle = await projectHandle.getFileHandle(filename, { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(JSON.stringify(payload, null, 2));
+        await writable.close();
+        await refreshProjectPresets();
+      } catch (err) {
+        alert('Failed to save preset: ' + err.message);
+      }
+    }
+
+    async function resolveProjectImage(filePath) {
+      const parts = filePath.split('/').filter(Boolean);
+      let dir = projectHandle;
+      for (let i = 0; i < parts.length - 1; i++) {
+        dir = await dir.getDirectoryHandle(parts[i]);
+      }
+      const fileHandle = await dir.getFileHandle(parts[parts.length - 1]);
+      const file = await fileHandle.getFile();
+      return fileToDataUrl(file);
+    }
+
+    // ============ QUICK VARIANTS ============
+    const variantState = {
+      presets: [],
+      defaultCount: 6,
+      style: null,
+      activeIndex: null,
+      isApplying: false,
+      autosaveTimer: null
+    };
+
+    function deepClone(obj) {
+      // Safe for our preset shape (plain JSON).
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function pick(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function randomBetween(min, max) {
+      return min + Math.random() * (max - min);
+    }
+
+    function buildStyleBlueprint(desiredCount) {
+      const fontFamilies = ['Space Grotesk', 'Inter', 'DM Sans', 'Manrope', 'Plus Jakarta Sans', 'Instrument Serif'];
+      const grainPatterns = ['fine', 'coarse', 'speckle', 'halftone', 'scanlines', 'noise', 'fibers', 'stains'];
+      const bgKinds = ['dust', 'grain', 'fibers', 'scratches', 'stains', 'halftone', 'scanlines', 'noise', 'vignette', 'paper'];
+      const paletteKey = pick(Object.keys(palettes));
+      const palette = palettes[paletteKey];
+      const shadeKeys = Object.keys(palette.colors)
+        .map(k => parseInt(k, 10))
+        .filter(Number.isFinite)
+        .sort((a, b) => a - b);
+
+      const delta = 2;
+      const maxStart = Math.max(0, shadeKeys.length - 1 - delta);
+      const count = Math.max(1, desiredCount || variantState.defaultCount);
+      const step = Math.max(1, Math.floor(maxStart / Math.max(1, count - 1)));
+      const maxBase = Math.max(0, maxStart - step * (count - 1));
+      const baseStart = Math.floor(Math.random() * (maxBase + 1));
+
+      return {
+        paletteKey,
+        palette,
+        shadeKeys,
+        baseStart,
+        step,
+        delta,
+        gradientAngle: 135,
+        fontFamily: pick(fontFamilies),
+        fontWeight: pick([600, 700, 800, 900]),
+        letterSpacing: parseFloat(randomBetween(-0.06, 0.02).toFixed(2)),
+        bgLayers: {
+          screen: {
+            enabled: true,
+            opacity: randomBetween(0.22, 0.4),
+            kind: pick(bgKinds),
+            seed: randomSeed(),
+            tile: Math.round(randomBetween(140, 200))
+          },
+          multiply: {
+            enabled: Math.random() > 0.2,
+            opacity: randomBetween(0.18, 0.32),
+            kind: pick(bgKinds),
+            seed: randomSeed(),
+            tile: Math.round(randomBetween(160, 230))
+          },
+          overlay: {
+            enabled: true,
+            opacity: randomBetween(0.24, 0.5),
+            kind: pick(bgKinds),
+            seed: randomSeed(),
+            tile: Math.round(randomBetween(120, 190))
+          },
+          blur: Math.random() > 0.6 ? randomBetween(0.2, 1.0) : 0
+        },
+        textEffects: {
+          inkBleed: { enabled: Math.random() > 0.6, amount: pick([1, 2, 3]) },
+          grain: {
+            enabled: true,
+            intensity: parseFloat(randomBetween(0.35, 0.7).toFixed(2)),
+            pattern: pick(grainPatterns),
+            seed: randomSeed(),
+            tile: Math.round(randomBetween(130, 190))
+          },
+          knockout: {
+            enabled: Math.random() > 0.55,
+            amount: parseFloat(randomBetween(0.35, 0.65).toFixed(2)),
+            pattern: pick(['worn', 'scratches', 'heavy', 'splatter']),
+            seed: randomSeed(),
+            tile: Math.round(randomBetween(130, 190))
+          },
+          letterpress: { enabled: Math.random() > 0.7, depth: pick([1, 2]) },
+          blur: { enabled: false, amount: 0 }
+        }
+      };
+    }
+
+    function getVariantColors(style, index) {
+      const shades = style.shadeKeys;
+      if (!shades.length) {
+        return { start: '#222222', end: '#555555' };
+      }
+      const maxStart = Math.max(0, shades.length - 1 - style.delta);
+      const startIndex = Math.min(maxStart, style.baseStart + index * style.step);
+      const endIndex = Math.min(shades.length - 1, startIndex + style.delta);
+      const start = style.palette.colors[shades[startIndex]];
+      const end = style.palette.colors[shades[endIndex]];
+      return { start, end };
+    }
+
+    function buildVariantPreset(style, index) {
+      const { start, end } = getVariantColors(style, index);
+      const bg = style.bgLayers;
+      const textFx = style.textEffects;
+
+      return {
+        schema: "clipper.texture_studio.preset.v0.2",
+        id: `variant_${index + 1}`,
+        background: {
+          gradient: {
+            start,
+            end,
+            angle_deg: style.gradientAngle
+          },
+          textures: {
+            layers: [
+              {
+                id: 'screen',
+                enabled: bg.screen.enabled,
+                opacity: bg.screen.opacity,
+                blend_mode: 'screen',
+                kind: bg.screen.kind,
+                seed: bg.screen.seed,
+                tile_px: bg.screen.tile
+              },
+              {
+                id: 'multiply',
+                enabled: bg.multiply.enabled,
+                opacity: bg.multiply.opacity,
+                blend_mode: 'multiply',
+                kind: bg.multiply.kind,
+                seed: bg.multiply.seed,
+                tile_px: bg.multiply.tile
+              },
+              {
+                id: 'overlay',
+                enabled: bg.overlay.enabled,
+                opacity: bg.overlay.opacity,
+                blend_mode: 'overlay',
+                kind: bg.overlay.kind,
+                seed: bg.overlay.seed,
+                tile_px: bg.overlay.tile
+              }
+            ]
+          },
+          blur_px: bg.blur
+        },
+        typography: {
+          font_family: style.fontFamily,
+          font_weight: style.fontWeight,
+          letter_spacing_em: style.letterSpacing
+        },
+        text_effects: {
+          ink_bleed: { enabled: textFx.inkBleed.enabled, amount: textFx.inkBleed.amount },
+          grain: {
+            enabled: textFx.grain.enabled,
+            intensity: textFx.grain.intensity,
+            pattern: textFx.grain.pattern,
+            seed: textFx.grain.seed,
+            tile_px: textFx.grain.tile
+          },
+          knockout: {
+            enabled: textFx.knockout.enabled,
+            amount: textFx.knockout.amount,
+            pattern: textFx.knockout.pattern,
+            seed: textFx.knockout.seed,
+            tile_px: textFx.knockout.tile
+          },
+          letterpress: { enabled: textFx.letterpress.enabled, depth: textFx.letterpress.depth },
+          blur: { enabled: textFx.blur.enabled, amount: textFx.blur.amount }
+        },
+        color_palette: {
+          primary: start,
+          secondary: end
+        }
+      };
+    }
+
+    function updateVariantCountLabel() {
+      const label = document.getElementById('variant-count');
+      if (label) label.textContent = String(variantState.presets.length);
+    }
+
+    function clearVariantAutosave() {
+      if (variantState.autosaveTimer) {
+        clearTimeout(variantState.autosaveTimer);
+        variantState.autosaveTimer = null;
+      }
+    }
+
+    function saveActiveVariantFromState() {
+      if (variantState.activeIndex === null) return;
+      const idx = variantState.activeIndex;
+      if (!variantState.presets[idx]) return;
+
+      const prevId = variantState.presets[idx].id;
+      const preset = generatePreset();
+      const isMultiVariant = variantState.presets.length > 1;
+      // In multi-variant mode, the name field represents the bundle, not the individual variant.
+      if (prevId && isMultiVariant) {
+        preset.id = prevId;
+      } else if (prevId && (!preset.id || preset.id.startsWith('preset_'))) {
+        // Single-variant fallback: keep prior id unless the user set a real name.
+        preset.id = prevId;
+      }
+      variantState.presets[idx] = deepClone(preset);
+      updateVariantButton(idx);
+    }
+
+    function scheduleVariantAutosave() {
+      if (variantState.activeIndex === null) return;
+      if (variantState.isApplying) return;
+      clearVariantAutosave();
+      // Debounce so sliders don't spam rerenders.
+      variantState.autosaveTimer = setTimeout(() => {
+        variantState.autosaveTimer = null;
+        if (variantState.activeIndex === null) return;
+        if (variantState.isApplying) return;
+        saveActiveVariantFromState();
+      }, 80);
+    }
+
+    function setupVariantAutosave() {
+      // Any UI interaction that changes state should persist into the currently selected variant.
+      // (Programmatic updates during applyPreset do not emit input events; we guard those with isApplying.)
+      document.addEventListener('input', scheduleVariantAutosave, true);
+      document.addEventListener('change', scheduleVariantAutosave, true);
+      document.addEventListener('click', (e) => {
+        // Toggle buttons + palette swatches are clicks (not inputs).
+        if (e.target.closest('.toggle, .color-swatch, .project-btn')) {
+          scheduleVariantAutosave();
+        }
+      }, true);
+    }
+
+    function selectVariant(index) {
+      if (!variantState.presets.length) return;
+      const idx = clamp(index, 0, variantState.presets.length - 1);
+
+      // Persist the current edits to the previously selected variant before switching.
+      if (variantState.activeIndex !== null && variantState.activeIndex !== idx) {
+        clearVariantAutosave();
+        saveActiveVariantFromState();
+      }
+
+      variantState.activeIndex = idx;
+      variantState.isApplying = true;
+      applyPreset(variantState.presets[idx]);
+      variantState.isApplying = false;
+      highlightActiveVariant();
+    }
+
+    function randomizeVariants() {
+      // If the user clicks shuffle while a slider is mid-drag, cancel any pending autosave.
+      clearVariantAutosave();
+      variantState.activeIndex = null;
+      const count = Math.max(1, variantState.presets.length || variantState.defaultCount);
+      variantState.style = buildStyleBlueprint(count);
+      variantState.presets = Array.from({ length: count }, (_, i) => buildVariantPreset(variantState.style, i));
+      renderVariantGrid();
+      selectVariant(0);
+    }
+
+    function renderVariantGrid() {
+      const grid = document.getElementById('variant-grid');
+      grid.innerHTML = '';
+      variantState.presets.forEach((preset, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'variant-btn';
+        btn.dataset.variantIndex = String(index);
+        btn.classList.toggle('active', index === variantState.activeIndex);
+        const swatch = document.createElement('div');
+        swatch.className = 'variant-swatch';
+        swatch.style.background = `linear-gradient(135deg, ${preset.background.gradient.start} 0%, ${preset.background.gradient.end} 100%)`;
+        const label = document.createElement('div');
+        label.className = 'variant-label';
+        label.textContent = preset.id ? preset.id : `Variant ${index + 1}`;
+        btn.appendChild(swatch);
+        btn.appendChild(label);
+        btn.onclick = () => selectVariant(index);
+        grid.appendChild(btn);
+      });
+      updateVariantCountLabel();
+    }
+
+    function highlightActiveVariant() {
+      const grid = document.getElementById('variant-grid');
+      if (!grid) return;
+      grid.querySelectorAll('.variant-btn').forEach(btn => {
+        const idx = parseInt(btn.dataset.variantIndex || '-1', 10);
+        btn.classList.toggle('active', idx === variantState.activeIndex);
+      });
+    }
+
+    function updateVariantButton(index) {
+      const grid = document.getElementById('variant-grid');
+      if (!grid) return;
+      const btn = grid.querySelector(`.variant-btn[data-variant-index="${index}"]`);
+      if (!btn) {
+        renderVariantGrid();
+        return;
+      }
+      const preset = variantState.presets[index];
+      const swatch = btn.querySelector('.variant-swatch');
+      const label = btn.querySelector('.variant-label');
+      if (swatch && preset?.background?.gradient) {
+        swatch.style.background = `linear-gradient(135deg, ${preset.background.gradient.start} 0%, ${preset.background.gradient.end} 100%)`;
+      }
+      if (label) {
+        label.textContent = preset?.id ? preset.id : `Variant ${index + 1}`;
+      }
+      btn.classList.toggle('active', index === variantState.activeIndex);
+    }
+
+    function addVariant() {
+      if (!variantState.style) {
+        variantState.style = buildStyleBlueprint(variantState.presets.length || variantState.defaultCount);
+      }
+      // Persist current edits so the new preset isn't generated from stale UI.
+      clearVariantAutosave();
+      saveActiveVariantFromState();
+      const preset = buildVariantPreset(variantState.style, variantState.presets.length);
+      variantState.presets.push(preset);
+      renderVariantGrid();
+    }
+
+    function removeVariant() {
+      if (variantState.presets.length <= 1) return;
+      clearVariantAutosave();
+      saveActiveVariantFromState();
+      variantState.presets.pop();
+      if (variantState.activeIndex !== null && variantState.activeIndex >= variantState.presets.length) {
+        variantState.activeIndex = variantState.presets.length - 1;
+        selectVariant(variantState.activeIndex);
+        return;
+      }
+      renderVariantGrid();
+    }
+
+    window.onload = init;
+  </script>
+
+</body>
+</html>

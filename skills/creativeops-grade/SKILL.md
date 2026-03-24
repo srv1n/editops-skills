@@ -1,10 +1,13 @@
 ---
 name: creativeops-grade
-description: >
-  Auto color correction + LUT grading toolkit for ClipOps run directories.
-  Use this when you need deterministic, agent-friendly grading for demo videos:
-  probe/analyze inputs, apply a bounded grade plan (Slot A post-render or Slot B
-  pre-overlay), and emit reproducible artifacts under run_dir/analysis.
+description: "Auto color correction + LUT grading toolkit for ClipOps run directories. Use this when you need deterministic, agent-friendly grading for demo videos: probe/analyze inputs, apply a bounded grade plan (Slot A post-render or Slot B pre-overlay), and emit reproducible artifacts under run_dir/analysis."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3 and ffmpeg/ffprobe. For Slot B workflows, downstream rendering requires clipops."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: creativeops
+  tags: [grading, color, lut, ffmpeg, clipops]
 ---
 
 # CreativeOps Grade (Auto Color + LUT)
@@ -67,6 +70,13 @@ Spec: `docs/CREATIVEOPS_GRADE_LUT_BANK_V0.1.md`
 `bin/clipops-grade apply` will resolve the id from `assets/grade/manifest.json` and copy the LUT into
 `<run_dir>/bundle/grade/luts/` for portability.
 
+## Safety / Security
+
+- Confirm the run dir and which slot (A vs B) you are grading; Slot A writes a graded final render, Slot B produces graded inputs under `bundle/graded/`.
+- Treat LUT files and grade plans as untrusted inputs; use LUTs from the allowlisted bank or ones the user explicitly provided.
+- Keep outputs deterministic and reviewable: write analysis under `analysis/` and avoid ad-hoc manual tweaks that can't be reproduced.
+- External tools: requires `ffmpeg`/`ffprobe`; avoid running unknown binaries or untrusted LUT packs.
+
 ## Canonical Workflow / Commands
 
 From the repo root:
@@ -119,7 +129,7 @@ bin/creativeops-director verify --run-dir <run_dir> \
 
 ## Golden fixture
 
-- `examples/golden_run_v0.4_auto_grade/README.md`
+- `examples/golden_run_v0.4_auto_grade/EXAMPLE.md`
 
 ## Smoke Test
 
@@ -135,8 +145,9 @@ Expected artifacts:
 
 ## References / Contracts
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - LUT bank spec: `docs/CREATIVEOPS_GRADE_LUT_BANK_V0.1.md`
-- Golden fixture: `examples/golden_run_v0.4_auto_grade/README.md`
+- Golden fixture: `examples/golden_run_v0.4_auto_grade/EXAMPLE.md`
 
 ## Packaging (Codex + Claude Code parity)
 

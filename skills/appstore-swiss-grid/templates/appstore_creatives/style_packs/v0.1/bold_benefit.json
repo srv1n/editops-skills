@@ -1,0 +1,22 @@
+{
+  "schema": "clipper.appstore_creatives.style_pack.v0.1",
+  "id": "bold_benefit",
+  "screenshots": {
+    "producerPlanDefaultsPatch": {
+      "frameStyle": "apple",
+      "frameVariant": "black",
+      "background": { "style": "sunset" },
+      "brand": { "text": null },
+      "typography": { "titleFontName": "iA Writer Quattro", "subtitleFontName": "Work Sans", "brandFontName": "Work Sans" }
+    },
+    "background": { "type": "gradient", "top": "#1E2A78", "bottom": "#6A5BFF" },
+    "typography": { "titleFont": "Helvetica", "subtitleFont": "Helvetica" },
+    "colors": { "title": "#FFFFFF", "subtitle": "#FFE86B", "highlight": "#FFE86B" }
+  },
+  "videos": {
+    "directorPreset": "quickstart",
+    "joinProfile": "ios_quickstart",
+    "tempoTemplate": "hard_cut",
+    "brandKit": "templates/clipops/v0.2/brands/app_store_editorial_macos.json"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "schema": "clipper.theme_library.v0.1",
+  "apps": [
+    {
+      "id": "ios",
+      "display_name": "iOS App",
+      "modes": [
+        {
+          "id": "light",
+          "variants": [
+            {
+              "id": "clean",
+              "display_name": "Clean Light",
+              "preset": "../../templates/texture_studio/presets/minimal_paper.json"
+            },
+            {
+              "id": "warm",
+              "display_name": "Warm Paper",
+              "preset": "../../templates/texture_studio/presets/bold_gradient_v02.json"
+            }
+          ]
+        },
+        {
+          "id": "dark",
+          "variants": [
+            {
+              "id": "midnight",
+              "display_name": "Midnight Grit",
+              "preset": "../../templates/texture_studio/presets/distressed_vintage_v02.json"
+            },
+            {
+              "id": "neutral",
+              "display_name": "Neutral Dark",
+              "preset": "../../templates/texture_studio/presets/bold_gradient.json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "macos",
+      "display_name": "Mac App",
+      "modes": [
+        {
+          "id": "light",
+          "variants": [
+            {
+              "id": "clean",
+              "display_name": "Clean Light",
+              "preset": "../../templates/texture_studio/presets/minimal_paper.json"
+            },
+            {
+              "id": "warm",
+              "display_name": "Warm Paper",
+              "preset": "../../templates/texture_studio/presets/bold_gradient_v02.json"
+            }
+          ]
+        },
+        {
+          "id": "dark",
+          "variants": [
+            {
+              "id": "midnight",
+              "display_name": "Midnight Grit",
+              "preset": "../../templates/texture_studio/presets/distressed_vintage_v02.json"
+            },
+            {
+              "id": "neutral",
+              "display_name": "Neutral Dark",
+              "preset": "../../templates/texture_studio/presets/bold_gradient.json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tauri",
+      "display_name": "Tauri App",
+      "modes": [
+        {
+          "id": "light",
+          "variants": [
+            {
+              "id": "clean",
+              "display_name": "Clean Light",
+              "preset": "../../templates/texture_studio/presets/minimal_paper.json"
+            },
+            {
+              "id": "warm",
+              "display_name": "Warm Paper",
+              "preset": "../../templates/texture_studio/presets/bold_gradient_v02.json"
+            }
+          ]
+        },
+        {
+          "id": "dark",
+          "variants": [
+            {
+              "id": "midnight",
+              "display_name": "Midnight Grit",
+              "preset": "../../templates/texture_studio/presets/distressed_vintage_v02.json"
+            },
+            {
+              "id": "neutral",
+              "display_name": "Neutral Dark",
+              "preset": "../../templates/texture_studio/presets/bold_gradient.json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "web",
+      "display_name": "Web App",
+      "modes": [
+        {
+          "id": "light",
+          "variants": [
+            {
+              "id": "clean",
+              "display_name": "Clean Light",
+              "preset": "../../templates/texture_studio/presets/minimal_paper.json"
+            },
+            {
+              "id": "warm",
+              "display_name": "Warm Paper",
+              "preset": "../../templates/texture_studio/presets/bold_gradient_v02.json"
+            }
+          ]
+        },
+        {
+          "id": "dark",
+          "variants": [
+            {
+              "id": "midnight",
+              "display_name": "Midnight Grit",
+              "preset": "../../templates/texture_studio/presets/distressed_vintage_v02.json"
+            },
+            {
+              "id": "neutral",
+              "display_name": "Neutral Dark",
+              "preset": "../../templates/texture_studio/presets/bold_gradient.json"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

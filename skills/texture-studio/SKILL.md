@@ -1,8 +1,13 @@
 ---
 name: texture-studio
-description: >
-  Visual color and texture preset editor for ClipOps, App Store creatives, and Remotion overlays,
-  with export and converter workflows for downstream tooling.
+description: "Visual color and texture preset editor for ClipOps, App Store creatives, and Remotion overlays, with export and converter workflows for downstream tooling. Use when creating/updating Texture Studio presets or converting them to brand kits/style packs/themes."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Editor requires a local browser to open the HTML file. Converters require python3."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: design
+  tags: [textures, color, presets, appstore, clipops]
 ---
 
 # Texture Studio Skill
@@ -46,12 +51,18 @@ Optional:
   - Remotion theme: `src/themes/MyTheme.ts`
   - Web tokens: `web_tokens.json` + `web_tokens.css`
 
+## Safety / Security
+
+- Confirm output paths before overwriting existing brand kits/style packs/themes; converters write deterministic outputs and may replace files.
+- Treat preset JSON as untrusted input; validate against the schema before conversion when unsure.
+- Keep presets and generated assets free of secrets and private URLs; prefer embedding assets only when intended for distribution.
+
 ## Canonical Workflow / Commands
 
 1) Open the editor:
 
 ```bash
-open color-texture-studio-full.html
+open assets/color-texture-studio-full.html
 ```
 
 2) Export a preset JSON (copy/download/save).
@@ -63,7 +74,7 @@ open color-texture-studio-full.html
 ### 1. Open the Studio
 
 ```bash
-open color-texture-studio-full.html
+open assets/color-texture-studio-full.html
 ```
 
 ### 2. Configure Your Style
@@ -98,7 +109,7 @@ Safari/Firefox require manual Import/Export instead.
 #### ClipOps Brand Kit
 
 ```bash
-python .claude/skills/texture-studio/scripts/convert_to_brand_kit.py \
+python3 scripts/convert_to_brand_kit.py \
   --preset preset.json \
   --output bundle/brand/kit.json
 ```
@@ -111,7 +122,7 @@ Bundle-aware options:
 #### App Store Style Pack
 
 ```bash
-python .claude/skills/texture-studio/scripts/convert_to_style_pack.py \
+python3 scripts/convert_to_style_pack.py \
   --preset preset.json \
   --output style_pack.json
 ```
@@ -124,7 +135,7 @@ Bundle-aware options:
 #### Remotion Theme
 
 ```bash
-python .claude/skills/texture-studio/scripts/convert_to_remotion_theme.py \
+python3 scripts/convert_to_remotion_theme.py \
   --preset preset.json \
   --output src/themes/MyTheme.ts
 ```
@@ -137,7 +148,7 @@ Bundle-aware options:
 #### Web Tokens (CSS + JSON)
 
 ```bash
-python .claude/skills/texture-studio/scripts/convert_to_web_tokens.py \
+python3 scripts/convert_to_web_tokens.py \
   --preset preset.json \
   --output-json web_tokens.json \
   --output-css web_tokens.css
@@ -233,7 +244,7 @@ Convert an example preset into a ClipOps brand kit:
 
 ```bash
 rm -rf /tmp/clipper_texture_studio && mkdir -p /tmp/clipper_texture_studio && \
-  python3 skills/public/texture-studio/scripts/convert_to_brand_kit.py \
+  python3 scripts/convert_to_brand_kit.py \
     --preset templates/texture_studio/presets/bold_gradient_v02.json \
     --output /tmp/clipper_texture_studio/kit.json
 ```
@@ -243,10 +254,11 @@ Expected artifacts:
 
 ## References / Contracts
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - Texture preset schema: `schemas/texture_studio/v0.2/texture_preset.schema.json`
 - Font registry: `schemas/texture_studio/v0.1/font_registry.json`
 - Converters:
-  - `skills/public/texture-studio/scripts/convert_to_brand_kit.py`
-  - `skills/public/texture-studio/scripts/convert_to_style_pack.py`
-  - `skills/public/texture-studio/scripts/convert_to_remotion_theme.py`
-  - `skills/public/texture-studio/scripts/convert_to_web_tokens.py`
+  - `scripts/convert_to_brand_kit.py`
+  - `scripts/convert_to_style_pack.py`
+  - `scripts/convert_to_remotion_theme.py`
+  - `scripts/convert_to_web_tokens.py`

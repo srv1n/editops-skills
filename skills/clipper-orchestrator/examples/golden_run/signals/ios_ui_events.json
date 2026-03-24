@@ -1,0 +1,21 @@
+{
+  "version": "0.1",
+  "video": { "path": "inputs/input.mp4", "width": 1080, "height": 1920 },
+  "time_origin": { "kind": "recording_marker", "notes": "t=0 is the first frame after recording start" },
+  "safe_area_px": { "top": 0, "bottom": 0, "left": 0, "right": 0 },
+  "focus": [
+    { "t_ms": 0, "rect": { "x": 120, "y": 520, "w": 840, "h": 260 }, "id": "step_1", "kind": "ui_element", "confidence": 1.0 },
+    { "t_ms": 1100, "rect": { "x": 160, "y": 820, "w": 760, "h": 240 }, "id": "step_2", "kind": "ui_element", "confidence": 1.0 }
+  ],
+  "events": [
+    { "t_ms": 200, "seq": 1, "type": "tap", "point": { "x": 540, "y": 650 }, "focus_id": "step_1" },
+    { "t_ms": 250, "seq": 1, "type": "transition_start", "label": "push" },
+    { "t_ms": 550, "seq": 1, "type": "transition_end", "label": "push" },
+    { "t_ms": 1200, "seq": 1, "type": "hold", "dur_ms": 1200, "reason": "readability" }
+  ],
+  "elements": {
+    "step_1": { "label": "Example focus 1", "kind": "row" },
+    "step_2": { "label": "Example focus 2", "kind": "row" }
+  }
+}
+

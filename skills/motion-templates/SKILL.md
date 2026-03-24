@@ -1,9 +1,13 @@
 ---
 name: motion-templates
-description: >
-  Generate and apply allowlisted motion graphics templates (charts, slides, map routes, cinematic maps)
-  via the motion catalog + motion_selection JSON contract. Use when a user asks for programmatic motion
-  graphics, charts, route animations, slide scenes, or “make this look studio-quality” overlays.
+description: "Generate and apply allowlisted motion graphics templates (charts, slides, map routes, cinematic maps) via the motion catalog + motion_selection JSON contract. Use when a user asks for programmatic motion graphics, charts, route animations, slide scenes, or “make this look studio-quality” overlays."
+license: MIT
+compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3. Some templates require Node/Bun deps (Remotion overlays, MapLibre renderer) and a local Chrome install for puppeteer."
+metadata:
+  author: Clipper
+  version: "0.1.0"
+  category: motion-graphics
+  tags: [motion, templates, overlays, remotion, maplibre]
 ---
 
 # Motion Templates
@@ -18,7 +22,7 @@ This repo uses a strict “LLM outputs JSON, deterministic engines render” mod
 
 The LLM should **not** invent keyframes/fonts/layout. It selects template IDs + fills typed params only.
 
-## When To Use (Triggers)
+## When to Use (Triggers)
 
 - “Add a bar chart that animates in”
 - “Show a route on a map”
@@ -40,6 +44,13 @@ Optional:
 - A runnable run dir under `.tmp/motion_apply_run_*` (unless `--run-dir` is provided)
 - A rendered MP4 (defaults to `<run_dir>/out.mp4`)
 
+## Safety / Security
+
+- Treat `motion_selection` JSON and any referenced assets as untrusted input; validate against `clipper.motion_selection.v0.1` before applying.
+- Confirm output paths and run dirs before rendering; the executor writes temporary runs under `.tmp/` by default.
+- External tools: Remotion/MapLibre workflows may run Chromium/puppeteer and execute local Node/Bun toolchains; use only trusted dependencies.
+- Keep assets portable: prefer run-dir-relative paths and avoid absolute paths in selections.
+
 ## Canonical Commands
 
 Validate catalogs + a selection:
@@ -53,6 +64,15 @@ Apply a selection (render end-to-end):
 
 ```bash
 python3 tools/motion_apply_selection.py \
+  --selection templates/tooling/motion_catalog/v0.1/motion_selection.example.json
+```
+
+## Smoke Test
+
+Validate the example selection (fast, deterministic):
+
+```bash
+python3 tools/motion_catalog_validate.py \
   --selection templates/tooling/motion_catalog/v0.1/motion_selection.example.json
 ```
 
@@ -98,9 +118,9 @@ If Chrome is not auto-detected by `puppeteer-core`, set:
 - `gen.maplibre.cinematic_route.v1` `route_lng_lat`:
   - Format: `[[lng, lat], ...]` with at least 2 points.
 
-## Reference Docs
+## References
 
+- Trigger tests: `references/TRIGGER_TESTS.md`
 - `docs/MOTION_LLM_SELECTION_CONTRACT_V0.1.md`
 - `docs/REMOTION_AGENT_SKILLS_AND_OVERLAYS_V0.1.md`
 - `docs/MAPLIBRE_CINEMATIC_RENDERER_V0.1.md`
-
