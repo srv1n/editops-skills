@@ -217,7 +217,7 @@ bin/promo-director verify --run-dir <run_dir> \
   --review-pack true
 ```
 
-4) If you need to debug a failing run dir, you can run ClipOps stages directly (prefer repo-local wrapper `bin/clipops`):
+4) If you need to debug a failing run dir, you can run ClipOps stages directly (prefer the standalone-aware wrapper `bin/clipops`):
 ```bash
 bin/clipops bundle-run --run-dir <run_dir>
 bin/clipops lint-paths --run-dir <run_dir>

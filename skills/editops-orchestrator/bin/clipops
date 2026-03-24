@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 
 """
-Repo-local entrypoint for the ClipOps Rust CLI (`clipops`).
+Standalone-aware entrypoint for the ClipOps Rust CLI (`clipops`).
 
-This wrapper exists so a fresh checkout can run workflows that invoke ClipOps
-without requiring a global `clipops` install on PATH.
+Works in two modes:
+1) Source checkout mode: resolves or builds `clipops/target/.../clipops`
+2) Packaged-skill mode: installs a repo-local/user-local `clipops` binary via Cargo
 
 Resolution order:
-1) `CLIPOPS_BIN` environment variable (path to a `clipops` binary)
-2) `clipops` found on PATH
-3) `clipops/target/{debug,release}/clipops` (already-built repo-local binary)
-4) Build via Cargo, then run the repo-local binary
+1) `CLIPOPS_BIN`
+2) `clipops` on PATH (ignoring this wrapper to avoid recursion)
+3) repo-local build output under `clipops/target/{debug,release}/clipops`
+4) local installed binary under `CLIPOPS_INSTALL_ROOT`, `<dist>/.editops/`, or `~/.editops/`
+5) source checkout: `cargo build`
+6) packaged install: `cargo install --root ... --git ... clipops-cli`
 """
 
 from __future__ import annotations
@@ -23,38 +26,108 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 
+DEFAULT_GIT_URL = "https://github.com/srv1n/clipper.git"
+DEFAULT_GIT_BRANCH = "main"
 
-def _repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
+
+def _bin_name() -> str:
+    return "clipops.exe" if sys.platform == "win32" else "clipops"
+
+
+def _self_path() -> Path:
+    return Path(__file__).resolve()
 
 
 def _abs(p: Path) -> Path:
     return p if p.is_absolute() else (Path.cwd() / p).resolve()
 
 
-def _resolve_clipops_bin(repo_root: Path, *, release: bool) -> Path | None:
+def _repo_root_from(start: Path) -> Path | None:
+    cur = start.resolve()
+    for candidate in (cur, *cur.parents):
+        if (candidate / "clipops" / "Cargo.toml").exists():
+            return candidate
+    return None
+
+
+def _dist_root_from_wrapper(wrapper: Path) -> Path | None:
+    parts = wrapper.parts
+    if len(parts) >= 4 and parts[-4] == "skills":
+        return wrapper.parents[3]
+    if len(parts) >= 2 and parts[-2] == "bin":
+        root = wrapper.parents[1]
+        if (root / "skills").exists():
+            return root
+    return None
+
+
+def _candidate_install_roots(wrapper: Path) -> list[Path]:
+    roots: list[Path] = []
+
+    env_root = os.environ.get("CLIPOPS_INSTALL_ROOT")
+    if env_root:
+        roots.append(_abs(Path(env_root)))
+
+    dist_root = _dist_root_from_wrapper(wrapper)
+    if dist_root is not None:
+        roots.append(dist_root / ".editops")
+
+    roots.append(Path.home() / ".editops")
+
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for root in roots:
+        key = str(root.resolve()) if root.exists() else str(root)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(root)
+    return deduped
+
+
+def _installed_bin_path(root: Path) -> Path:
+    return root / "bin" / _bin_name()
+
+
+def _same_file(a: Path, b: Path) -> bool:
+    try:
+        return a.resolve() == b.resolve()
+    except Exception:
+        return False
+
+
+def _resolve_clipops_bin(wrapper: Path, repo_root: Path | None, *, release: bool) -> Path | None:
     env = os.environ.get("CLIPOPS_BIN")
     if env:
-        p = _abs(Path(env))
-        return p
+        candidate = _abs(Path(env))
+        if candidate.exists():
+            return candidate
 
     which = shutil.which("clipops")
     if which:
-        return Path(which)
+        candidate = Path(which).resolve()
+        if not _same_file(candidate, wrapper):
+            return candidate
 
-    first = "release" if release else "debug"
-    second = "debug" if release else "release"
-    for cand in (
-        repo_root / "clipops" / "target" / first / "clipops",
-        repo_root / "clipops" / "target" / second / "clipops",
-    ):
-        if cand.exists():
-            return cand
+    if repo_root is not None:
+        first = "release" if release else "debug"
+        second = "debug" if release else "release"
+        for candidate in (
+            repo_root / "clipops" / "target" / first / _bin_name(),
+            repo_root / "clipops" / "target" / second / _bin_name(),
+        ):
+            if candidate.exists():
+                return candidate
+
+    for install_root in _candidate_install_roots(wrapper):
+        candidate = _installed_bin_path(install_root)
+        if candidate.exists():
+            return candidate
 
     return None
 
 
-def _build(repo_root: Path, *, release: bool) -> int:
+def _build_from_source(repo_root: Path, *, release: bool) -> int:
     manifest_path = repo_root / "clipops" / "Cargo.toml"
     if not manifest_path.exists():
         print(f"ERROR: missing Rust workspace manifest: {manifest_path}", file=sys.stderr)
@@ -70,33 +143,89 @@ def _build(repo_root: Path, *, release: bool) -> int:
     ]
     if release:
         cmd.insert(2, "--release")
+    return int(subprocess.run(cmd, cwd=str(repo_root)).returncode)
 
-    proc = subprocess.run(cmd, cwd=str(repo_root))
-    return int(proc.returncode)
+
+def _install_via_cargo(wrapper: Path) -> tuple[int, Path | None]:
+    cargo = shutil.which("cargo")
+    if not cargo:
+        print(
+            "ERROR: cargo is required to bootstrap ClipOps in a packaged skill install.\n"
+            "Install Rust/Cargo first, or set CLIPOPS_BIN to an existing clipops binary.",
+            file=sys.stderr,
+        )
+        return 2, None
+
+    install_root = _candidate_install_roots(wrapper)[0]
+    install_root.mkdir(parents=True, exist_ok=True)
+
+    git_url = os.environ.get("CLIPOPS_GIT_URL", DEFAULT_GIT_URL)
+    cmd = [
+        cargo,
+        "install",
+        "--root",
+        str(install_root),
+        "--locked",
+        "--git",
+        git_url,
+    ]
+
+    git_branch = os.environ.get("CLIPOPS_GIT_BRANCH", DEFAULT_GIT_BRANCH)
+    if git_branch:
+        cmd.extend(["--branch", git_branch])
+
+    git_rev = os.environ.get("CLIPOPS_GIT_REV")
+    if git_rev:
+        cmd.extend(["--rev", git_rev])
+
+    cmd.append("clipops-cli")
+
+    print(f"[clipops] installing local binary into {install_root}", file=sys.stderr)
+    env = os.environ.copy()
+    env.setdefault("CARGO_NET_GIT_FETCH_WITH_CLI", "true")
+    rc = int(subprocess.run(cmd, env=env).returncode)
+    if rc != 0:
+        print(
+            "ERROR: failed to install ClipOps via cargo.\n"
+            "You can retry after verifying network access, or set CLIPOPS_BIN manually.",
+            file=sys.stderr,
+        )
+        return rc, install_root
+    return 0, install_root
 
 
 def main() -> int:
     args = sys.argv[1:]
     if not args:
-        print("Usage: bin/clipops <validate|qa|bundle-run|lint-paths|render|render-card> [args...]", file=sys.stderr)
+        print("Usage: clipops <validate|qa|bundle-run|lint-paths|render|render-card> [args...]", file=sys.stderr)
         return 2
 
-    repo_root = _repo_root()
+    wrapper = _self_path()
+    repo_root = _repo_root_from(wrapper.parent)
     release = args[0] in {"render", "render-card"}
 
-    clipops_bin = _resolve_clipops_bin(repo_root, release=release)
+    clipops_bin = _resolve_clipops_bin(wrapper, repo_root, release=release)
     if clipops_bin is None:
-        rc = _build(repo_root, release=release)
-        if rc != 0:
-            return rc
-        clipops_bin = _resolve_clipops_bin(repo_root, release=release)
+        if repo_root is not None:
+            rc = _build_from_source(repo_root, release=release)
+            if rc != 0:
+                return rc
+        else:
+            rc, _ = _install_via_cargo(wrapper)
+            if rc != 0:
+                return rc
+        clipops_bin = _resolve_clipops_bin(wrapper, repo_root, release=release)
 
     if clipops_bin is None or not clipops_bin.exists():
-        print("ERROR: failed to resolve a clipops binary (set CLIPOPS_BIN or build clipops)", file=sys.stderr)
+        print(
+            "ERROR: failed to resolve a usable clipops binary.\n"
+            "Set CLIPOPS_BIN or install ClipOps with Cargo.",
+            file=sys.stderr,
+        )
         return 2
 
-    proc = subprocess.run([str(clipops_bin), *args], cwd=str(repo_root))
-    return int(proc.returncode)
+    run_cwd = repo_root or _dist_root_from_wrapper(wrapper) or Path.cwd()
+    return int(subprocess.run([str(clipops_bin), *args], cwd=str(run_cwd)).returncode)
 
 
 if __name__ == "__main__":

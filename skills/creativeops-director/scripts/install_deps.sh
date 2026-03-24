@@ -10,6 +10,8 @@ ok()   { echo -e "${GREEN}✓${NC} $1"; }
 fail() { echo -e "${RED}✗${NC} $1"; }
 
 MISSING=0
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CLIPOPS_WRAPPER="$SCRIPT_DIR/../bin/clipops"
 
 # ffmpeg
 if command -v ffmpeg &>/dev/null; then
@@ -21,11 +23,14 @@ fi
 
 # clipops
 if command -v clipops &>/dev/null; then
-  ok "clipops found: $(clipops --version 2>&1 || echo 'version unknown')"
+  ok "clipops found on PATH: $(clipops --version 2>&1 || echo 'version unknown')"
+elif [[ -x "$CLIPOPS_WRAPPER" ]] && "$CLIPOPS_WRAPPER" --help >/dev/null 2>&1; then
+  ok "clipops wrapper is ready: $CLIPOPS_WRAPPER"
 else
   fail "clipops not found."
-  echo "  Install from: https://github.com/anthropics/clipops/releases"
-  echo "  Or build from source: cd clipops && cargo build --release"
+  echo "  Try the bundled wrapper: $CLIPOPS_WRAPPER --help"
+  echo "  Or run the repo installer: ./install.sh"
+  echo "  If you already have a binary, set CLIPOPS_BIN=/absolute/path/to/clipops"
   MISSING=1
 fi
 

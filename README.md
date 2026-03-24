@@ -16,6 +16,7 @@ This bootstrap:
 - creates `.venv/` with `uv`
 - installs Python requirements for the common editing flows
 - installs Bun deps for the bundled MapLibre renderers
+- bootstraps a local ClipOps binary under `.editops/bin/clipops`
 - runs `tools/editops_doctor.py`
 
 Current bootstrap support:

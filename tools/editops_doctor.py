@@ -50,6 +50,7 @@ def main(argv: list[str] | None = None) -> int:
     root = args.root.resolve()
     venv_python = root / ".venv" / "bin" / "python"
     arch = platform.machine().lower()
+    clipops_bin_name = "clipops.exe" if sys.platform == "win32" else "clipops"
 
     checks: list[Check] = [
         Check(name="platform", ok=sys.platform == "darwin", detail=sys.platform),
@@ -62,6 +63,8 @@ def main(argv: list[str] | None = None) -> int:
         command_check("clipops", required=False),
         command_check("xcrun", required=False),
         path_check("venv", venv_python),
+        path_check("clipops:wrapper", root / "bin" / "clipops", required=False),
+        path_check("clipops:local", root / ".editops" / "bin" / clipops_bin_name, required=False),
         path_check(
             "bun:editops-orchestrator-maplibre",
             root / "skills" / "editops-orchestrator" / "tools" / "maplibre_renderer" / "node_modules" / "puppeteer-core",

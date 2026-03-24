@@ -7,6 +7,7 @@ REQ_COMMON="$ROOT/install/macos/requirements-common.txt"
 REQ_ARM="$ROOT/install/macos/requirements-apple-silicon.txt"
 REQ_INTEL="$ROOT/install/macos/requirements-intel.txt"
 DOCTOR="$ROOT/tools/editops_doctor.py"
+CLIPOPS_BOOTSTRAP="$ROOT/bin/clipops"
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
   echo "This installer currently supports macOS only."
@@ -79,11 +80,9 @@ if ! xcode-select -p >/dev/null 2>&1; then
   echo "    Run: xcode-select --install"
 fi
 
-if command -v cargo >/dev/null 2>&1 && ! command -v clipops >/dev/null 2>&1; then
-  echo "==> Attempting optional clipops install via cargo"
-  if ! cargo install --git https://github.com/anthropics/clipops --locked clipops-cli; then
-    echo "clipops install failed. You can still use non-clipops flows, but render workflows will stay unavailable until clipops is installed."
-  fi
+if [[ -x "$CLIPOPS_BOOTSTRAP" ]]; then
+  echo "==> Ensuring local ClipOps binary"
+  "$CLIPOPS_BOOTSTRAP" --help >/dev/null
 fi
 
 echo "==> Running doctor"
@@ -93,3 +92,5 @@ echo ""
 echo "Bootstrap complete."
 echo "Activate the Python environment with:"
 echo "  source \"$ROOT/.venv/bin/activate\""
+echo "Add the local ClipOps install to PATH if you want direct access:"
+echo "  export PATH=\"$ROOT/.editops/bin:\$PATH\""

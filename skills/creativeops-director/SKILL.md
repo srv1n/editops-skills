@@ -69,8 +69,8 @@ bin/creativeops-director verify --run-dir <run_dir> \
 ```
 
 Notes:
-- `verify` invokes ClipOps. By default it uses the repo-local wrapper `bin/clipops` (no global install required).
-- From a fresh checkout, `bin/clipops` will build the Rust CLI if needed (requires a Rust toolchain / `cargo`).
+- `verify` invokes ClipOps via the standalone-aware wrapper `bin/clipops` (no global install required).
+- In a source checkout, `bin/clipops` builds the Rust CLI if needed. In a packaged skill install, it bootstraps a local Cargo install under `.editops/` or `~/.editops/`.
 
 ## Tempo templates (how agents should request joins)
 
