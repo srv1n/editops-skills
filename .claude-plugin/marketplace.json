@@ -3,7 +3,7 @@
     {
       "name": "editops-core",
       "description": "Core deterministic video editing pipeline skills",
-      "skills": ["video-clipper", "clipops-runner", "clipper-orchestrator"]
+      "skills": ["video-clipper", "clipops-runner", "editops-orchestrator"]
     },
     {
       "name": "creativeops",
@@ -21,7 +21,7 @@
       "skills": [
         "video-clipper",
         "clipops-runner",
-        "clipper-orchestrator",
+        "editops-orchestrator",
         "creativeops-director",
         "creativeops-producer",
         "creativeops-producer-ios",

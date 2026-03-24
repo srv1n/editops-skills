@@ -1,16 +1,16 @@
 ---
-name: clipper-orchestrator
-description: "Route free-form video requests across the clipper toolchain (CreativeOps/ClipOps + video-clipper). Use when a user gives an ambiguous instruction like “make a demo video/shorts”, “render this run dir”, “add grading/subtitles”, or “which pipeline should we use?” and you need to choose and run the right workflow (creativeops-director, clipops, video-clipper, creativeops-grade) and produce deterministic artifacts."
+name: editops-orchestrator
+description: "Route free-form video requests across the EditOps toolchain (CreativeOps/ClipOps + video-clipper). Use when a user gives an ambiguous instruction like “make a demo video/shorts”, “render this run dir”, “add grading/subtitles”, or “which pipeline should we use?” and you need to choose and run the right workflow (creativeops-director, clipops, video-clipper, creativeops-grade) and produce deterministic artifacts."
 license: MIT
 compatibility: "Local agent environments with filesystem + shell (Claude Code, Codex). Requires python3. Routed workflows may require ffmpeg, clipops, and service API keys (ASR/music) depending on the path."
 metadata:
-  author: Clipper
+  author: EditOps
   version: "0.1.0"
   category: orchestration
   tags: [orchestration, router, creativeops, clipops, video]
 ---
 
-# Clipper Orchestrator
+# EditOps Orchestrator
 
 ## Overview
 

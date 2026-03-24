@@ -65,7 +65,7 @@ fi
 
 echo "==> Installing Bun dependencies"
 for node_dir in \
-  "$ROOT/skills/clipper-orchestrator/tools/maplibre_renderer" \
+  "$ROOT/skills/editops-orchestrator/tools/maplibre_renderer" \
   "$ROOT/skills/motion-templates/tools/maplibre_renderer"
 do
   if [[ -f "$node_dir/package.json" ]]; then

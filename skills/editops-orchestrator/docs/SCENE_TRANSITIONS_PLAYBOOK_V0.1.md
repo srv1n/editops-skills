@@ -148,5 +148,4 @@ See: `docs/CLIPOPS_CLIP_TO_CLIP_TRANSITIONS_V0.4.md` (“Allowlisted overlay ass
 - Skills:
   - `skills/public/promo-director/SKILL.md`
   - `skills/public/creativeops-director/SKILL.md`
-  - `skills/public/clipper-orchestrator/SKILL.md`
-
+  - `skills/public/editops-orchestrator/SKILL.md`

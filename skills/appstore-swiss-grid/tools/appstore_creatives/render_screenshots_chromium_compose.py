@@ -25,12 +25,16 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import statistics
 from pathlib import Path
 from typing import Any
 
 from playwright.sync_api import sync_playwright
 
-from . import pill_preset_utils
+try:
+    from . import pill_preset_utils
+except ImportError:
+    from tools.appstore_creatives import pill_preset_utils
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -71,6 +75,64 @@ def _resolve_copy(slide: dict[str, Any], *, locale: str) -> tuple[str, str | Non
     subtitle = loc.get("subtitle")
     subtitle = str(subtitle) if subtitle is not None else None
     return title, subtitle
+
+
+def _parse_rich_text(text: str) -> tuple[str, str, bool]:
+    """Parse rich text markup and return (plain_text, html_text, has_markup)."""
+    if not text:
+        return "", "", False
+
+    html = text
+    has_markup = False
+
+    color_pattern = r"\{color:([^}]+)\}(.*?)\{/color\}"
+    if re.search(color_pattern, html):
+        html = re.sub(color_pattern, r'<span class="accent-color" style="color:\1">\2</span>', html)
+        has_markup = True
+
+    underline_pattern = r"\{underline:([^}]+)\}(.*?)\{/underline\}"
+    if re.search(underline_pattern, html):
+        html = re.sub(underline_pattern, r'<span class="accent-underline" style="text-decoration-color:\1">\2</span>', html)
+        has_markup = True
+
+    underline_pattern_simple = r"\{underline\}(.*?)\{/underline\}"
+    if re.search(underline_pattern_simple, html):
+        html = re.sub(underline_pattern_simple, r'<span class="accent-underline">\1</span>', html)
+        has_markup = True
+
+    highlight_pattern = r"\{highlight:([^}]+)\}(.*?)\{/highlight\}"
+    if re.search(highlight_pattern, html):
+        html = re.sub(highlight_pattern, r'<span class="accent-highlight" style="background-color:\1;color:#1a1a1a">\2</span>', html)
+        has_markup = True
+
+    italic_pattern = r"\{italic\}(.*?)\{/italic\}"
+    if re.search(italic_pattern, html):
+        html = re.sub(italic_pattern, r'<span class="accent-italic">\1</span>', html)
+        has_markup = True
+
+    bold_pattern = r"\{bold\}(.*?)\{/bold\}"
+    if re.search(bold_pattern, html):
+        html = re.sub(bold_pattern, r'<span class="accent-bold">\1</span>', html)
+        has_markup = True
+
+    plain = re.sub(r"\{[^}]*\}", "", text)
+    return plain, html, has_markup
+
+
+def _resolve_title_autofit(plan: dict[str, Any], slide: dict[str, Any]) -> dict[str, Any] | None:
+    defaults = (plan.get("defaults") or {}).get("typography") or {}
+    t = slide.get("typography") or {}
+    if not isinstance(defaults, dict):
+        defaults = {}
+    if not isinstance(t, dict):
+        t = {}
+    cfg = t.get("titleAutoFit", defaults.get("titleAutoFit"))
+    if not isinstance(cfg, dict):
+        return None
+    enabled = cfg.get("enabled")
+    if enabled is False:
+        return None
+    return cfg
 
 
 def _resolve_text_layout(plan: dict[str, Any], slide: dict[str, Any]) -> dict[str, float]:
@@ -482,6 +544,9 @@ def _apply_slide_css(
       max-width: 100% !important;
       /* Treat \\n in the plan as intentional line breaks. */
       white-space: pre-line !important;
+      word-break: normal !important;
+      overflow-wrap: normal !important;
+      hyphens: none !important;
     }}
     #sub-text {{
       font-size: {subtitle_size}px !important;
@@ -533,6 +598,9 @@ def _apply_slide_css_rects(
       align-items: initial !important;
       justify-content: initial !important;
       white-space: pre-line !important;
+      word-break: normal !important;
+      overflow-wrap: normal !important;
+      hyphens: none !important;
     }}
     """
     subtitle_css = ""
@@ -552,30 +620,21 @@ def _apply_slide_css_rects(
     return title_css + "\n" + subtitle_css
 
 
-def _render_one(
+def _setup_base_page(
     *,
     page,
     html_url: str,
     width: int,
     height: int,
     preset: dict[str, Any],
-    title: str,
-    subtitle: str | None,
-    background_image: Path | None,
-    background_mode: str,
-    device_layer: Path | None,
-    overlay_images: list[dict[str, Any]] | None,
-    overlay_tags: list[dict[str, Any]] | None,
-    overlay_tags_layout: dict[str, Any] | None,
     css: str,
-    out_png: Path,
-    title_color: str | None = None,
-    subtitle_color: str | None = None,
+    background_mode: str,
+    background_image: Path | None,
 ) -> None:
     page.set_viewport_size({"width": width, "height": height})
-    page.goto(html_url, wait_until="load")
+    page.set_default_timeout(120_000)
+    page.goto(html_url, wait_until="load", timeout=120_000)
 
-    # Hide the Studio UI and stretch preview-card to fill the viewport.
     page.add_style_tag(
         content=f"""
         html, body {{
@@ -620,9 +679,6 @@ def _render_one(
         """
     )
 
-    # Background:
-    # - plan_png: force to a pre-rendered PNG (useful for exact matching).
-    # - bundle: let Texture Studio render background from the preset (reflects palette updates).
     if background_mode == "plan_png":
         if background_image is None:
             raise SystemExit("background_mode=plan_png requires background_image")
@@ -642,8 +698,370 @@ def _render_one(
             {"url": bg_url},
         )
 
-    # Inject per-slide CSS (text positioning + hide studio bg children).
     page.add_style_tag(content=css)
+
+
+def _apply_text_to_page(
+    *,
+    page,
+    title: str,
+    subtitle: str | None,
+    title_color: str | None = None,
+    subtitle_color: str | None = None,
+) -> None:
+    plain_title, html_title, title_has_markup = _parse_rich_text(title)
+
+    page.evaluate(
+        """
+        ({ main, sub }) => {
+          const a = document.getElementById('input-main');
+          const b = document.getElementById('input-sub');
+          if (a) a.value = main;
+          if (b) b.value = sub;
+          if (typeof updateDisplayText === 'function') updateDisplayText();
+          if (typeof updateText === 'function') updateText();
+        }
+        """,
+        {"main": plain_title, "sub": subtitle or ""},
+    )
+
+    if plain_title or (subtitle or ""):
+        page.evaluate(
+            """
+            ({ main, sub }) => {
+              const el = document.getElementById('main-text');
+              if (el) el.textContent = main || '';
+              const subEl = document.getElementById('sub-text');
+              if (subEl) subEl.textContent = sub || '';
+            }
+            """,
+            {"main": plain_title, "sub": subtitle or ""},
+        )
+
+    if title_has_markup:
+        page.add_style_tag(content="""
+            .accent-underline {
+                text-decoration: underline;
+                text-decoration-thickness: 18px;
+                text-underline-offset: 6px;
+            }
+            .accent-italic {
+                font-style: italic;
+            }
+            .accent-bold {
+                font-weight: 900;
+            }
+            .accent-highlight {
+                position: relative;
+                background: transparent !important;
+            }
+            .highlight-bg {
+                position: absolute;
+                border-radius: 8px;
+                z-index: -1;
+                pointer-events: none;
+            }
+        """)
+        page.evaluate(
+            """
+            (html) => {
+              const el = document.getElementById('main-text');
+              if (el) el.innerHTML = html;
+            }
+            """,
+            html_title,
+        )
+        page.evaluate(
+            """
+            () => {
+              document.querySelectorAll('.highlight-bg').forEach(el => el.remove());
+              const highlights = document.querySelectorAll('.accent-highlight');
+              highlights.forEach(span => {
+                const style = span.getAttribute('style') || '';
+                const bgMatch = style.match(/background-color:\\s*([^;]+)/);
+                if (!bgMatch) return;
+                const bgColor = bgMatch[1];
+                span.style.backgroundColor = 'transparent';
+                const range = document.createRange();
+                range.selectNodeContents(span);
+                const rects = range.getClientRects();
+                const container = span.closest('#main-text') || span.parentElement;
+                const containerRect = container.getBoundingClientRect();
+                for (let i = 0; i < rects.length; i++) {
+                  const rect = rects[i];
+                  const bg = document.createElement('div');
+                  bg.className = 'highlight-bg';
+                  bg.style.backgroundColor = bgColor;
+                  const verticalInset = rect.height * 0.18;
+                  bg.style.left = (rect.left - containerRect.left - 6) + 'px';
+                  bg.style.top = (rect.top - containerRect.top + verticalInset) + 'px';
+                  bg.style.width = (rect.width + 12) + 'px';
+                  bg.style.height = (rect.height - verticalInset * 2) + 'px';
+                  container.appendChild(bg);
+                }
+              });
+            }
+            """
+        )
+
+    if not (plain_title or "").strip():
+        page.add_style_tag(content="#main-text { display: none !important; }")
+    if not subtitle:
+        page.add_style_tag(content="#sub-text { display: none !important; }")
+
+    try:
+        page.wait_for_function("() => !document.fonts || document.fonts.status === 'loaded'")
+    except Exception:
+        pass
+    page.wait_for_timeout(120)
+
+    if title_color:
+        page.evaluate(
+            """
+            (hex) => {
+              const r = parseInt(hex.slice(1,3), 16);
+              const g = parseInt(hex.slice(3,5), 16);
+              const b = parseInt(hex.slice(5,7), 16);
+              const text = document.getElementById('main-text');
+              if (!text) return;
+              const hasTexture = text.classList.contains('has-texture');
+              if (hasTexture) {
+                const canvas = document.getElementById('texture-canvas');
+                if (canvas) {
+                  const ctx = canvas.getContext('2d');
+                  const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                  for (let i = 0; i < img.data.length; i += 4) {
+                    const lum = img.data[i] / 255;
+                    img.data[i]   = Math.round(r * lum);
+                    img.data[i+1] = Math.round(g * lum);
+                    img.data[i+2] = Math.round(b * lum);
+                  }
+                  ctx.putImageData(img, 0, 0);
+                  text.style.backgroundImage = `url(${canvas.toDataURL()})`;
+                }
+              } else {
+                text.style.setProperty('color', hex, 'important');
+              }
+            }
+            """,
+            title_color,
+        )
+    if subtitle_color:
+        page.evaluate(
+            """
+            (hex) => {
+              const sub = document.getElementById('sub-text');
+              if (sub) sub.style.setProperty('color', hex, 'important');
+            }
+            """,
+            subtitle_color,
+        )
+    page.wait_for_timeout(50)
+
+
+def _measure_title_overflow(page, font_size: int) -> dict[str, Any]:
+    return page.evaluate(
+        """
+        (fontSize) => {
+          const el = document.getElementById('main-text');
+          if (!el) return { fits: true, widthOverflow: 0, heightOverflow: 0 };
+          el.style.setProperty('font-size', `${fontSize}px`, 'important');
+          const widthOverflow = Math.max(0, Math.ceil(el.scrollWidth - el.clientWidth));
+          const heightOverflow = Math.max(0, Math.ceil(el.scrollHeight - el.clientHeight));
+          return {
+            fits: widthOverflow <= 0 && heightOverflow <= 0,
+            widthOverflow,
+            heightOverflow,
+            scrollWidth: Math.ceil(el.scrollWidth),
+            clientWidth: Math.ceil(el.clientWidth),
+            scrollHeight: Math.ceil(el.scrollHeight),
+            clientHeight: Math.ceil(el.clientHeight)
+          };
+        }
+        """,
+        font_size,
+    )
+
+
+def _autofit_title_size(
+    *,
+    page,
+    html_url: str,
+    width: int,
+    height: int,
+    preset: dict[str, Any],
+    css: str,
+    background_mode: str,
+    background_image: Path | None,
+    title: str,
+    subtitle: str | None,
+    title_color: str | None,
+    subtitle_color: str | None,
+    max_font_size: int,
+    min_font_size: int,
+    step_px: int,
+) -> int:
+    _setup_base_page(
+        page=page,
+        html_url=html_url,
+        width=width,
+        height=height,
+        preset=preset,
+        css=css,
+        background_mode=background_mode,
+        background_image=background_image,
+    )
+    _apply_text_to_page(
+        page=page,
+        title=title,
+        subtitle=subtitle,
+        title_color=title_color,
+        subtitle_color=subtitle_color,
+    )
+
+    if _measure_title_overflow(page, max_font_size).get("fits"):
+        return max_font_size
+
+    lo = int(min_font_size)
+    hi = int(max_font_size)
+    step = max(1, int(step_px))
+    best = lo
+
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        mid = max(lo, (mid // step) * step)
+        result = _measure_title_overflow(page, mid)
+        if result.get("fits"):
+            best = mid
+            lo = mid + step
+        else:
+            hi = mid - step
+    return best
+
+
+def _resolve_slide_render_inputs(
+    *,
+    plan: dict[str, Any],
+    slide: dict[str, Any],
+    locale: str,
+    width: int,
+    height: int,
+    background_mode: str,
+    bundle_by_id: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    slide_id = str(slide.get("id") or "").strip()
+    if not slide_id:
+        raise SystemExit("Slide missing id")
+
+    title, subtitle = _resolve_copy(slide, locale=locale)
+    autofit_cfg = _resolve_title_autofit(plan, slide)
+    if autofit_cfg and bool(autofit_cfg.get("reflowTitle")):
+        title = " ".join(str(title).split())
+    bg = (slide.get("background") or {}).get("imagePath")
+    if not isinstance(bg, str) or not bg.strip():
+        raise SystemExit(f"Slide {slide_id} missing background.imagePath (used to infer Texture Studio variant id).")
+
+    slide_bg_mode = background_mode
+    if slide_bg_mode == "bundle" and _is_photo_background_image_path(bg):
+        slide_bg_mode = "plan_png"
+
+    bg_path: Path | None = None
+    if slide_bg_mode == "plan_png":
+        bg_path = Path(bg).expanduser()
+        if not bg_path.exists():
+            raise SystemExit(f"Missing background imagePath for slide {slide_id}: {bg_path}")
+
+    variant_id = _variant_id_from_background_image(bg)
+    if variant_id is None:
+        raise SystemExit(f"Could not infer variant id from background imagePath: {bg}")
+    preset = bundle_by_id.get(variant_id)
+    if preset is None:
+        raise SystemExit(f"Bundle missing variant {variant_id} (needed by slide {slide_id})")
+
+    tl = _resolve_text_layout(plan, slide)
+    typo = _resolve_typography(plan, slide)
+    css = _apply_slide_css(
+        width=width,
+        height=height,
+        tl=tl,
+        typo=typo,
+        hide_studio_background_layers=(slide_bg_mode == "plan_png"),
+    )
+
+    title_rect: dict[str, int] | None = None
+    subtitle_rect: dict[str, int] | None = None
+    defaults_tl = (plan.get("defaults") or {}).get("textLayout") or {}
+    slide_tl = slide.get("textLayout") or {}
+    if not isinstance(defaults_tl, dict):
+        defaults_tl = {}
+    if not isinstance(slide_tl, dict):
+        slide_tl = {}
+    tr = slide_tl.get("titleRect", defaults_tl.get("titleRect"))
+    sr = slide_tl.get("subtitleRect", defaults_tl.get("subtitleRect"))
+    alignment = str(slide_tl.get("alignment", defaults_tl.get("alignment", "center")) or "center")
+    if isinstance(tr, dict):
+        title_rect = _resolve_rect_px(rect=tr, width=width, height=height)
+    if isinstance(sr, dict):
+        subtitle_rect = _resolve_rect_px(rect=sr, width=width, height=height)
+    if title_rect is not None and title_rect["w"] > 0 and title_rect["h"] > 0:
+        css += "\n" + _apply_slide_css_rects(
+            width=width,
+            height=height,
+            title_rect=title_rect,
+            subtitle_rect=subtitle_rect,
+            alignment=alignment,
+        )
+
+    _dtl = (plan.get("defaults") or {}).get("textLayout") or {}
+    _stl = slide.get("textLayout") or {}
+    title_color = _stl.get("titleColor", _dtl.get("titleColor") if isinstance(_dtl, dict) else None)
+    subtitle_color = _stl.get("subtitleColor", _dtl.get("subtitleColor") if isinstance(_dtl, dict) else None)
+
+    return {
+        "slide_id": slide_id,
+        "title": title,
+        "subtitle": subtitle,
+        "bg_path": bg_path,
+        "slide_bg_mode": slide_bg_mode,
+        "preset": preset,
+        "css": css,
+        "title_rect": title_rect,
+        "subtitle_rect": subtitle_rect,
+        "title_color": title_color,
+        "subtitle_color": subtitle_color,
+    }
+
+
+def _render_one(
+    *,
+    page,
+    html_url: str,
+    width: int,
+    height: int,
+    preset: dict[str, Any],
+    title: str,
+    subtitle: str | None,
+    background_image: Path | None,
+    background_mode: str,
+    device_layer: Path | None,
+    overlay_images: list[dict[str, Any]] | None,
+    overlay_tags: list[dict[str, Any]] | None,
+    overlay_tags_layout: dict[str, Any] | None,
+    css: str,
+    out_png: Path,
+    title_color: str | None = None,
+    subtitle_color: str | None = None,
+) -> None:
+    _setup_base_page(
+        page=page,
+        html_url=html_url,
+        width=width,
+        height=height,
+        preset=preset,
+        css=css,
+        background_mode=background_mode,
+        background_image=background_image,
+    )
 
     # Device layer (rendered by Swift with transparent background).
     if device_layer is not None and device_layer.exists():
@@ -671,154 +1089,13 @@ def _render_one(
             {"url": layer_url},
         )
 
-    # Set the text.
-    # Support rich text markup: {color:HEX}text{/color}, {underline}text{/underline}, {highlight:HEX}text{/highlight}
-    import re
-
-    def _parse_rich_text(text: str) -> tuple[str, str, bool]:
-        """Parse rich text markup and return (plain_text, html_text, has_markup)."""
-        if not text:
-            return "", "", False
-
-        html = text
-        has_markup = False
-
-        # {color:HEX}text{/color} -> <span style="color:HEX">text</span>
-        color_pattern = r'\{color:([^}]+)\}(.*?)\{/color\}'
-        if re.search(color_pattern, html):
-            html = re.sub(color_pattern, r'<span class="accent-color" style="color:\1">\2</span>', html)
-            has_markup = True
-
-        # {underline:COLOR}text{/underline} -> <span with colored underline>text</span>
-        underline_pattern = r'\{underline:([^}]+)\}(.*?)\{/underline\}'
-        if re.search(underline_pattern, html):
-            html = re.sub(underline_pattern, r'<span class="accent-underline" style="text-decoration-color:\1">\2</span>', html)
-            has_markup = True
-
-        # {underline}text{/underline} (no color) -> white underline
-        underline_pattern_simple = r'\{underline\}(.*?)\{/underline\}'
-        if re.search(underline_pattern_simple, html):
-            html = re.sub(underline_pattern_simple, r'<span class="accent-underline">\1</span>', html)
-            has_markup = True
-
-        # {highlight:HEX}text{/highlight} -> <span with highlight background>text</span>
-        highlight_pattern = r'\{highlight:([^}]+)\}(.*?)\{/highlight\}'
-        if re.search(highlight_pattern, html):
-            html = re.sub(highlight_pattern, r'<span class="accent-highlight" style="background-color:\1;color:#1a1a1a">\2</span>', html)
-            has_markup = True
-
-        # Plain text (strip any remaining markup)
-        plain = re.sub(r'\{[^}]*\}', '', text)
-
-        return plain, html, has_markup
-
-    plain_title, html_title, title_has_markup = _parse_rich_text(title)
-
-    # First set via input for updateDisplayText to initialize
-    page.evaluate(
-        """
-        ({ main, sub }) => {
-          const a = document.getElementById('input-main');
-          const b = document.getElementById('input-sub');
-          if (a) a.value = main;
-          if (b) b.value = sub;
-          if (typeof updateDisplayText === 'function') updateDisplayText();
-          if (typeof updateText === 'function') updateText();
-        }
-        """,
-        {"main": plain_title, "sub": subtitle or ""},
+    _apply_text_to_page(
+        page=page,
+        title=title,
+        subtitle=subtitle,
+        title_color=title_color,
+        subtitle_color=subtitle_color,
     )
-
-    # Some Studio templates sanitize/flatten newlines when copying input-* into the render layer.
-    # We intentionally use \n in plans for multi-line headlines (Swiss grid), so re-apply the
-    # text content directly after initialization.
-    if plain_title or (subtitle or ""):
-        page.evaluate(
-            """
-            ({ main, sub }) => {
-              const el = document.getElementById('main-text');
-              if (el) el.textContent = main || '';
-              const subEl = document.getElementById('sub-text');
-              if (subEl) subEl.textContent = sub || '';
-            }
-            """,
-            {"main": plain_title, "sub": subtitle or ""},
-        )
-
-    # If title has markup, override with HTML after the display is initialized
-    if title_has_markup:
-        page.add_style_tag(content="""
-            .accent-underline {
-                text-decoration: underline;
-                text-decoration-thickness: 18px;
-                text-underline-offset: 6px;
-            }
-            .accent-highlight {
-                position: relative;
-                background: transparent !important;
-            }
-            .highlight-bg {
-                position: absolute;
-                border-radius: 8px;
-                z-index: -1;
-                pointer-events: none;
-            }
-        """)
-        page.evaluate(
-            """
-            (html) => {
-              const el = document.getElementById('main-text');
-              if (el) el.innerHTML = html;
-            }
-            """,
-            html_title,
-        )
-        # Position highlight backgrounds precisely using JS measurement
-        page.evaluate(
-            """
-            () => {
-              const highlights = document.querySelectorAll('.accent-highlight');
-              highlights.forEach(span => {
-                const style = span.getAttribute('style') || '';
-                const bgMatch = style.match(/background-color:\\s*([^;]+)/);
-                if (!bgMatch) return;
-                const bgColor = bgMatch[1];
-
-                // Remove background from span
-                span.style.backgroundColor = 'transparent';
-
-                // Get the tight text bounds using Range
-                const range = document.createRange();
-                range.selectNodeContents(span);
-                const rects = range.getClientRects();
-
-                // Create background elements for each line rect
-                const container = span.closest('#main-text') || span.parentElement;
-                const containerRect = container.getBoundingClientRect();
-
-                for (let i = 0; i < rects.length; i++) {
-                  const rect = rects[i];
-                  const bg = document.createElement('div');
-                  bg.className = 'highlight-bg';
-                  bg.style.backgroundColor = bgColor;
-                  // Tight highlight: minimal horizontal padding, vertically centered and thin
-                  const verticalInset = rect.height * 0.18;  // 18% inset top and bottom
-                  bg.style.left = (rect.left - containerRect.left - 6) + 'px';
-                  bg.style.top = (rect.top - containerRect.top + verticalInset) + 'px';
-                  bg.style.width = (rect.width + 12) + 'px';
-                  bg.style.height = (rect.height - verticalInset * 2) + 'px';
-                  container.appendChild(bg);
-                }
-              });
-            }
-            """
-        )
-    # The underlying studio template falls back to "GRIT" when main text is empty.
-    # For screenshot plans, an empty title should render with no headline at all.
-    if not (plain_title or "").strip():
-        page.add_style_tag(content="#main-text { display: none !important; }")
-    if not subtitle:
-        page.add_style_tag(content="#sub-text { display: none !important; }")
 
     # Wait for the device layer image to load (if used).
     if device_layer is not None and device_layer.exists():
@@ -831,67 +1108,6 @@ def _render_one(
             }
             """
         )
-
-    # Ensure fonts are loaded before we do any measurement-based placement (pills aligned to title glyphs).
-    # Without this, the headline can reflow after pills are positioned and look "not aligned".
-    try:
-        page.wait_for_function("() => !document.fonts || document.fonts.status === 'loaded'")
-    except Exception:
-        pass
-
-    # Give the canvas/text effect pipelines a moment to settle.
-    page.wait_for_timeout(120)
-
-    # Recolor text to match plan's titleColor / subtitleColor.
-    # The Texture Studio defaults to white text.  When grain/knockout effects are active
-    # the text is rendered via a canvas texture + background-clip:text (color: transparent).
-    # We recolor the canvas pixels from white-based to the target color, preserving grain
-    # variation and knockout alpha.
-    if title_color:
-        page.evaluate(
-            """
-            (hex) => {
-              const r = parseInt(hex.slice(1,3), 16);
-              const g = parseInt(hex.slice(3,5), 16);
-              const b = parseInt(hex.slice(5,7), 16);
-              const text = document.getElementById('main-text');
-              if (!text) return;
-              const hasTexture = text.classList.contains('has-texture');
-              if (hasTexture) {
-                // Recolor the texture canvas: map white(255)→target, preserving
-                // grain darkening as proportional darkening of the target color.
-                const canvas = document.getElementById('texture-canvas');
-                if (canvas) {
-                  const ctx = canvas.getContext('2d');
-                  const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                  for (let i = 0; i < img.data.length; i += 4) {
-                    const lum = img.data[i] / 255;  // original white-based luminance
-                    img.data[i]   = Math.round(r * lum);
-                    img.data[i+1] = Math.round(g * lum);
-                    img.data[i+2] = Math.round(b * lum);
-                    // alpha (knockout holes) unchanged
-                  }
-                  ctx.putImageData(img, 0, 0);
-                  text.style.backgroundImage = `url(${canvas.toDataURL()})`;
-                }
-              } else {
-                text.style.setProperty('color', hex, 'important');
-              }
-            }
-            """,
-            title_color,
-        )
-    if subtitle_color:
-        page.evaluate(
-            """
-            (hex) => {
-              const sub = document.getElementById('sub-text');
-              if (sub) sub.style.setProperty('color', hex, 'important');
-            }
-            """,
-            subtitle_color,
-        )
-    page.wait_for_timeout(50)
 
     # Overlay images (icon tiles, logos, etc.). Positioned relative to the card.
     if overlay_images:
@@ -1168,8 +1384,96 @@ def main(argv: list[str] | None = None) -> int:
     html_url = ns.html.resolve().as_uri()
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = None
+        launch_errors: list[str] = []
+        for launch_kwargs in ({}, {"channel": "chrome"}):
+            label = launch_kwargs.get("channel", "bundled")
+            try:
+                browser = p.chromium.launch(headless=True, **launch_kwargs)
+                if label != "bundled":
+                    print(f"⚠️  Falling back to Playwright chromium channel: {label}", flush=True)
+                break
+            except Exception as exc:
+                launch_errors.append(f"{label}: {exc}")
+        if browser is None:
+            raise SystemExit("Could not launch a Chromium browser. " + " | ".join(launch_errors))
         page = browser.new_page()
+
+        autofit_groups: dict[str, dict[str, Any]] = {}
+        for s in slides:
+            if not isinstance(s, dict):
+                continue
+            cfg = _resolve_title_autofit(plan, s)
+            if not cfg:
+                continue
+            group = str(s.get("fitGroup") or cfg.get("group") or "all").strip() or "all"
+            entry = autofit_groups.setdefault(group, {"cfg": cfg, "slides": []})
+            entry["slides"].append(s)
+
+        for group, entry in autofit_groups.items():
+            cfg = entry["cfg"]
+            group_slides = entry["slides"]
+            per_slide_sizes: list[tuple[dict[str, Any], int]] = []
+            for s in group_slides:
+                render_inputs = _resolve_slide_render_inputs(
+                    plan=plan,
+                    slide=s,
+                    locale=ns.locale,
+                    width=ns.width,
+                    height=ns.height,
+                    background_mode=ns.background_mode,
+                    bundle_by_id=by_id,
+                )
+                typo = _resolve_typography(plan, s)
+                max_size = int(round(float(typo["titleFontSize"])))
+                min_size = int(round(float(cfg.get("minFontSize", max(72, max_size * 0.7)))))
+                step_px = int(cfg.get("stepPx", 2) or 2)
+                resolved = _autofit_title_size(
+                    page=page,
+                    html_url=html_url,
+                    width=ns.width,
+                    height=ns.height,
+                    preset=render_inputs["preset"],
+                    css=render_inputs["css"],
+                    background_mode=render_inputs["slide_bg_mode"],
+                    background_image=render_inputs["bg_path"],
+                    title=render_inputs["title"],
+                    subtitle=render_inputs["subtitle"],
+                    title_color=render_inputs["title_color"],
+                    subtitle_color=render_inputs["subtitle_color"],
+                    max_font_size=max_size,
+                    min_font_size=min_size,
+                    step_px=step_px,
+                )
+                per_slide_sizes.append((s, resolved))
+            if per_slide_sizes:
+                mode = str(cfg.get("mode") or "shared").strip().lower()
+                resolved_sizes = [size for _, size in per_slide_sizes]
+                if mode == "target_with_fallback":
+                    target = int(round(float(statistics.median(resolved_sizes))))
+                    step_px = int(cfg.get("stepPx", 2) or 2)
+                    if step_px > 1:
+                        target = max(step_px, int(round(target / step_px)) * step_px)
+                    print(
+                        f"autofit[{ns.locale}:{group}] -> target={target}px, fits={resolved_sizes}",
+                        flush=True,
+                    )
+                    for s, resolved in per_slide_sizes:
+                        applied = min(target, resolved)
+                        t = s.get("typography")
+                        if not isinstance(t, dict):
+                            t = {}
+                            s["typography"] = t
+                        t["titleFontSize"] = applied
+                else:
+                    shared_size = min(resolved_sizes)
+                    print(f"autofit[{ns.locale}:{group}] -> titleFontSize={shared_size}", flush=True)
+                    for s, _resolved in per_slide_sizes:
+                        t = s.get("typography")
+                        if not isinstance(t, dict):
+                            t = {}
+                            s["typography"] = t
+                        t["titleFontSize"] = shared_size
 
         for s in slides:
             if not isinstance(s, dict):
@@ -1177,67 +1481,23 @@ def main(argv: list[str] | None = None) -> int:
             slide_id = str(s.get("id") or "").strip()
             if not slide_id:
                 continue
-
-            title, subtitle = _resolve_copy(s, locale=ns.locale)
-            bg = (s.get("background") or {}).get("imagePath")
-            if not isinstance(bg, str) or not bg.strip():
-                raise SystemExit(f"Slide {slide_id} missing background.imagePath (used to infer Texture Studio variant id).")
-
-            # Per-slide background mode:
-            # - When requested "bundle" (palette-driven), we still allow slides with photo backgrounds
-            #   (variant_N_img.png) to use the plan PNG, since the Texture Studio bundle may not include
-            #   that photo asset and we'd otherwise lose the intended image.
-            slide_bg_mode = ns.background_mode
-            if slide_bg_mode == "bundle" and _is_photo_background_image_path(bg):
-                slide_bg_mode = "plan_png"
-
-            bg_path: Path | None = None
-            if slide_bg_mode == "plan_png":
-                bg_path = Path(bg).expanduser()
-                if not bg_path.exists():
-                    raise SystemExit(f"Missing background imagePath for slide {slide_id}: {bg_path}")
-
-            variant_id = _variant_id_from_background_image(bg)
-            if variant_id is None:
-                raise SystemExit(f"Could not infer variant id from background imagePath: {bg}")
-            preset = by_id.get(variant_id)
-            if preset is None:
-                raise SystemExit(f"Bundle missing variant {variant_id} (needed by slide {slide_id})")
-
-            tl = _resolve_text_layout(plan, s)
-            typo = _resolve_typography(plan, s)
-            css = _apply_slide_css(
+            render_inputs = _resolve_slide_render_inputs(
+                plan=plan,
+                slide=s,
+                locale=ns.locale,
                 width=ns.width,
                 height=ns.height,
-                tl=tl,
-                typo=typo,
-                hide_studio_background_layers=(slide_bg_mode == "plan_png"),
+                background_mode=ns.background_mode,
+                bundle_by_id=by_id,
             )
-            # If plan provides explicit title/subtitle rects, prefer them (Swiss grid mode).
-            title_rect: dict[str, int] | None = None
-            subtitle_rect: dict[str, int] | None = None
-            try:
-                defaults_tl = (plan.get("defaults") or {}).get("textLayout") or {}
-                slide_tl = s.get("textLayout") or {}
-                if not isinstance(defaults_tl, dict):
-                    defaults_tl = {}
-                if not isinstance(slide_tl, dict):
-                    slide_tl = {}
-                tr = slide_tl.get("titleRect", defaults_tl.get("titleRect"))
-                sr = slide_tl.get("subtitleRect", defaults_tl.get("subtitleRect"))
-                alignment = str(slide_tl.get("alignment", defaults_tl.get("alignment", "center")) or "center")
-                title_rect = _resolve_rect_px(rect=tr, width=ns.width, height=ns.height) if isinstance(tr, dict) else None
-                subtitle_rect = _resolve_rect_px(rect=sr, width=ns.width, height=ns.height) if isinstance(sr, dict) else None
-                if title_rect is not None and title_rect["w"] > 0 and title_rect["h"] > 0:
-                    css += "\n" + _apply_slide_css_rects(
-                        width=ns.width,
-                        height=ns.height,
-                        title_rect=title_rect,
-                        subtitle_rect=subtitle_rect,
-                        alignment=alignment,
-                    )
-            except Exception:
-                pass
+            title = render_inputs["title"]
+            subtitle = render_inputs["subtitle"]
+            bg_path = render_inputs["bg_path"]
+            slide_bg_mode = render_inputs["slide_bg_mode"]
+            preset = render_inputs["preset"]
+            css = render_inputs["css"]
+            title_rect = render_inputs["title_rect"]
+            subtitle_rect = render_inputs["subtitle_rect"]
 
             # Optional per-slide transform for the Swift-rendered device layer.
             # This keeps the source device-layer deterministic, while allowing faster iteration
@@ -1275,11 +1535,8 @@ def main(argv: list[str] | None = None) -> int:
                     }}
                     """
 
-            # Resolve explicit text colors from plan textLayout.
-            _dtl = (plan.get("defaults") or {}).get("textLayout") or {}
-            _stl = s.get("textLayout") or {}
-            title_color = _stl.get("titleColor", _dtl.get("titleColor") if isinstance(_dtl, dict) else None)
-            subtitle_color = _stl.get("subtitleColor", _dtl.get("subtitleColor") if isinstance(_dtl, dict) else None)
+            title_color = render_inputs["title_color"]
+            subtitle_color = render_inputs["subtitle_color"]
 
             device_layer = ns.device_layers_dir / ns.locale / ns.device / f"{slide_id}.png"
             if not device_layer.exists():

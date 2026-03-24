@@ -1,6 +1,6 @@
 # Trigger Tests
 
-Use these prompts to validate whether the `clipper-orchestrator` skill should load automatically.
+Use these prompts to validate whether the `editops-orchestrator` skill should load automatically.
 
 ## Should trigger
 

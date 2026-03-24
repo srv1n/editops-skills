@@ -63,7 +63,7 @@ python3 tools/skills_release.py build-zips --out dist --tag v0.1.0
 |-------|-------------|
 | [video-clipper](skills/video-clipper/) | Extract viral clips from YouTube videos |
 | [clipops-runner](skills/clipops-runner/) | Run ClipOps render pipeline |
-| [clipper-orchestrator](skills/clipper-orchestrator/) | Route requests to the right clipper skill |
+| [editops-orchestrator](skills/editops-orchestrator/) | Route requests to the right EditOps skill |
 
 ### Creative Operations
 

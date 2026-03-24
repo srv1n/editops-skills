@@ -47,7 +47,7 @@ def _classify_path(p: Path) -> str:
     return "dir"
 
 def _this_skill_root() -> Path:
-    # .../clipper-orchestrator/scripts/triage.py -> .../clipper-orchestrator
+    # .../editops-orchestrator/scripts/triage.py -> .../editops-orchestrator
     return Path(__file__).resolve().parents[1]
 
 
@@ -177,7 +177,7 @@ def triage(target: str) -> Dict[str, Any]:
         "kind": kind,
         "path": str(p.resolve()),
         "recommendation": {
-            "skills": ["clipper-orchestrator"],
+            "skills": ["editops-orchestrator"],
             "note": "Need more info (YouTube URL vs run-dir). Provide a URL or a run directory.",
         },
     }

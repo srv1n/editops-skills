@@ -63,8 +63,8 @@ def main(argv: list[str] | None = None) -> int:
         command_check("xcrun", required=False),
         path_check("venv", venv_python),
         path_check(
-            "bun:clipper-orchestrator-maplibre",
-            root / "skills" / "clipper-orchestrator" / "tools" / "maplibre_renderer" / "node_modules" / "puppeteer-core",
+            "bun:editops-orchestrator-maplibre",
+            root / "skills" / "editops-orchestrator" / "tools" / "maplibre_renderer" / "node_modules" / "puppeteer-core",
             required=False,
         ),
         path_check(

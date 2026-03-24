@@ -18,7 +18,7 @@ Use these prompts to validate whether the `appstore-creatives-orchestrator` skil
 - "Apply a Swiss grid and consistent keylines to these App Store screenshots." (use `appstore-swiss-grid`)
 - "Render this ClipOps run directory and debug validation failures." (use `clipops-runner`)
 - "Instrument an iOS app to emit `inputs/*.mp4` + `signals/ios_ui_events*.json`." (use `creativeops-producer-ios`)
-- "Extract 10 viral clips from this YouTube video." (use `video-clipper` or `clipper-orchestrator`)
+- "Extract 10 viral clips from this YouTube video." (use `video-clipper` or `editops-orchestrator`)
 - "Generate cinematic trailer music from a text prompt." (use `music-generator`)
 - "Auto-grade this run dir and apply a LUT deterministically." (use `creativeops-grade`)
 - "Build theme outputs from `themes/library/manifest.v0.1.json`." (use `theme-library`)

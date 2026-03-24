@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "clipper-maplibre-renderer",
+      "name": "editops-maplibre-renderer",
       "dependencies": {
         "puppeteer-core": "^23.11.1",
       },

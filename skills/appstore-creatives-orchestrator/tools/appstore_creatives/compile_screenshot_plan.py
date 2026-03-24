@@ -41,6 +41,10 @@ def validate_json(schema: dict[str, Any], instance: Any, *, label: str) -> None:
         raise CompileError(f"{label} failed schema validation: {e.message}") from e
 
 
+def _norm_locale(locale: str) -> str:
+    return locale.replace("-", "_").strip()
+
+
 @dataclass(frozen=True)
 class EvidenceRef:
     kind: str
@@ -128,7 +132,15 @@ def compile_plan(manifest: dict[str, Any], catalog: dict[str, Any]) -> dict[str,
                     continue
                 if not isinstance(o_copy, dict):
                     continue
+                current_key = locale
                 current = out["copy"].get(locale) if isinstance(out["copy"], dict) else None
+                if current is None and isinstance(out["copy"], dict):
+                    target_locale = _norm_locale(locale)
+                    for existing_locale in out["copy"].keys():
+                        if isinstance(existing_locale, str) and _norm_locale(existing_locale) == target_locale:
+                            current_key = existing_locale
+                            current = out["copy"].get(existing_locale)
+                            break
                 if current is None:
                     current = {}
                 if not isinstance(current, dict):
@@ -142,7 +154,7 @@ def compile_plan(manifest: dict[str, Any], catalog: dict[str, Any]) -> dict[str,
                     current["subtitle"] = None
                 elif isinstance(subtitle, str):
                     current["subtitle"] = subtitle
-                out["copy"][locale] = current
+                out["copy"][current_key] = current
 
         # Subtitle policy (fast experiment hook):
         # - keep (default)

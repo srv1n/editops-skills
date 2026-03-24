@@ -665,6 +665,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--manifest", type=Path, required=True, help="Creative Manifest JSON")
     parser.add_argument("--producer", type=Path, help="Path to producer app repo (for raw screenshots and runs).")
     parser.add_argument("--out", type=Path, required=True, help="Output bundle directory.")
+    parser.add_argument(
+        "--allow-existing-out",
+        action="store_true",
+        help="Allow writing into a non-empty --out directory. Default is fail-fast to avoid clobbering prior runs.",
+    )
     parser.add_argument("--modes", default="screenshots,videos", help="Comma list: screenshots,videos")
     parser.add_argument("--steps", default="compile,render,qa", help="Comma list per mode (compile,render,qa).")
     parser.add_argument("--limit-variants", type=int, help="Limit variants expanded from matrix.")
@@ -677,6 +682,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--video-program-id", type=str, help="Program id from manifest.storyboard.videos[].id (defaults to first).")
     parser.add_argument("--render-audio", default="none", help="clipops render audio mode (default: none).")
     parser.add_argument("--stage-producer", action="store_true", help="Stage compiled plans under producer/creativeops/experiments/<variantId>/artifacts/.")
+    parser.add_argument(
+        "--skip-screenshot-deliverable-stage",
+        action="store_true",
+        help="Run screenshot QA but skip copying renders into screenshots/deliverable and latest shortcuts. Use this when disk is tight.",
+    )
     parser.add_argument(
         "--screenshot-renderer",
         default=None,
@@ -706,6 +716,13 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     out_dir = args.out.resolve()
+    if out_dir.exists():
+        existing_entries = list(out_dir.iterdir())
+        if existing_entries and not args.allow_existing_out:
+            raise SystemExit(
+                f"--out already exists and is non-empty: {out_dir}\n"
+                "Refusing to reuse it by default. Pick a fresh output directory or pass --allow-existing-out."
+            )
     out_dir.mkdir(parents=True, exist_ok=True)
 
     manifest_path = args.manifest.resolve()
@@ -782,8 +799,9 @@ def main(argv: list[str] | None = None) -> int:
                 for locale in locales:
                     for device in devices:
                         _qa_screenshots(vdir, locale, device, strict=bool(args.strict_cohesion))
-                        _stage_screenshot_deliverable(vdir, locale, device)
-                        _stage_screenshot_latest_shortcuts(out_dir, vdir, variant_id=vid, locale=locale, device=device)
+                        if not args.skip_screenshot_deliverable_stage:
+                            _stage_screenshot_deliverable(vdir, locale, device)
+                            _stage_screenshot_latest_shortcuts(out_dir, vdir, variant_id=vid, locale=locale, device=device)
 
         if "videos" in modes:
             programs = vmanifest.get("storyboard", {}).get("videos") or []
